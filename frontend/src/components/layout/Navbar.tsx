@@ -23,7 +23,13 @@ export const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "Lifestyle Experiences", href: "/lifestyle-experiences" },
     { name: "Contact Us", href: "/#contact" },
-    { name: "About", href: "/#about" }
+    { 
+      name: "About", 
+      href: "/#about",
+      dropdown: [
+        { name: "Tourism Segments We Support", href: "/tourism-segments" }
+      ]
+    }
   ];
 
   const premiumNavItems = [
@@ -50,6 +56,12 @@ export const Navbar = () => {
       href: "/#about", 
       desc: "Learn about our vision and story", 
       icon: <Info className="w-4 h-4 text-[#d4af37]" />
+    },
+    {
+      name: "Tourism Segments",
+      href: "/tourism-segments",
+      desc: "Explore markets we support",
+      icon: <Compass className="w-4 h-4 text-[#d4af37]" />
     }
   ];
 
@@ -86,18 +98,34 @@ export const Navbar = () => {
 
           <nav className="hidden md:flex items-center gap-6 lg:gap-10">
             {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                scroll={item.href.includes('#') ? false : undefined}
-                className="group relative flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-gray-300 transition-colors hover:text-white"
-              >
-                <motion.span whileHover={{ y: -1 }}>
-                  {item.name}
-                </motion.span>
-
-                <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-[#d4af37] transition-all duration-300 group-hover:w-full" />
-              </Link>
+              <div key={item.name} className="group relative">
+                <Link
+                  href={item.href}
+                  scroll={item.href.includes('#') ? false : undefined}
+                  className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-gray-300 transition-colors hover:text-white py-2"
+                >
+                  <motion.span whileHover={{ y: -1 }}>
+                    {item.name}
+                  </motion.span>
+                  <span className="absolute bottom-1 left-0 h-[1.5px] w-0 bg-[#d4af37] transition-all duration-300 group-hover:w-full" />
+                </Link>
+                
+                {item.dropdown && (
+                  <div className="absolute left-0 top-full pt-4 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 min-w-[240px]">
+                    <div className="bg-[#111416]/95 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)]">
+                      {item.dropdown.map((dropItem) => (
+                        <Link
+                          key={dropItem.name}
+                          href={dropItem.href}
+                          className="block px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors"
+                        >
+                          {dropItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 

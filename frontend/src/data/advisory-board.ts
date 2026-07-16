@@ -75,15 +75,6 @@ export const advisoryBoard: AdvisoryMember[] = [
     image: "/images/board/chris-berenger.jpg",
   },
   {
-    name: "Warnika Dhanawansha",
-    title: "Director",
-    role: "Founder of CareTours Hamburg (Germany).",
-    description:
-      "Specializes in tourism marketing, customer relationship management, and sustainable tourism development.",
-    linkedin: "https://www.linkedin.com/in/warnika-dhanawansha-bb5476222/",
-    image: "/images/board/warnika-dhanawansha.jpg",
-  },
-  {
     name: "Thisara Seneviratne",
     title: "Director",
     role: "UK-based operations executive with over 30 years of international experience.",
@@ -110,4 +101,13 @@ export const advisoryBoard: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/muditha-hapuarachchi/",
     image: "/images/board/muditha-hapuarachchi.jpg",
   },
+  {
+    name: "Yoshitha Jayanetty",
+    title: "Director",
+    role: "Entrepreneur and Strategic Consultant to Global Cooperation (Private) Limited.",
+    description:
+      "Specializes in business development, operational strategy, and corporate advisory services.",
+    linkedin: "https://www.linkedin.com/in/yoshitha-jayanetty-02481a53/",
+    image: "/images/board/muditha-hapuarachchi.jpg",
+  }
 ];

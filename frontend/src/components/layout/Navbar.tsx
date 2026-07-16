@@ -78,7 +78,7 @@ export const Navbar = () => {
       icon: <Briefcase className="w-4 h-4 text-[#d4af37]" />
     },
     {
-      name: "Packages",
+      name: "Our Signature Journey",
       href: "/packages",
       desc: "Our signature journeys",
       icon: <Compass className="w-4 h-4 text-[#d4af37]" />

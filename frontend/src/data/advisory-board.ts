@@ -37,15 +37,25 @@ export const advisoryBoard: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
     image: "/images/board/sumudu-masakorala.jpg",
   },
+  // {
+  //   name: "Dr. Jayaruwan Bandara",
+  //   title: "Director",
+  //   role: "Medical Administrator, Clinical Cosmetologist, and healthcare management professional.",
+  //   description:
+  //     "Provides expertise in medical services and wellness development.",
+  //   linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
+  //   image: "/images/board/jayaruwan-bandara.jpg",
+  // },
   {
-    name: "Dr. Jayaruwan Bandara",
+    name: "Dr. Warnika Dhanawansha",
     title: "Director",
-    role: "Medical Administrator, Clinical Cosmetologist, and healthcare management professional.",
+    role: "Founder of CareTours Hamburg (Germany).",
     description:
-      "Provides expertise in medical services and wellness development.",
-    linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
-    image: "/images/board/jayaruwan-bandara.jpg",
+      "Specializes in tourism marketing, customer relationship management, and sustainable tourism development.",
+    linkedin: "https://www.linkedin.com/in/warnika-dhanawansha-bb5476222/",
+    image: "/images/board/warnika-dhanawansha.jpg",
   },
+
   {
     name: "Dr. Uditha Samaratunga DBA",
     title: "Director",

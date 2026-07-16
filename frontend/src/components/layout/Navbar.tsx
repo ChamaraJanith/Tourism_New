@@ -35,7 +35,7 @@ export const Navbar = () => {
       href: "/tourism-segments"
     },
     {
-      name: "Packages",
+      name: "Our Signature Journey",
       href: "/packages"
     },
     {

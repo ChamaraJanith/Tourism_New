@@ -3,7 +3,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import FeaturedPartners from './FeaturedPartners';
-import BrochureCTA from './BrochureCTA';
 import PartnershipBenefits from './PartnershipBenefits';
 import PartnerEnquiryForm from './PartnerEnquiryForm';
 import AboutUsContent from './AboutUsContent';
@@ -151,7 +150,6 @@ export default function GlobalNetworkPage() {
 
         {/* ── NEW B2B CONVERSION SECTIONS ── */}
         <FeaturedPartners />
-        <BrochureCTA />
         <PartnershipBenefits />
 
         {/* ── CLOSING STATEMENT ── */}

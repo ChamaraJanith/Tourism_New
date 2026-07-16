@@ -23,18 +23,14 @@ export default function BoardOfDirectors() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {advisoryBoard.map((member, index) => {
-            const isLastAlone =
-              index === advisoryBoard.length - 1 &&
-              advisoryBoard.length % 3 === 1;
-
             return (
             <article
               key={member.name}
-              className={`flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:border-emerald-500/30${isLastAlone ? " xl:col-start-2" : ""}`}
+              className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:border-emerald-500/30"
             >
-              <div className="relative h-72 w-full bg-white/5">
+              <div className="relative h-64 w-full bg-white/5">
                 <Image
                   src={member.image || "/images/board/placeholder.jpg"}
                   alt={member.name}

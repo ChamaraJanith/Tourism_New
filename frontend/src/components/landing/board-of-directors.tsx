@@ -1,7 +1,7 @@
 // src/components/landing/board-of-directors.tsx
 
 import Image from "next/image";
-import { advisoryBoard } from "@/data/advisory-board";
+import { boardOfDirectors, globalRepresentatives, AdvisoryMember } from "@/data/advisory-board";
 
 export default function BoardOfDirectors() {
   return (
@@ -23,12 +23,11 @@ export default function BoardOfDirectors() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {advisoryBoard.map((member, index) => {
-            return (
+        <div className="mt-12 flex flex-wrap justify-center gap-6">
+          {boardOfDirectors.map((member) => (
             <article
               key={member.name}
-              className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:border-emerald-500/30"
+              className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:border-emerald-500/30 w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)] xl:w-[calc(20%-1.2rem)]"
             >
               <div className="relative h-64 w-full bg-white/5">
                 <Image
@@ -67,8 +66,63 @@ export default function BoardOfDirectors() {
                 </a>
               </div>
             </article>
-            );
-          })}
+          ))}
+        </div>
+
+        {/* Global Representatives Section */}
+        <div className="mt-24 mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            Global Representatives
+          </h2>
+          <p className="mt-4 text-base text-white/70">
+            Our international experts driving global partnerships and destination development.
+          </p>
+        </div>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-6">
+          {globalRepresentatives.map((member) => (
+            <article
+              key={member.name}
+              className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:border-emerald-500/30 w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)] xl:w-[calc(20%-1.2rem)]"
+            >
+              <div className="relative h-64 w-full bg-white/5">
+                <Image
+                  src={member.image || "/images/board/placeholder.jpg"}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col p-6">
+                <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+                  {member.title}
+                </p>
+
+                <h3 className="mt-2 text-xl font-semibold text-white">
+                  {member.name}
+                </h3>
+
+                <p className="mt-3 text-sm font-medium text-white/70">
+                  {member.role}
+                </p>
+
+                <p className="mt-3 text-sm leading-6 text-white/60">
+                  {member.description}
+                </p>
+
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center text-sm font-semibold text-emerald-400 hover:text-emerald-300"
+                >
+                  View LinkedIn
+                  <span className="ml-1">↗</span>
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

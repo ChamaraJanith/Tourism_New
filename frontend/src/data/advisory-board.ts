@@ -9,7 +9,7 @@ export type AdvisoryMember = {
   image?: string;
 };
 
-export const advisoryBoard: AdvisoryMember[] = [
+export const boardOfDirectors: AdvisoryMember[] = [
   {
     name: "Michael Wieser",
     title: "Chairman",
@@ -37,25 +37,15 @@ export const advisoryBoard: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
     image: "/images/board/sumudu-masakorala.jpg",
   },
-  // {
-  //   name: "Dr. Jayaruwan Bandara",
-  //   title: "Director",
-  //   role: "Medical Administrator, Clinical Cosmetologist, and healthcare management professional.",
-  //   description:
-  //     "Provides expertise in medical services and wellness development.",
-  //   linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
-  //   image: "/images/board/jayaruwan-bandara.jpg",
-  // },
   {
-    name: "Dr. Warnika Dhanawansha",
+    name: "Dr. Jayaruwan Bandara",
     title: "Director",
-    role: "Founder of CareTours Hamburg (Germany).",
+    role: "Healthcare management professional, medical administrator, and clinical cosmetologist",
     description:
-      "Specializes in tourism marketing, customer relationship management, and sustainable tourism development.",
-    linkedin: "https://www.linkedin.com/in/warnika-dhanawansha-bb5476222/",
-    image: "/images/board/warnika-dhanawansha.jpg",
+      "Provides expertise in medical services and wellness development.",
+    linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
+    image: "/images/board/jayaruwan-bandara.jpg",
   },
-
   {
     name: "Dr. Uditha Samaratunga DBA",
     title: "Director",
@@ -75,21 +65,12 @@ export const advisoryBoard: AdvisoryMember[] = [
     image: "/images/board/chris-berenger.jpg",
   },
   {
-    name: "Thisara Seneviratne",
-    title: "Director",
-    role: "UK-based operations executive with over 30 years of international experience.",
-    description:
-      "Expert in operations management, organizational resilience, and continuous improvement.",
-    linkedin: "https://www.linkedin.com/in/thisara-don/",
-    image: "/images/board/thisara-seneviratne.jpg",
-  },
-  {
     name: "Piyumal Herath",
     title: "Director",
     role: "Attorney-at-Law, entrepreneur, and business advisor.",
     description:
       "Provides expertise in legal, commercial, and corporate affairs.",
-    linkedin: "https://www.linkedin.com/in/piyumalherath/",
+    linkedin: "https://www.linkedin.com/in/piyumal-herath/",
     image: "/images/board/piyumal-herath.jpg",
   },
   {
@@ -104,10 +85,31 @@ export const advisoryBoard: AdvisoryMember[] = [
   {
     name: "Yoshitha Jayanetty",
     title: "Director",
-    role: "Entrepreneur and Strategic Consultant to Global Cooperation (Private) Limited.",
+    role: "Retired Major of the Sri Lanka Army, Entrepreneur and Strategic Consultant.",
     description:
-      "Specializes in business development, operational strategy, and corporate advisory services.",
+      "Contributes expertise in strategic planning, risk management, and operational excellence.",
     linkedin: "https://www.linkedin.com/in/yoshitha-jayanetty-02481a53/",
     image: "/images/board/muditha-hapuarachchi.jpg",
+  }
+];
+
+export const globalRepresentatives: AdvisoryMember[] = [
+  {
+    name: "Warnika Dhanawansha (Germany)",
+    title: "Director",
+    role: "Founder of CareTours Hamburg (Germany).",
+    description:
+      "Specializes in tourism marketing, customer relationship management, and sustainable tourism development.",
+    linkedin: "https://www.linkedin.com/in/warnika-dhanawansha-bb5476222/",
+    image: "/images/board/warnika-dhanawansha.jpg",
+  },
+  {
+    name: "Thisara Seneviratne (UK/US)",
+    title: "Director",
+    role: "UK-based international operations executive with over 30 years of experience.",
+    description:
+      "Expert in operations management, organizational resilience, and continuous improvement across international markets.",
+    linkedin: "https://www.linkedin.com/in/thisara-don/",
+    image: "/images/board/thisara-seneviratne.jpg",
   }
 ];

@@ -32,10 +32,11 @@ export const Navbar = () => {
     },
     {
       name: "Services",
-      href: "#",
-      dropdown: [
-        { name: "Tourism Segments We Support", href: "/tourism-segments" }
-      ]
+      href: "/tourism-segments"
+    },
+    {
+      name: "Packages",
+      href: "/packages"
     },
     {
       name: "Partnerships",
@@ -72,12 +73,15 @@ export const Navbar = () => {
     },
     {
       name: "Services",
-      href: "#",
+      href: "/tourism-segments",
       desc: "Explore our specialized offerings",
-      icon: <Briefcase className="w-4 h-4 text-[#d4af37]" />,
-      children: [
-        { name: "Tourism Segments", href: "/tourism-segments" }
-      ]
+      icon: <Briefcase className="w-4 h-4 text-[#d4af37]" />
+    },
+    {
+      name: "Packages",
+      href: "/packages",
+      desc: "Our signature journeys",
+      icon: <Compass className="w-4 h-4 text-[#d4af37]" />
     },
     {
       name: "Partnerships",

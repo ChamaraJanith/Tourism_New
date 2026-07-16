@@ -2,6 +2,11 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import FeaturedPartners from './FeaturedPartners';
+import BrochureCTA from './BrochureCTA';
+import PartnershipBenefits from './PartnershipBenefits';
+import PartnerEnquiryForm from './PartnerEnquiryForm';
+import AboutUsContent from './AboutUsContent';
 
 /* ─── Dynamically import the 2D world map (no SSR) ─────────── */
 const WorldMap = dynamic(() => import('./WorldGlobe'), {
@@ -48,7 +53,7 @@ const COUNTRIES = [
 /* ─── Page ───────────────────────────────────────────────── */
 export default function GlobalNetworkPage() {
   return (
-    <div className="min-h-screen bg-[#111416] text-white pt-32 pb-24">
+    <main className="min-h-screen bg-[#111416] text-white pt-32 pb-24">
       <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16">
 
         {/* ── HERO TEXT ── */}
@@ -144,8 +149,13 @@ export default function GlobalNetworkPage() {
           </div>
         </section>
 
+        {/* ── NEW B2B CONVERSION SECTIONS ── */}
+        <FeaturedPartners />
+        <BrochureCTA />
+        <PartnershipBenefits />
+
         {/* ── CLOSING STATEMENT ── */}
-        <div className="rounded-3xl border border-[#d4af37]/20 bg-gradient-to-br from-[#d4af37]/5 via-[#111416] to-[#d4af37]/5 p-12 md:p-16 text-center relative overflow-hidden">
+        <div className="rounded-3xl border border-[#d4af37]/20 bg-gradient-to-br from-[#d4af37]/5 via-[#111416] to-[#d4af37]/5 p-12 md:p-16 text-center relative overflow-hidden mb-16">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07)_0%,transparent_70%)]" />
           <div className="relative z-10">
             <span className="inline-block bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold uppercase tracking-widest px-5 py-2 rounded-full mb-6">
@@ -162,7 +172,11 @@ export default function GlobalNetworkPage() {
           </div>
         </div>
 
+        {/* ── ENQUIRY FORM & ABOUT US ── */}
+        <PartnerEnquiryForm />
+        <AboutUsContent />
+
       </div>
-    </div>
+    </main>
   );
 }

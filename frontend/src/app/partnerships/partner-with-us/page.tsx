@@ -65,10 +65,6 @@ export default function PartnerWithUsPage() {
                 </div>
               </div>
             </div>
-
-            <button className="mt-4 px-8 py-4 bg-white/5 border border-[#d4af37]/50 text-[#d4af37] font-bold uppercase tracking-widest text-sm hover:bg-[#d4af37] hover:text-[#111416] transition-all duration-300 w-fit rounded-lg">
-              Submit Inquiry
-            </button>
           </div>
         </div>
       </div>

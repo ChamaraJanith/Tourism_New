@@ -15,7 +15,7 @@ export const Navbar = () => {
   const dispatch = useAppDispatch();
   const isMenuOpen = useAppSelector((state) => state.ui.isMenuOpen);
   const { user, isAuthenticated, isInitialized } = useAppSelector((state) => state.auth);
-  
+
   // Track expanded mobile accordion
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
 
@@ -26,8 +26,8 @@ export const Navbar = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Lifestyle Experiences", href: "/lifestyle-experiences" },
-    { 
-      name: "About", 
+    {
+      name: "About",
       href: "/#about"
     },
     {
@@ -41,8 +41,8 @@ export const Navbar = () => {
       name: "Partnerships",
       href: "#",
       dropdown: [
-        { name: "Our Sri Lankan Tourism Partner Network", href: "/partnerships/sri-lankan-network" },
         { name: "Our Global Strategic Partner Network", href: "/partnerships/global-network" },
+        { name: "Our Sri Lankan Tourism Partner Network", href: "/partnerships/sri-lankan-network" },
         { name: "Our Local Hospitality Partners", href: "/partnerships/local-hospitality" },
         { name: "Building Partnerships That Create Lasting Value", href: "/partnerships/building-value" },
         { name: "Partner With Us", href: "/partnerships/partner-with-us" }
@@ -52,22 +52,22 @@ export const Navbar = () => {
   ];
 
   const premiumNavItems = [
-    { 
-      name: "Home", 
-      href: "/", 
-      desc: "Return to the main page", 
+    {
+      name: "Home",
+      href: "/",
+      desc: "Return to the main page",
       icon: <Home className="w-4 h-4 text-[#d4af37]" />
     },
-    { 
-      name: "Lifestyle Experiences", 
-      href: "/lifestyle-experiences", 
-      desc: "Discover curated pathways and adventures", 
+    {
+      name: "Lifestyle Experiences",
+      href: "/lifestyle-experiences",
+      desc: "Discover curated pathways and adventures",
       icon: <Compass className="w-4 h-4 text-[#d4af37]" />
     },
-    { 
-      name: "About", 
-      href: "/#about", 
-      desc: "Learn about our vision and story", 
+    {
+      name: "About",
+      href: "/#about",
+      desc: "Learn about our vision and story",
       icon: <Info className="w-4 h-4 text-[#d4af37]" />
     },
     {
@@ -92,30 +92,30 @@ export const Navbar = () => {
         { name: "Partner With Us", href: "/partnerships/partner-with-us" }
       ]
     },
-    { 
-      name: "Contact Us", 
-      href: "/#contact", 
-      desc: "Get in touch with our concierge desk", 
+    {
+      name: "Contact Us",
+      href: "/#contact",
+      desc: "Get in touch with our concierge desk",
       icon: <Mail className="w-4 h-4 text-[#d4af37]" />
     }
   ];
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95, y: -10 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
+    visible: {
+      opacity: 1,
+      scale: 1,
       y: 0,
-      transition: { 
+      transition: {
         staggerChildren: 0.08,
         delayChildren: 0.05,
         duration: 0.3,
         ease: "easeOut" as const
       }
     },
-    exit: { 
-      opacity: 0, 
-      scale: 0.95, 
+    exit: {
+      opacity: 0,
+      scale: 0.95,
       y: -10,
       transition: { duration: 0.2, ease: "easeIn" as const }
     }
@@ -156,7 +156,7 @@ export const Navbar = () => {
                   )}
                   <span className="absolute bottom-1 left-0 h-[1.5px] w-0 bg-[#d4af37] transition-all duration-300 group-hover:w-full" />
                 </Link>
-                
+
                 {item.dropdown && (
                   <div className="absolute left-0 top-full pt-4 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 min-w-[280px]">
                     <div className="bg-[#111416]/95 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)]">
@@ -189,15 +189,15 @@ export const Navbar = () => {
           <div className="flex items-center gap-4 sm:gap-8">
             {isInitialized && isAuthenticated && user ? (
               <div className="flex items-center gap-4 sm:gap-6">
-                <Link 
+                <Link
                   href="/profile"
                   className="hidden sm:flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#d4af37] hover:text-[#f0c040] transition-colors"
                 >
                   {user.avatarUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img 
-                      src={user.avatarUrl} 
-                      alt={user.name} 
+                    <img
+                      src={user.avatarUrl}
+                      alt={user.name}
                       className="w-6 h-6 rounded-full object-cover border border-[#d4af37]/30"
                     />
                   ) : (
@@ -207,8 +207,8 @@ export const Navbar = () => {
                   )}
                   <span>Hi, {user.name.split(' ')[0]}</span>
                 </Link>
-                <BespokeButton 
-                  variant="secondary" 
+                <BespokeButton
+                  variant="secondary"
                   onClick={handleLogout}
                   className="!px-6 !py-2.5 !text-[0.65rem] shadow-lg border border-zinc-700 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all"
                 >
@@ -216,9 +216,9 @@ export const Navbar = () => {
                 </BespokeButton>
               </div>
             ) : (
-              <BespokeButton 
-                variant="emerald" 
-                href="/auth" 
+              <BespokeButton
+                variant="emerald"
+                href="/auth"
                 className="!px-4 !py-2 !text-[0.55rem] md:!px-8 md:!py-3 md:!text-[0.65rem] shadow-lg"
               >
                 <UserIcon className="w-3 h-3 md:w-4 md:h-4" />
@@ -271,7 +271,7 @@ export const Navbar = () => {
                           </span>
                         </div>
                       </div>
-                      
+
                       {item.children && (
                         <motion.div
                           animate={{ rotate: expandedMobileItem === item.name ? 180 : 0 }}
@@ -281,7 +281,7 @@ export const Navbar = () => {
                         </motion.div>
                       )}
                     </Link>
-                    
+
                     {/* Mobile Submenu Accordion */}
                     {item.children && (
                       <AnimatePresence>

@@ -164,7 +164,7 @@ export const Navbar = () => {
                 {item.dropdown && (
                   <div className="absolute left-0 top-full pt-4 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 min-w-[280px]">
                     <div className="bg-[#111416]/95 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)]">
-                      {item.dropdown.map((dropItem) => (
+                      {item.dropdown.map((dropItem: any) => (
                         <Link
                           key={dropItem.name}
                           href={dropItem.href}
@@ -298,7 +298,7 @@ export const Navbar = () => {
                             className="overflow-hidden"
                           >
                             <div className="pl-14 pr-4 py-2 flex flex-col gap-3 border-l border-white/5 ml-8 mt-2 mb-2">
-                              {item.children.map((child) => (
+                              {item.children.map((child: any) => (
                                 <Link
                                   key={child.name}
                                   href={child.href}

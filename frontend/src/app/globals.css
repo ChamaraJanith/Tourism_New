@@ -172,6 +172,180 @@ input[data-autocompleted] {
   transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
 }
 
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+:root {
+  --background: #111416;
+  --foreground: #f4f4f5;
+  --accent: #f2be2e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  position: relative;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Sections below hero use white bg */
+.section-light {
+  background: #ffffff;
+  color: #111416;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+::selection {
+  background: rgba(201, 169, 98, 0.35);
+  color: #fff;
+}
+
+/* Prevent text selection across the site */
+*,
+*::before,
+*::after {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Keep forms usable */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Interactive elements show pointer cursor */
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="submit"]:not(:disabled),
+a[href],
+[role="button"],
+label[for],
+[data-booking-cta],
+.booking-pill-btn {
+  cursor: pointer;
+}
+
+/* ── Remove browser autofill white/yellow background on inputs ── */
+input:-webkit-autofill {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
+input:-webkit-autofill:hover {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
+input:-webkit-autofill:focus {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
+input:-webkit-autofill:active {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
+input:-internal-autofill-selected {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
+input[data-autocompleted] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  box-shadow: 0 0 0 9999px rgb(17, 24, 40) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 99999s ease-in-out 0s, box-shadow 99999s ease-in-out 0s !important;
+}
+
 /* Also override for Firefox */
 input:autofill {
   background-color: rgb(17, 24, 40) !important;
@@ -182,4 +356,42 @@ input:autofill {
 input:-webkit-autofill::first-line {
   -webkit-text-fill-color: #ffffff !important;
   color: #ffffff !important;
+}
+
+/* --- Google Translate UI Overrides --- */
+
+/* Hide the Google Translate bar */
+.goog-te-banner-frame.skiptranslate,
+iframe.skiptranslate,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.skiptranslate > iframe,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Prevent body from shifting down when Google Translate loads */
+body {
+  top: 0px !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+
+/* Hide the Google Translate tooltip that appears on hover */
+#goog-gt-tt, .goog-te-balloon-frame {
+  display: none !important;
+}
+
+/* Hide the "Original text" tooltip */
+.goog-tooltip {
+  display: none !important;
+}
+.goog-tooltip:hover {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }

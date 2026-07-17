@@ -9,6 +9,7 @@ import { logOut } from "@/store/slices/authSlice";
 import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase } from "lucide-react";
 
 import { BespokeButton } from "@/components/ui/BespokeButton";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import Link from "next/link";
 
 export const Navbar = () => {
@@ -221,6 +222,7 @@ export const Navbar = () => {
 
 
           <div className="flex items-center gap-4 sm:gap-8">
+            <LanguageSelector />
             {isInitialized && isAuthenticated && user ? (
               <div className="flex items-center gap-4 sm:gap-6">
                 <Link

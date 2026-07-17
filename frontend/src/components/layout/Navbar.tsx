@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { toggleMenu, setMenuOpen } from "@/store/slices/uiSlice";
@@ -20,6 +20,8 @@ export const Navbar = () => {
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const handleLogout = () => {
     dispatch(logOut());
   };
@@ -139,9 +141,35 @@ export const Navbar = () => {
       dispatch(setMenuOpen(false));
     }
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 20) {
+        setShowNavbar(true);
+      } else if (currentScrollY > lastScrollY) {
+        setShowNavbar(false);
+        dispatch(setMenuOpen(false));
+        setExpandedMobileItem(null);
+      } else {
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY, dispatch]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
+    <div
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${showNavbar ? "translate-y-0" : "-translate-y-full"
+        }`}
+    >
       <div className="relative bg-[#111416]/80 backdrop-blur-md border-b border-x border-zinc-800 rounded-b-[2.5rem]">
         <header className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-6 sm:px-12 lg:px-16 py-3 sm:py-3.5">
 

@@ -46,15 +46,15 @@ export const boardOfDirectors: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
     image: "/images/board/jayaruwan-bandara.jpg",
   },
-  {
-    name: "Dr. Uditha Samaratunga DBA",
-    title: "Director",
-    role: "Chief Executive Officer of SaaGo Holdings (Private) Limited.",
-    description:
-      "Business transformation leader specializing in strategic growth and organizational development.",
-    linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
-    image: "/images/board/uditha-samaratunga.jpg",
-  },
+  // {
+  //   name: "Dr. Uditha Samaratunga DBA",
+  //   title: "Director",
+  //   role: "Chief Executive Officer of SaaGo Holdings (Private) Limited.",
+  //   description:
+  //     "Business transformation leader specializing in strategic growth and organizational development.",
+  //   linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
+  //   image: "/images/board/uditha-samaratunga.jpg",
+  // },
   {
     name: "Chris Berenger",
     title: "Director",

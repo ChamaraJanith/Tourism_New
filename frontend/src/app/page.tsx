@@ -17,8 +17,8 @@ export default function Home() {
         <EventFestival />
         <Gallery />
         <AboutUs />
-        <BoardOfDirectors/>
         <ContactUs />
+        <BoardOfDirectors/>
       </main>
     </div>
   );

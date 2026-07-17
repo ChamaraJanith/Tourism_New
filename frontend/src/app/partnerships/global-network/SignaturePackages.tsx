@@ -2,7 +2,6 @@ import React from 'react';
 import { ArrowRight, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { PACKAGES } from '../../packages/PackageData';
-
 export default function SignaturePackages() {
   // Only show top 3 packages as a preview on the B2B page
   const featuredPackages = PACKAGES.slice(0, 3);

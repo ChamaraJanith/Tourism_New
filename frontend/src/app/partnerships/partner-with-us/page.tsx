@@ -1,6 +1,6 @@
-import React from 'react';
 import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import JoinPartnerForm from '@/components/forms/JoinPartnerForm';
 
 export default function PartnerWithUsPage() {
   return (
@@ -11,11 +11,11 @@ export default function PartnerWithUsPage() {
             Partner With Us
           </h1>
           <p className="text-gray-400 text-center max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-12">
-            Join our exclusive network of premium tourism service providers and let's craft extraordinary experiences together.
+            Join our exclusive network of premium tourism service providers and let&apos;s craft extraordinary experiences together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
           <div className="relative rounded-3xl overflow-hidden aspect-square md:aspect-[4/5] border border-white/10 group">
             <Image
               src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1000&h=1200"
@@ -28,9 +28,9 @@ export default function PartnerWithUsPage() {
 
           <div className="flex flex-col gap-8">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-4">Let's Collaborate</h2>
-              <p className="text-gray-300">
-                Whether you are a luxury hotel, a specialized tour guide, or a global travel agency, we are always looking to expand our horizons with partners who share our commitment to excellence.
+              <h2 className="text-2xl font-bold text-white mb-4">Let&apos;s Collaborate</h2>
+              <p className="text-gray-300 leading-relaxed">
+                Whether you are a luxury hotel, a specialized tour guide, a transport provider, or a travel agency, we are always looking to expand our horizons with partners who share our commitment to excellence.
               </p>
             </div>
 
@@ -66,6 +66,19 @@ export default function PartnerWithUsPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="border-t border-white/10 pt-16">
+          <div className="max-w-4xl mx-auto mb-10 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Apply to Join Our Partner Network
+            </h2>
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+              Fill out the form below with your business details. Our team will review your application and get back to you shortly.
+            </p>
+          </div>
+
+          <JoinPartnerForm />
         </div>
       </div>
     </div>

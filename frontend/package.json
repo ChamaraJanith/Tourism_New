@@ -13,6 +13,7 @@
     "clean": "node -e \"const fs = require('fs'); fs.rmSync('.next', { recursive: true, force: true }); console.log('.next folder cleared');\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@reduxjs/toolkit": "^2.11.2",
@@ -27,13 +28,15 @@
     "react": "19.2.4",
     "react-countup": "^6.5.3",
     "react-dom": "19.2.4",
+    "react-hook-form": "^7.81.0",
     "react-icons": "^5.6.0",
     "react-intersection-observer": "^10.0.3",
     "react-parallax-tilt": "^1.7.326",
     "react-redux": "^9.2.0",
     "swiper": "^12.1.4",
     "tailwind-merge": "^3.5.0",
-    "three": "^0.184.0"
+    "three": "^0.184.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

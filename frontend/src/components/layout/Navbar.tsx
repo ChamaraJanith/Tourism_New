@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { toggleMenu, setMenuOpen } from "@/store/slices/uiSlice";
@@ -18,7 +18,8 @@ export const Navbar = () => {
 
   // Track expanded mobile accordion
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
-
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const handleLogout = () => {
     dispatch(logOut());
   };
@@ -181,12 +182,13 @@ export const Navbar = () => {
           </nav>
 
           <button
-            className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90"
-            onClick={() => dispatch(toggleMenu())}
-          >
-            <span className="sr-only">Toggle Menu</span>
-            <MenuIcon />
-          </button>
+  ref={menuButtonRef}
+  className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90"
+  onClick={() => dispatch(toggleMenu())}
+>
+  <span className="sr-only">Toggle Menu</span>
+  <MenuIcon />
+</button>
 
 
 
@@ -245,79 +247,95 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="absolute inset-x-0 top-full z-50 overflow-hidden px-4 pb-6 pt-2 xl:hidden max-h-[85vh] overflow-y-auto"
-          >
-            <div className="rounded-[1.8rem] border border-white/10 bg-[#111416]/95 p-5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-2xl flex flex-col gap-3">
-              <div className="flex flex-col gap-2">
-                {premiumNavItems.map((item) => (
-                  <motion.div key={item.name} variants={itemVariants} className="flex flex-col">
-                    <Link
-                      href={item.href}
-                      onClick={(e) => handleMobileNavClick(item, e)}
-                      scroll={item.href.includes('#') ? false : undefined}
-                      className="group flex items-center justify-between p-3 rounded-2xl bg-white/0 hover:bg-white/5 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-white/10 group-hover:bg-[#d4af37]/10 group-hover:border-[#d4af37]/30 group-hover:text-white transition-all duration-300">
-                          {item.icon}
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-white/90 group-hover:text-[#d4af37] transition-colors duration-300">
-                            {item.name}
-                          </span>
-                          <span className="text-[0.62rem] text-gray-400 font-medium tracking-wide mt-0.5 group-hover:text-white/60 transition-colors duration-300">
-                            {item.desc}
-                          </span>
-                        </div>
-                      </div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                dispatch(setMenuOpen(false));
+                setExpandedMobileItem(null);
+              }}
+              className="fixed inset-0 z-40 bg-black/30 xl:hidden"
+            />
 
-                      {item.children && (
-                        <motion.div
-                          animate={{ rotate: expandedMobileItem === item.name ? 180 : 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
-                        </motion.div>
-                      )}
-                    </Link>
+            <motion.div
+              ref={mobileMenuRef}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="absolute inset-x-0 top-full z-50 overflow-hidden px-4 pb-6 pt-2 xl:hidden max-h-[85vh] overflow-y-auto"
+            >
+              <div className="rounded-[1.8rem] border border-white/10 bg-[#111416]/95 p-5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-2xl flex flex-col gap-3">
+                <div className="flex flex-col gap-2">
+                  {premiumNavItems.map((item) => (
+                    <motion.div key={item.name} variants={itemVariants} className="flex flex-col">
+                      <Link
+                        href={item.href}
+                        onClick={(e) => handleMobileNavClick(item, e)}
+                        scroll={item.href.includes('#') ? false : undefined}
+                        className="group flex items-center justify-between p-3 rounded-2xl bg-white/0 hover:bg-white/5 transition-all duration-300"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-white/10 group-hover:bg-[#d4af37]/10 group-hover:border-[#d4af37]/30 group-hover:text-white transition-all duration-300">
+                            {item.icon}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-white/90 group-hover:text-[#d4af37] transition-colors duration-300">
+                              {item.name}
+                            </span>
+                            <span className="text-[0.62rem] text-gray-400 font-medium tracking-wide mt-0.5 group-hover:text-white/60 transition-colors duration-300">
+                              {item.desc}
+                            </span>
+                          </div>
+                        </div>
 
-                    {/* Mobile Submenu Accordion */}
-                    {item.children && (
-                      <AnimatePresence>
-                        {expandedMobileItem === item.name && (
+                        {item.children && (
                           <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="overflow-hidden"
+                            animate={{ rotate: expandedMobileItem === item.name ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
                           >
-                            <div className="pl-14 pr-4 py-2 flex flex-col gap-3 border-l border-white/5 ml-8 mt-2 mb-2">
-                              {item.children.map((child: any) => (
-                                <Link
-                                  key={child.name}
-                                  href={child.href}
-                                  onClick={() => dispatch(setMenuOpen(false))}
-                                  className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-[#d4af37] transition-colors py-1"
-                                >
-                                  {child.name}
-                                </Link>
-                              ))}
-                            </div>
+                            <ChevronDown className="w-5 h-5 text-gray-400" />
                           </motion.div>
                         )}
-                      </AnimatePresence>
-                    )}
-                  </motion.div>
-                ))}
+                      </Link>
+
+                      {item.children && (
+                        <AnimatePresence>
+                          {expandedMobileItem === item.name && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-14 pr-4 py-2 flex flex-col gap-3 border-l border-white/5 ml-8 mt-2 mb-2">
+                                {item.children.map((child: any) => (
+                                  <Link
+                                    key={child.name}
+                                    href={child.href}
+                                    onClick={() => {
+                                      dispatch(setMenuOpen(false));
+                                      setExpandedMobileItem(null);
+                                    }}
+                                    className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-[#d4af37] transition-colors py-1"
+                                  >
+                                    {child.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

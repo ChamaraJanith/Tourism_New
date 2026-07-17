@@ -182,13 +182,13 @@ export const Navbar = () => {
           </nav>
 
           <button
-  ref={menuButtonRef}
-  className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90"
-  onClick={() => dispatch(toggleMenu())}
->
-  <span className="sr-only">Toggle Menu</span>
-  <MenuIcon />
-</button>
+            ref={menuButtonRef}
+            className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90"
+            onClick={() => dispatch(toggleMenu())}
+          >
+            <span className="sr-only">Toggle Menu</span>
+            <MenuIcon />
+          </button>
 
 
 

@@ -5,7 +5,8 @@ import { EventFestival } from "@/components/landing/event-festival";
 import { Gallery } from "@/components/landing/gallery";
 import { AboutUs } from "@/components/landing/about-us";
 import { ContactUs } from "@/components/landing/contact-us";
-import  BoardOfDirectors from "@/components/landing/board-of-directors"
+import  BoardOfDirectors from "@/components/landing/board-of-directors";
+import { SriLankaClimateLive } from "@/components/landing/sri-lanka-info";
  
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <Hero />
         <WhyTravel />
         <Journeys />
+        <SriLankaClimateLive />
         <EventFestival />
         <Gallery />
         <AboutUs />

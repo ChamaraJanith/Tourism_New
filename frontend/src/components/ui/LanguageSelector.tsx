@@ -51,7 +51,9 @@ export const LanguageSelector = () => {
       select.dispatchEvent(new Event("change"));
     } else {
       // Fallback: set the cookie and reload
+      // eslint-disable-next-line react-hooks/immutability
       document.cookie = `googtrans=/en/${lang.code}; path=/`;
+      // eslint-disable-next-line react-hooks/immutability
       document.cookie = `googtrans=/en/${lang.code}; domain=.${window.location.hostname}; path=/`;
       window.location.reload();
     }

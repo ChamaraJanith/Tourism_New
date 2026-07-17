@@ -34,7 +34,6 @@ export default function SignaturePackages() {
             {/* Image Container */}
             <div className="relative w-full h-56 overflow-hidden">
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={pkg.images[0]}
                 alt={pkg.title}

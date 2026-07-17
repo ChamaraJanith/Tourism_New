@@ -44,7 +44,6 @@ export default function WorldMap2D() {
       style={{ aspectRatio: '2 / 1' }}
     >
       {/* ── World map image ── */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/global_image/sl_070722_51460_26.jpg"
         alt="World Map"

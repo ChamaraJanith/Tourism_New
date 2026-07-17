@@ -230,7 +230,6 @@ export const Navbar = () => {
                   className="hidden sm:flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#d4af37] hover:text-[#f0c040] transition-colors"
                 >
                   {user.avatarUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={user.avatarUrl}
                       alt={user.name}

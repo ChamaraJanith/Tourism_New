@@ -49,7 +49,6 @@ export default function PackageCard({ pkg }: PackageCardProps) {
       {/* Slideshow Container */}
       <div className="relative w-full h-64 md:h-72 overflow-hidden bg-[#070c14]">
         {pkg.images.map((img, idx) => (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             key={idx}
             src={img}

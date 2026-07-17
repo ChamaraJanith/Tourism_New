@@ -103,15 +103,17 @@ export function WhyTravel() {
                   transition={{ delay: idx * 0.1, duration: 0.6 }}
                   className="group"
                 >
-                  <div className="text-3xl sm:text-4xl font-display font-medium text-white tracking-tight">
-                    {inView && (
+                  <div className="text-3xl sm:text-4xl font-display font-medium text-white tracking-tight flex items-center">
+                    {inView ? (
                       <CountUp 
                         end={stat.value} 
                         decimals={stat.decimals || 0} 
                         duration={2.5} 
                       />
+                    ) : (
+                      <span>0</span>
                     )}
-                    {stat.suffix}
+                    {stat.suffix && <span className="ml-1">{stat.suffix}</span>}
                   </div>
                   <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#f2be2e]/60 mt-2 transition-colors group-hover:text-white">
                     {stat.label}

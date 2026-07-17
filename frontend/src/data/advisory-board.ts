@@ -37,24 +37,24 @@ export const boardOfDirectors: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
     image: "/images/board/sumudu-masakorala.jpg",
   },
-  {
-    name: "Dr. Jayaruwan Bandara",
-    title: "Director",
-    role: "Healthcare management professional, medical administrator, and clinical cosmetologist",
-    description:
-      "Provides expertise in medical services and wellness development.",
-    linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
-    image: "/images/board/jayaruwan-bandara.jpg",
-  },
   // {
-  //   name: "Dr. Uditha Samaratunga DBA",
+  //   name: "Dr. Jayaruwan Bandara",
   //   title: "Director",
-  //   role: "Chief Executive Officer of SaaGo Holdings (Private) Limited.",
+  //   role: "Healthcare management professional, medical administrator, and clinical cosmetologist",
   //   description:
-  //     "Business transformation leader specializing in strategic growth and organizational development.",
-  //   linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
-  //   image: "/images/board/uditha-samaratunga.jpg",
+  //     "Provides expertise in medical services and wellness development.",
+  //   linkedin: "https://www.linkedin.com/in/jayaruwanbandara/",
+  //   image: "/images/board/jayaruwan-bandara.jpg",
   // },
+  {
+    name: "Dr. Uditha Samaratunga DBA",
+    title: "Director",
+    role: "Chief Executive Officer of SaaGo Holdings (Private) Limited.",
+    description:
+      "Business transformation leader specializing in strategic growth and organizational development.",
+    linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
+    image: "/images/board/uditha-samaratunga.jpg",
+  },
   {
     name: "Chris Berenger",
     title: "Director",

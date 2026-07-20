@@ -26,7 +26,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Specializes in international tourism strategy, global partnerships, destination development, and sustainable tourism initiatives.",
     linkedin: "https://www.linkedin.com/in/dharshana-weerakoon/",
-    image: "/images/board/dharshana-weerakoon.jpg",
+    image: "/images/board_of_directers/Darshana_Weerakoon.jpeg",
   },
   {
     name: "Sumudu Masakorala",
@@ -35,7 +35,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Brings expertise in technology, innovation, digital transformation, and business solutions.",
     linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
-    image: "/images/board/sumudu-masakorala.jpg",
+    image: "/images/board_of_directers/Sumudu_masakorala.jpeg",
   },
   // {
   //   name: "Dr. Jayaruwan Bandara",
@@ -80,7 +80,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Specializes in business development, operational strategy, and corporate advisory services.",
     linkedin: "https://www.linkedin.com/in/muditha-hapuarachchi/",
-    image: "/images/board/muditha-hapuarachchi.jpg",
+    image: "/images/board_of_directers/Muditha_Hapuarachchi.jpeg",
   },
   {
     name: "Yoshitha Jayanetty",
@@ -89,7 +89,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Contributes expertise in strategic planning, risk management, and operational excellence.",
     linkedin: "https://www.linkedin.com/in/yoshitha-jayanetty-02481a53/",
-    image: "/images/board/muditha-hapuarachchi.jpg",
+    image: "/images/board_of_directers/Yoshitha_jayanetty.jpeg",
   }
 ];
 
@@ -110,6 +110,6 @@ export const globalRepresentatives: AdvisoryMember[] = [
     description:
       "Expert in operations management, organizational resilience, and continuous improvement across international markets.",
     linkedin: "https://www.linkedin.com/in/thisara-don/",
-    image: "/images/board/thisara-seneviratne.jpg",
+    image: "/images/board_of_directers/Thisara_senevirathna.jpeg",
   }
 ];

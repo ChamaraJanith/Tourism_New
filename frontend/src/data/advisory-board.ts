@@ -17,7 +17,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Oversees world-class hospitality properties including Hideaway Beach Resort & Spa and Lily Beach Resort & Spa in the Maldives.",
     linkedin: "https://www.linkedin.com/in/michael-wieser-83664a3a/",
-    image: "/images/board/michael-wieser.jpg",
+    image: "/images/board_of_directers/Michael_Wieser_1.jpeg",
   },
   {
     name: "Dr. Dharshana Weerakoon DBA",
@@ -53,7 +53,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Business transformation leader specializing in strategic growth and organizational development.",
     linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
-    image: "/images/board/uditha-samaratunga.jpg",
+    image: "/images/board_of_directers/Uditha_1.jpeg",
   },
   {
     name: "Chris Berenger",
@@ -62,7 +62,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Has extensive leadership experience in luxury hotels, resorts, and global hospitality operations.",
     linkedin: "https://www.linkedin.com/in/chris-berenger-949b1937/",
-    image: "/images/board/chris-berenger.jpg",
+    image: "/images/board_of_directers/Chris_Berenger_2.jpeg",
   },
   {
     name: "Piyumal Herath",
@@ -89,7 +89,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Contributes expertise in strategic planning, risk management, and operational excellence.",
     linkedin: "https://www.linkedin.com/in/yoshitha-jayanetty-02481a53/",
-    image: "/images/board_of_directers/Yoshitha_jayanetty.jpeg",
+    image: "/images/board_of_directers/Yoshitha_Jayanette.jpeg",
   }
 ];
 

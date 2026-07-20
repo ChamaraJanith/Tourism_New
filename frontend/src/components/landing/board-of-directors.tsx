@@ -58,23 +58,15 @@ function MemberCard({ member }: { member: Member }) {
             </a>
           </div>
 
-          <p className="mt-2 line-clamp-1 text-sm text-white/70">
+          <p className="mt-2 text-sm text-white/70">
             {member.role}
           </p>
 
-          <p className="mt-2 line-clamp-3 text-sm leading-6 text-white/60">
+          <p className="mt-2 text-sm leading-6 text-white/60">
             {member.description}
           </p>
 
-          <a
-            href={member.linkedin || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center text-sm font-semibold text-emerald-400 hover:text-emerald-300"
-          >
-            View profile
-            <span className="ml-1">↗</span>
-          </a>
+
         </div>
       </div>
 

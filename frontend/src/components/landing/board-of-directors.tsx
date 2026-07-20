@@ -38,7 +38,7 @@ function MemberCard({ member }: { member: Member }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h3 className="truncate text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-white">
                 {member.name}
               </h3>
 

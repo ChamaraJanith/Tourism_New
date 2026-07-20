@@ -83,7 +83,7 @@ export const Navbar = () => {
     },
     {
       name: "Our Signature Journey",
-      href: "/packages",
+      href: "/journeys",
       desc: "Discover curated travel packages",
       icon: <Compass className="w-4 h-4 text-[#d4af37]" />
     },

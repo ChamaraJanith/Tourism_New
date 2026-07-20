@@ -40,7 +40,7 @@ export const Navbar = () => {
     },
     {
       name: "Our Signature Journey",
-      href: "/packages"
+      href: "/journeys"
     },
     {
       name: "Partnerships",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
-import { PACKAGES } from '../../packages/PackageData';
+import { PACKAGES } from '../../journeys/PackageData';
 export default function SignaturePackages() {
   // Only show top 3 packages as a preview on the B2B page
   const featuredPackages = PACKAGES.slice(0, 3);
@@ -18,7 +18,7 @@ export default function SignaturePackages() {
         <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8">
           We offer a diverse portfolio of meticulously crafted travel packages designed to meet the demands of global travelers. Partner with us to offer these premium experiences to your clients.
         </p>
-        <Link href="/packages" className="inline-flex items-center gap-2 bg-[#d4af37] text-black px-6 py-3 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-[#e5c048] transition-colors shadow-lg shadow-[#d4af37]/20">
+        <Link href="/journeys" className="inline-flex items-center gap-2 bg-[#d4af37] text-black px-6 py-3 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-[#e5c048] transition-colors shadow-lg shadow-[#d4af37]/20">
           View All Packages in Detail
           <ArrowRight className="w-4 h-4" />
         </Link>
@@ -63,7 +63,7 @@ export default function SignaturePackages() {
               </div>
 
               {/* Action Button */}
-              <Link href="/packages" className="w-full flex items-center justify-between px-6 py-3.5 bg-white/5 hover:bg-[#d4af37] text-white hover:text-black rounded-xl transition-all duration-300 group/btn border border-white/10 hover:border-[#d4af37]">
+              <Link href="/journeys" className="w-full flex items-center justify-between px-6 py-3.5 bg-white/5 hover:bg-[#d4af37] text-white hover:text-black rounded-xl transition-all duration-300 group/btn border border-white/10 hover:border-[#d4af37]">
                 <span className="text-xs font-bold uppercase tracking-wider">Explore Details</span>
                 <ArrowRight className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" />
               </Link>

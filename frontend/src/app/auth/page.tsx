@@ -9,7 +9,7 @@ import { Eye, EyeOff, Mail, Lock, User, Compass } from "lucide-react";
 import { useAppDispatch } from "@/hooks/store";
 import { setCredentials } from "@/store/slices/authSlice";
 
-/* ─── Pre-generated star data (module-level so Math.random never runs in render) ─── */
+/* ─── Pre-generated star data ─── */
 const STARS = Array.from({ length: 22 }, (_, i) => ({
   id: i,
   width:   1.2 + (i * 0.37)  % 1.8,
@@ -33,7 +33,7 @@ function GoogleIcon() {
   );
 }
 
-/* ─── Input with focus glow ─── */
+/* ─── Input with focus outline ─── */
 function InputField({
   icon, type, placeholder, value, onChange, right, id, autoComplete,
 }: {
@@ -43,15 +43,13 @@ function InputField({
 }) {
   const [focused, setFocused] = useState(false);
   return (
-    <div
-      className="relative flex items-center rounded-2xl transition-all duration-300"
+    <div className="relative flex items-center rounded-2xl transition-all duration-300 backdrop-blur-md"
       style={{
-        background: focused ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.055)",
+        background: focused ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)",
         boxShadow: focused
-          ? "0 0 0 1.5px rgba(212,175,55,0.55), 0 4px 24px rgba(0,0,0,0.18)"
-          : "0 0 0 1px rgba(255,255,255,0.10)",
-      }}
-    >
+          ? "0 0 0 1.5px rgba(212,175,55,0.5), 0 4px 20px rgba(0,0,0,0.2)"
+          : "0 0 0 1px rgba(255,255,255,0.1)",
+      }}>
       <span className="pl-4 pr-2 text-white/40 shrink-0">{icon}</span>
       <input
         id={id} type={type} placeholder={placeholder} value={value}
@@ -59,7 +57,7 @@ function InputField({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         autoComplete={autoComplete}
-        className="flex-1 bg-transparent py-3.5 pr-4 text-sm text-white placeholder-white/30 outline-none font-medium"
+        className="flex-1 bg-transparent py-4 pr-4 text-sm text-white placeholder-white/30 outline-none font-medium"
       />
       {right && <span className="pr-4 shrink-0">{right}</span>}
     </div>
@@ -67,38 +65,32 @@ function InputField({
 }
 
 /* ─── Floating orb ─── */
-function Orb({ size, color, style, dur = 8 }: {
-  size: number; color: string; style: React.CSSProperties; dur?: number;
-}) {
+function Orb({ size, color, style, dur = 8 }: { size: number; color: string; style: React.CSSProperties; dur?: number; }) {
   return (
-    <motion.div
-      animate={{ y: [0, -24, 0], scale: [1, 1.06, 1] }}
-      transition={{ duration: dur, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute rounded-full pointer-events-none"
-      style={{ width: size, height: size, background: color, filter: "blur(80px)", opacity: 0.55, ...style }}
-    />
+    <motion.div animate={{ y: [0, -30, 0], scale: [1, 1.05, 1] }} transition={{ duration: dur, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute rounded-full pointer-events-none opacity-40 mix-blend-screen"
+      style={{ width: size, height: size, background: color, filter: "blur(90px)", ...style }} />
   );
 }
 
 /* ─── Stagger container variants ─── */
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
   exit:    { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
 };
 
 const itemVariants = {
-  hidden:  { opacity: 0, y: 22, filter: "blur(4px)" },
-  visible: { opacity: 1, y: 0,  filter: "blur(0px)", transition: { type: "spring" as const, stiffness: 320, damping: 28 } },
-  exit:    { opacity: 0, y: -14, filter: "blur(4px)", transition: { duration: 0.18 } },
+  hidden:  { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
+  exit:    { opacity: 0, y: -10, transition: { duration: 0.15 } },
 };
 
 /* ─── Main page ─── */
 export default function AuthPage() {
   const dispatch                          = useAppDispatch();
   const router                            = useRouter();
-  const [isLogin, setIsLogin]             = useState(false);   // false = Sign-In | true = Sign-Up
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isLogin, setIsLogin]             = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -108,6 +100,7 @@ export default function AuthPage() {
       }
     }
   }, []);
+  
   const [showPassword, setShow]           = useState(false);
   const [showConfirm,  setShowConfirm]    = useState(false);
   const [name,            setName]        = useState("");
@@ -132,7 +125,6 @@ export default function AuthPage() {
     setErrorMsg("");
     setSuccessMsg("");
 
-    // Sign-Up validations
     if (isLogin) {
       if (!name.trim())                        { setErrorMsg("Please enter your full name.");          return; }
       if (password !== confirmPassword)        { setErrorMsg("Passwords do not match.");               return; }
@@ -143,9 +135,7 @@ export default function AuthPage() {
     setLoading(true);
     const apiUrl   = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
     const endpoint = isLogin ? "/api/auth/signup" : "/api/auth/login";
-    const payload  = isLogin
-      ? { name, email, password, agreedToTerms }
-      : { email, password };
+    const payload  = isLogin ? { name, email, password, agreedToTerms } : { email, password };
 
     try {
       const res  = await fetch(`${apiUrl}${endpoint}`, {
@@ -175,21 +165,10 @@ export default function AuthPage() {
           })
         );
         setSuccessMsg(isLogin ? "Account created and logged in successfully!" : "Logged in successfully!");
-        
-        // Wait briefly for user to see the success message before redirecting
-        setTimeout(() => {
-          router.push("/profile");
-        }, 1200);
+        setTimeout(() => { router.push("/profile"); }, 1200);
       } else {
-        // If email confirmation is required or session is not returned immediately
         setSuccessMsg(isLogin ? "Account created successfully! Check your email to confirm." : "Logged in successfully!");
-        if (isLogin) {
-          setName("");
-          setEmail("");
-          setPassword("");
-          setConfirm("");
-          setAgreed(false);
-        }
+        if (isLogin) { setName(""); setEmail(""); setPassword(""); setConfirm(""); setAgreed(false); }
       }
     } catch (err: any) {
       setErrorMsg(err.message);
@@ -199,47 +178,42 @@ export default function AuthPage() {
   };
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#070b10]">
-
-      {/* ── Background image ── */}
-      <div className="absolute inset-0">
-        <Image src="/images/loginform2.jpg" alt="Luxury travel background" fill priority className="object-cover object-center opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#070b10]/80 via-[#0d1520]/60 to-[#070b10]/90" />
+    <main className="w-full min-h-screen relative flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-[#070b10]">
+      {/* Background image & overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop" alt="Mountain landscape background" fill priority className="object-cover object-center opacity-40 mix-blend-luminosity" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070b10]/90 via-[#070b10]/70 to-[#070b10]/95" />
       </div>
 
-      {/* ── Floating orbs ── */}
-      <Orb size={500} color="radial-gradient(circle,#d4af37 0%,transparent 70%)" style={{ top:"-15%",left:"-10%" }} dur={9}/>
-      <Orb size={400} color="radial-gradient(circle,#10b981 0%,transparent 70%)" style={{ bottom:"-10%",right:"-8%" }} dur={11}/>
-      <Orb size={300} color="radial-gradient(circle,#6366f1 0%,transparent 70%)" style={{ top:"40%",right:"5%" }} dur={7}/>
+      {/* Floating orbs */}
+      <Orb size={450} color="radial-gradient(circle,#d4af37 0%,transparent 70%)" style={{ top:"-10%",left:"-5%" }} dur={10}/>
+      <Orb size={450} color="radial-gradient(circle,#10b981 0%,transparent 70%)" style={{ bottom:"-10%",right:"-5%" }} dur={12}/>
 
-      {/* ── Stars ── */}
+      {/* Stars */}
       {STARS.map((s) => (
-        <motion.div key={s.id} className="absolute rounded-full bg-white pointer-events-none"
+        <motion.div key={s.id} className="absolute rounded-full bg-white pointer-events-none z-0"
           style={{ width:s.width, height:s.height, top:s.top, left:s.left, opacity:s.opacity }}
-          animate={{ opacity:[s.opacity*0.4, s.opacity, s.opacity*0.4] }}
+          animate={{ opacity:[s.opacity*0.3, s.opacity, s.opacity*0.3] }}
           transition={{ duration:s.dur, repeat:Infinity, delay:s.delay }}
         />
       ))}
 
       {/* ══════════ CARD ══════════ */}
-      <div className="relative z-10 w-full mx-4 sm:mx-auto sm:max-w-lg md:max-w-5xl mt-20 md:mt-0">
+      <div className="relative z-10 w-full max-w-5xl mt-8">
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-[2rem] overflow-hidden flex flex-col md:flex-row min-h-[620px]"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row min-h-[640px] shadow-2xl"
           style={{
-            background: "rgba(10,16,28,0.72)",
-            backdropFilter: "blur(32px)",
-            WebkitBackdropFilter: "blur(32px)",
-            boxShadow: "0 0 0 1px rgba(255,255,255,0.08),0 32px 80px rgba(0,0,0,0.6),0 0 120px rgba(212,175,55,0.06)",
+            background: "rgba(10, 15, 25, 0.4)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            boxShadow: "0 0 0 1px rgba(255,255,255,0.08), 0 30px 60px rgba(0,0,0,0.5)",
           }}
         >
-
-          {/* ══════════ DESKTOP: BOTH FORM COLUMNS (rendered always, hidden by overlay) ══════════ */}
-
           {/* --- Sign-In form (left slot on desktop) --- */}
-          <div className="hidden md:flex md:w-7/12 relative items-center justify-center p-12 lg:p-16">
+          <div className="hidden md:flex md:w-1/2 relative items-center justify-center p-12 lg:p-16">
             <AnimatePresence mode="wait">
               <motion.div
                 key="signin-desk"
@@ -249,45 +223,38 @@ export default function AuthPage() {
                 animate={!isLogin ? "visible" : "hidden"}
                 exit="exit"
               >
-                {/* heading */}
                 <motion.div variants={itemVariants} className="mb-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400/80 mb-1">Returning explorer?</p>
-                  <h1 className="text-3xl font-bold font-display text-white tracking-tight">Welcome Back</h1>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37] mb-2 drop-shadow-md">Returning explorer?</p>
+                  <h1 className="text-4xl font-display text-white">Welcome Back</h1>
                 </motion.div>
 
-                {/* Google SSO */}
-                <motion.button variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-3 py-3 rounded-2xl mb-5 text-sm font-semibold text-white/80 hover:text-white transition-all duration-300"
-                  style={{ background:"rgba(255,255,255,0.07)", boxShadow:"0 0 0 1px rgba(255,255,255,0.10)" }}>
+                <motion.button variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl mb-6 text-sm font-semibold text-white/90 transition-all shadow-lg"
+                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
                   <GoogleIcon /> Continue with Google
                 </motion.button>
 
-                {/* divider */}
-                <motion.div variants={itemVariants} className="flex items-center gap-3 mb-5">
-                  <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/30 font-medium">or</span><div className="flex-1 h-px bg-white/10"/>
+                <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
+                  <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/40 font-medium">or</span><div className="flex-1 h-px bg-white/10"/>
                 </motion.div>
 
-                {/* fields */}
-                <motion.div variants={itemVariants}>
-                  <InputField id="si-email" icon={<Mail size={16}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
+                <motion.div variants={itemVariants} className="flex flex-col gap-4">
+                  <InputField id="si-email" icon={<Mail size={18}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
+                  <InputField id="si-pass" icon={<Lock size={18}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password"
+                    right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={18}/>:<Eye size={18}/>}</button>}/>
                 </motion.div>
-                <motion.div variants={itemVariants} className="mt-3">
-                  <InputField id="si-pass" icon={<Lock size={16}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password"
-                    right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={16}/>:<Eye size={16}/>}</button>}/>
-                </motion.div>
-                <motion.div variants={itemVariants} className="pt-2 text-right">
-                  <Link href="#" className="text-xs text-white/35 hover:text-amber-400 transition-colors">Forgot your password?</Link>
+                
+                <motion.div variants={itemVariants} className="pt-3 text-right">
+                  <Link href="#" className="text-xs text-white/50 hover:text-[#d4af37] transition-colors font-medium">Forgot your password?</Link>
                 </motion.div>
 
-                {/* Messages */}
-                {errorMsg && <div className="text-red-400 text-sm mt-3 text-center">{errorMsg}</div>}
-                {successMsg && <div className="text-green-400 text-sm mt-3 text-center">{successMsg}</div>}
+                {errorMsg && <div className="text-red-400 text-sm mt-4 text-center font-medium bg-red-500/10 py-2 rounded-lg">{errorMsg}</div>}
+                {successMsg && <div className="text-green-400 text-sm mt-4 text-center font-medium bg-green-500/10 py-2 rounded-lg">{successMsg}</div>}
 
-                {/* CTA */}
                 <motion.button variants={itemVariants} type="button" onClick={() => handleSubmit()} disabled={loading}
-                  whileHover={{ scale: 1.02, boxShadow: "0 8px 40px rgba(212,175,55,0.35)" }} whileTap={{ scale: 0.97 }}
-                  className="w-full mt-3 flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold uppercase tracking-widest text-[#0d1520] disabled:opacity-50"
-                  style={{ background:"linear-gradient(135deg,#d4af37 0%,#f0c040 50%,#d4af37 100%)" }}>
+                  whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(212,175,55,0.3)" }} whileTap={{ scale: 0.98 }}
+                  className="w-full mt-6 py-4 rounded-2xl text-sm font-bold tracking-widest uppercase text-black disabled:opacity-50 transition-all shadow-xl"
+                  style={{ background: "linear-gradient(135deg, #d4af37 0%, #f0c040 50%, #d4af37 100%)" }}>
                   {loading ? "Signing In..." : "Sign In"}
                 </motion.button>
               </motion.div>
@@ -295,7 +262,7 @@ export default function AuthPage() {
           </div>
 
           {/* --- Sign-Up form (right slot on desktop) --- */}
-          <div className="hidden md:flex md:w-7/12 absolute inset-y-0 right-0 items-center justify-center p-12 lg:p-16" style={{ pointerEvents: isLogin ? "auto" : "none" }}>
+          <div className="hidden md:flex md:w-1/2 absolute inset-y-0 right-0 items-center justify-center p-12 lg:p-16" style={{ pointerEvents: isLogin ? "auto" : "none" }}>
             <AnimatePresence mode="wait">
               {isLogin && (
                 <motion.div
@@ -307,60 +274,51 @@ export default function AuthPage() {
                   exit="exit"
                 >
                   <motion.div variants={itemVariants} className="mb-8">
-                    <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400/80 mb-1">New here?</p>
-                    <h1 className="text-3xl font-bold font-display text-white tracking-tight">Create Account</h1>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37] mb-2 drop-shadow-md">New here?</p>
+                    <h1 className="text-4xl font-display text-white">Create Account</h1>
                   </motion.div>
 
-                  <motion.button variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                    className="w-full flex items-center justify-center gap-3 py-3 rounded-2xl mb-5 text-sm font-semibold text-white/80 hover:text-white transition-all duration-300"
-                    style={{ background:"rgba(255,255,255,0.07)", boxShadow:"0 0 0 1px rgba(255,255,255,0.10)" }}>
+                  <motion.button variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                    className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl mb-6 text-sm font-semibold text-white/90 transition-all shadow-lg"
+                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
                     <GoogleIcon /> Continue with Google
                   </motion.button>
 
-                  <motion.div variants={itemVariants} className="flex items-center gap-3 mb-5">
-                    <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/30 font-medium">or</span><div className="flex-1 h-px bg-white/10"/>
+                  <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
+                    <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/40 font-medium">or</span><div className="flex-1 h-px bg-white/10"/>
                   </motion.div>
 
-                  <motion.div variants={itemVariants}>
-                    <InputField id="su-name" icon={<User size={16}/>} type="text" placeholder="Full Name" value={name} onChange={e=>setName(e.target.value)} autoComplete="name"/>
-                  </motion.div>
-                  <motion.div variants={itemVariants} className="mt-3">
-                    <InputField id="su-email" icon={<Mail size={16}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
-                  </motion.div>
-                  <motion.div variants={itemVariants} className="mt-3">
-                    <InputField id="su-pass" icon={<Lock size={16}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="new-password"
-                      right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={16}/>:<Eye size={16}/>}</button>}/>
-                  </motion.div>
-                  <motion.div variants={itemVariants} className="mt-3">
-                    <InputField id="su-confirm" icon={<Lock size={16}/>} type={showConfirm?"text":"password"} placeholder="Re-enter Password" value={confirmPassword} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"
-                      right={<button type="button" onClick={()=>setShowConfirm(!showConfirm)} className="text-white/30 hover:text-white/70 transition-colors">{showConfirm?<EyeOff size={16}/>:<Eye size={16}/>}</button>}/>
+                  <motion.div variants={itemVariants} className="flex flex-col gap-4">
+                    <InputField id="su-name" icon={<User size={18}/>} type="text" placeholder="Full Name" value={name} onChange={e=>setName(e.target.value)} autoComplete="name"/>
+                    <InputField id="su-email" icon={<Mail size={18}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
+                    <InputField id="su-pass" icon={<Lock size={18}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="new-password"
+                      right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={18}/>:<Eye size={18}/>}</button>}/>
+                    <InputField id="su-confirm" icon={<Lock size={18}/>} type={showConfirm?"text":"password"} placeholder="Re-enter Password" value={confirmPassword} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"
+                      right={<button type="button" onClick={()=>setShowConfirm(!showConfirm)} className="text-white/30 hover:text-white/70 transition-colors">{showConfirm?<EyeOff size={18}/>:<Eye size={18}/>}</button>}/>
                   </motion.div>
 
-                  {/* Terms & Conditions */}
-                  <motion.label variants={itemVariants} className="flex items-start gap-3 mt-4 cursor-pointer group">
+                  <motion.label variants={itemVariants} className="flex items-start gap-3 mt-5 cursor-pointer group">
                     <div className="relative mt-0.5 shrink-0">
                       <input id="su-terms" type="checkbox" checked={agreedToTerms} onChange={e=>setAgreed(e.target.checked)} className="sr-only peer"/>
-                      <div className="w-4 h-4 rounded border border-white/20 peer-checked:border-amber-400 peer-checked:bg-amber-400 transition-all duration-200 flex items-center justify-center"
-                        style={{ background: agreedToTerms ? "linear-gradient(135deg,#d4af37,#f0c040)" : "rgba(255,255,255,0.05)" }}>
-                        {agreedToTerms && <svg className="w-2.5 h-2.5 text-[#0d1520]" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
+                      <div className="w-4 h-4 rounded border border-white/20 peer-checked:border-[#d4af37] peer-checked:bg-[#d4af37] transition-all flex items-center justify-center bg-white/5">
+                        {agreedToTerms && <svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
                       </div>
                     </div>
-                    <span className="text-xs text-white/40 leading-relaxed group-hover:text-white/60 transition-colors">
+                    <span className="text-xs text-white/50 leading-relaxed font-medium">
                       I agree to the{" "}
-                      <Link href="/terms" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">Terms & Conditions</Link>
+                      <Link href="/terms" className="text-[#d4af37] hover:text-[#facc15] underline underline-offset-2">Terms & Conditions</Link>
                       {" "}and{" "}
-                      <Link href="/privacy" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">Privacy Policy</Link>
+                      <Link href="/privacy" className="text-[#d4af37] hover:text-[#facc15] underline underline-offset-2">Privacy Policy</Link>
                     </span>
                   </motion.label>
 
-                  {/* Messages */}
-                  {errorMsg && <div className="text-red-400 text-sm mt-3 text-center">{errorMsg}</div>}
-                  {successMsg && <div className="text-green-400 text-sm mt-3 text-center">{successMsg}</div>}
+                  {errorMsg && <div className="text-red-400 text-sm mt-4 text-center font-medium bg-red-500/10 py-2 rounded-lg">{errorMsg}</div>}
+                  {successMsg && <div className="text-green-400 text-sm mt-4 text-center font-medium bg-green-500/10 py-2 rounded-lg">{successMsg}</div>}
 
                   <motion.button variants={itemVariants} type="button" onClick={() => handleSubmit()} disabled={loading}
-                    whileHover={{ scale: 1.02, boxShadow: "0 8px 40px rgba(212,175,55,0.35)" }} whileTap={{ scale: 0.97 }}
-                    className="w-full mt-4 flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold uppercase tracking-widest text-[#0d1520] disabled:opacity-50"
-                    style={{ background:"linear-gradient(135deg,#d4af37 0%,#f0c040 50%,#d4af37 100%)" }}>
+                    whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(212,175,55,0.3)" }} whileTap={{ scale: 0.98 }}
+                    className="w-full mt-6 py-4 rounded-2xl text-sm font-bold uppercase tracking-widest text-black disabled:opacity-50 transition-all shadow-xl"
+                    style={{ background: "linear-gradient(135deg, #d4af37 0%, #f0c040 50%, #d4af37 100%)" }}>
                     {loading ? "Creating..." : "Create Account"}
                   </motion.button>
                 </motion.div>
@@ -368,103 +326,79 @@ export default function AuthPage() {
             </AnimatePresence>
           </div>
 
-          {/* ══════════ DESKTOP: SLIDING ILLUSTRATION PANEL ══════════
-              Starts on the RIGHT (5/12 width). On toggle it slides to the LEFT.
-              Uses spring physics for a natural, premium feel.
-          ════════════════════════════════════════════════════════ */}
+          {/* ══════════ DESKTOP: SLIDING ILLUSTRATION PANEL ══════════ */}
           <motion.div
-            className="hidden md:flex md:w-5/12 absolute inset-y-0 md:flex-col items-center justify-center p-10 overflow-hidden"
-            animate={{ left: isLogin ? "0%" : "58.33%" }}  /* 7/12 = 58.33% */
-            transition={{ type: "spring", stiffness: 60, damping: 18, mass: 1.1 }}
-            style={{
-              background: "linear-gradient(145deg,rgba(20,30,50,0.95) 0%,rgba(12,20,35,0.98) 100%)",
-              boxShadow: isLogin
-                ? "4px 0 40px rgba(0,0,0,0.5)"
-                : "-4px 0 40px rgba(0,0,0,0.5)",
+            className="hidden md:flex md:w-1/2 absolute inset-y-0 md:flex-col items-center justify-center p-12 overflow-hidden shadow-2xl"
+            animate={{ left: isLogin ? "0%" : "50%" }}
+            transition={{ type: "spring", stiffness: 70, damping: 20, mass: 1 }}
+            style={{ 
+              background: "rgba(0, 0, 0, 0.4)",
+              backdropFilter: "blur(40px)",
+              WebkitBackdropFilter: "blur(40px)",
               zIndex: 20,
+              boxShadow: isLogin ? "10px 0 50px rgba(0,0,0,0.5)" : "-10px 0 50px rgba(0,0,0,0.5)"
             }}
           >
-            {/* panel inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/8 via-transparent to-emerald-500/8 pointer-events-none"/>
-            {/* gold divider line */}
-            <div className="absolute left-0 top-12 bottom-12 w-px bg-gradient-to-b from-transparent via-amber-400/25 to-transparent"/>
+            {/* Background Image for the panel */}
+            <Image 
+              src={isLogin ? "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop" : "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop"} 
+              alt="Travel destination" 
+              fill 
+              className="object-cover opacity-60 mix-blend-overlay pointer-events-none transition-all duration-700" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-            {/* panel content with 3D flip on switch */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={isLogin ? "panel-signup" : "panel-signin"}
-                initial={{ opacity: 0, rotateY: -90, scale: 0.85 }}
-                animate={{ opacity: 1, rotateY: 0,   scale: 1 }}
-                exit={{   opacity: 0, rotateY:  90,  scale: 0.85 }}
-                transition={{ type: "spring", stiffness: 120, damping: 20, mass: 0.8 }}
-                style={{ transformStyle: "preserve-3d" }}
-                className="relative z-10 flex flex-col items-center gap-5 text-center"
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="relative z-10 flex flex-col items-center text-center w-full max-w-sm"
               >
-                {/* brand */}
-                <div className="flex items-center gap-2">
-                  <Compass className="text-amber-400 w-5 h-5"/>
-                  <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-400/80">Aether Travel</span>
+                <div className="flex items-center gap-2 mb-8 bg-black/40 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md">
+                  <Compass className="text-[#d4af37] w-5 h-5"/>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37]">Aether Travel</span>
                 </div>
 
-                {/* GIF — white bg killed by mix-blend-mode:multiply */}
-                <motion.div
-                  className="relative w-48 h-48 rounded-[2rem] overflow-hidden"
-                  animate={{ scale: [1, 1.03, 1] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ background: "rgba(10,16,28,0.72)" }}
-                >
-                  <Image src="/videos/signup.gif" alt="Travel illustration"
-                    fill sizes="192px" priority unoptimized className="object-contain"
-                    style={{ mixBlendMode: "multiply" }}/>
-                </motion.div>
+                <h2 className="text-4xl font-display text-white mb-4 leading-tight drop-shadow-lg">
+                  {isLogin ? "Discover the\nUnseen" : "Your Journey\nAwaits"}
+                </h2>
+                <p className="text-sm text-white/80 leading-relaxed font-medium mb-10 drop-shadow">
+                  {isLogin
+                    ? "Join our community of elite travelers and experience the world's most curated destinations."
+                    : "Welcome back to your personalized travel dashboard. Your next adventure starts here."}
+                </p>
 
-                {/* heading */}
-                <div>
-                  <h2 className="text-2xl font-bold font-display text-white tracking-wide">
-                    {isLogin ? "Hello, Friend!" : "Welcome Back!"}
-                  </h2>
-                  <p className="mt-1.5 text-sm text-white/40 leading-relaxed max-w-[190px]">
-                    {isLogin
-                      ? "Start your journey — create a free account today."
-                      : "Sign in and continue your curated adventure."}
-                  </p>
-                </div>
-
-                {/* toggle button */}
                 <motion.button
                   onClick={toggle}
-                  whileHover={{ scale: 1.06, boxShadow: "0 0 24px rgba(212,175,55,0.3)" }}
-                  whileTap={{ scale: 0.96 }}
-                  className="px-9 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-400/30 text-amber-400 hover:bg-amber-400/10 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-10 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 shadow-xl"
                 >
-                  {isLogin ? "Sign In" : "Sign Up"}
+                  {isLogin ? "Sign In Instead" : "Create Account"}
                 </motion.button>
               </motion.div>
             </AnimatePresence>
           </motion.div>
 
-
           {/* ══════════ MOBILE: single column ══════════ */}
-          <div className="flex md:hidden flex-col justify-center px-6 py-10 sm:px-10 w-full">
-
-            {/* brand + pill switcher */}
-            <div className="mb-7 text-center">
-              <div className="flex items-center justify-center gap-2 mb-5">
-                <Compass className="text-amber-400 w-5 h-5"/>
-                <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-400/80">Aether Travel</span>
+          <div className="flex md:hidden flex-col justify-center w-full p-8" style={{ background: "rgba(10, 15, 25, 0.4)", backdropFilter: "blur(20px)" }}>
+            <div className="mb-8 text-center">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <Compass className="text-[#d4af37] w-6 h-6"/>
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37]">Aether Travel</span>
               </div>
-              <div className="inline-flex rounded-full p-1 mx-auto"
-                style={{ background:"rgba(255,255,255,0.07)", boxShadow:"0 0 0 1px rgba(255,255,255,0.09)" }}>
+              <div className="inline-flex rounded-full p-1 bg-black/20 border border-white/10">
                 {(["Sign In","Sign Up"] as const).map((label, i) => {
                   const active = (i===0 && !isLogin)||(i===1 && isLogin);
                   return (
                     <button key={label} onClick={() => setIsLogin(i===1)}
-                      className="relative px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300"
-                      style={{ color: active ? "#0d1520" : "rgba(255,255,255,0.45)" }}>
+                      className="relative px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300"
+                      style={{ color: active ? "#000" : "rgba(255,255,255,0.5)" }}>
                       {active && (
-                        <motion.span layoutId="pill" className="absolute inset-0 rounded-full"
-                          style={{ background:"linear-gradient(135deg,#d4af37,#f0c040)" }}
-                          transition={{ type:"spring", stiffness:300, damping:30 }}/>
+                        <motion.span layoutId="pill-mob" className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(135deg, #d4af37, #f0c040)" }} />
                       )}
                       <span className="relative z-10">{label}</span>
                     </button>
@@ -473,7 +407,6 @@ export default function AuthPage() {
               </div>
             </div>
 
-            {/* mobile form — staggered */}
             <AnimatePresence mode="wait">
               <motion.form
                 key={isLogin ? "m-signup" : "m-signin"}
@@ -483,113 +416,81 @@ export default function AuthPage() {
                 exit="exit"
                 onSubmit={handleSubmit}
               >
-                {/* Mobile Illustration */}
-                <motion.div
-                  variants={itemVariants}
-                  className="flex justify-center mb-5"
-                >
-                  <motion.div
-                    className="relative w-32 h-32 rounded-[1.5rem] overflow-hidden"
-                    animate={{ scale: [1, 1.03, 1] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ background: "rgba(10,16,28,0.72)", border: "1px solid rgba(255,255,255,0.08)" }}
-                  >
-                    <Image src="/videos/signup.gif" alt="Travel illustration"
-                      fill sizes="128px" priority unoptimized className="object-contain"
-                      style={{ mixBlendMode: "multiply" }}/>
-                  </motion.div>
-                </motion.div>
-
-                {/* heading */}
-                <motion.div variants={itemVariants} className="mb-6 text-center">
-                  <h1 className="text-2xl font-bold font-display text-white tracking-tight">
+                <motion.div variants={itemVariants} className="mb-8 text-center">
+                  <h1 className="text-3xl font-display text-white">
                     {isLogin ? "Create Account" : "Welcome Back"}
                   </h1>
                 </motion.div>
 
-                {/* Google */}
-                <motion.button variants={itemVariants} whileHover={{scale:1.02}} whileTap={{scale:0.97}}
-                  className="w-full flex items-center justify-center gap-3 py-3 rounded-2xl mb-5 text-sm font-semibold text-white/80 hover:text-white transition-all"
-                  style={{ background:"rgba(255,255,255,0.07)", boxShadow:"0 0 0 1px rgba(255,255,255,0.10)" }}>
+                <motion.button variants={itemVariants} whileHover={{scale:1.02}} whileTap={{scale:0.98}} type="button"
+                  className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl mb-6 text-sm font-semibold text-white/90 bg-white/5 border border-white/10 hover:bg-white/10 transition-colors shadow-lg">
                   <GoogleIcon/> Continue with Google
                 </motion.button>
 
-                <motion.div variants={itemVariants} className="flex items-center gap-3 mb-4">
-                  <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/30">or</span><div className="flex-1 h-px bg-white/10"/>
+                <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
+                  <div className="flex-1 h-px bg-white/10"/><span className="text-xs text-white/40">or</span><div className="flex-1 h-px bg-white/10"/>
                 </motion.div>
 
-                {/* fields */}
-                {isLogin && (
-                  <motion.div variants={itemVariants} className="mb-3">
-                    <InputField id="m-name" icon={<User size={16}/>} type="text" placeholder="Full Name" value={name} onChange={e=>setName(e.target.value)} autoComplete="name"/>
-                  </motion.div>
-                )}
-                <motion.div variants={itemVariants} className="mb-3">
-                  <InputField id="m-email" icon={<Mail size={16}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
-                </motion.div>
-                <motion.div variants={itemVariants} className="mb-3">
-                  <InputField id="m-pass" icon={<Lock size={16}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="new-password"
-                    right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={16}/>:<Eye size={16}/>}</button>}/>
-                </motion.div>
-
-                {/* Confirm password + T&C only on Sign-Up */}
-                {isLogin && (
-                  <>
-                    <motion.div variants={itemVariants} className="mb-3">
-                      <InputField id="m-confirm" icon={<Lock size={16}/>} type={showConfirm?"text":"password"} placeholder="Re-enter Password" value={confirmPassword} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"
-                        right={<button type="button" onClick={()=>setShowConfirm(!showConfirm)} className="text-white/30 hover:text-white/70 transition-colors">{showConfirm?<EyeOff size={16}/>:<Eye size={16}/>}</button>}/>
+                <div className="flex flex-col gap-4">
+                  {isLogin && (
+                    <motion.div variants={itemVariants}>
+                      <InputField id="m-name" icon={<User size={18}/>} type="text" placeholder="Full Name" value={name} onChange={e=>setName(e.target.value)} autoComplete="name"/>
                     </motion.div>
-                    <motion.label variants={itemVariants} className="flex items-start gap-3 mt-1 mb-1 cursor-pointer group">
-                      <div className="relative mt-0.5 shrink-0">
-                        <input id="m-terms" type="checkbox" checked={agreedToTerms} onChange={e=>setAgreed(e.target.checked)} className="sr-only"/>
-                        <div className="w-4 h-4 rounded border border-white/20 transition-all duration-200 flex items-center justify-center"
-                          style={{ background: agreedToTerms ? "linear-gradient(135deg,#d4af37,#f0c040)" : "rgba(255,255,255,0.05)", borderColor: agreedToTerms ? "#d4af37" : "rgba(255,255,255,0.2)" }}>
-                          {agreedToTerms && <svg className="w-2.5 h-2.5 text-[#0d1520]" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
-                        </div>
+                  )}
+                  <motion.div variants={itemVariants}>
+                    <InputField id="m-email" icon={<Mail size={18}/>} type="email" placeholder="Email Address" value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/>
+                  </motion.div>
+                  <motion.div variants={itemVariants}>
+                    <InputField id="m-pass" icon={<Lock size={18}/>} type={showPassword?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="new-password"
+                      right={<button type="button" onClick={()=>setShow(!showPassword)} className="text-white/30 hover:text-white/70 transition-colors">{showPassword?<EyeOff size={18}/>:<Eye size={18}/>}</button>}/>
+                  </motion.div>
+
+                  {isLogin && (
+                    <motion.div variants={itemVariants}>
+                      <InputField id="m-confirm" icon={<Lock size={18}/>} type={showConfirm?"text":"password"} placeholder="Re-enter Password" value={confirmPassword} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"
+                        right={<button type="button" onClick={()=>setShowConfirm(!showConfirm)} className="text-white/30 hover:text-white/70 transition-colors">{showConfirm?<EyeOff size={18}/>:<Eye size={18}/>}</button>}/>
+                    </motion.div>
+                  )}
+                </div>
+
+                {isLogin && (
+                  <motion.label variants={itemVariants} className="flex items-start gap-3 mt-5 mb-2 cursor-pointer group">
+                    <div className="relative mt-0.5 shrink-0">
+                      <input id="m-terms" type="checkbox" checked={agreedToTerms} onChange={e=>setAgreed(e.target.checked)} className="sr-only"/>
+                      <div className="w-4 h-4 rounded border border-white/20 transition-all flex items-center justify-center bg-white/5"
+                        style={{ background: agreedToTerms ? "#d4af37" : "transparent", borderColor: agreedToTerms ? "#d4af37" : "rgba(255,255,255,0.2)" }}>
+                        {agreedToTerms && <svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
                       </div>
-                      <span className="text-xs text-white/40 leading-relaxed group-hover:text-white/60 transition-colors">
-                        I agree to the{" "}
-                        <Link href="/terms" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">Terms & Conditions</Link>
-                        {" "}and{" "}
-                        <Link href="/privacy" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">Privacy Policy</Link>
-                      </span>
-                    </motion.label>
-                  </>
+                    </div>
+                    <span className="text-xs text-white/50 leading-relaxed font-medium">
+                      I agree to the{" "}
+                      <Link href="/terms" className="text-[#d4af37] hover:text-[#facc15] underline">Terms & Conditions</Link>
+                      {" "}and{" "}
+                      <Link href="/privacy" className="text-[#d4af37] hover:text-[#facc15] underline">Privacy Policy</Link>
+                    </span>
+                  </motion.label>
                 )}
 
                 {!isLogin && (
-                  <motion.div variants={itemVariants} className="pt-2 text-right">
-                    <Link href="#" className="text-xs text-white/35 hover:text-amber-400 transition-colors">Forgot your password?</Link>
+                  <motion.div variants={itemVariants} className="pt-3 text-right">
+                    <Link href="#" className="text-xs text-white/50 hover:text-white transition-colors">Forgot your password?</Link>
                   </motion.div>
                 )}
 
-
-                {/* Messages */}
-                {errorMsg && <div className="text-red-400 text-sm mt-3 text-center">{errorMsg}</div>}
-                {successMsg && <div className="text-green-400 text-sm mt-3 text-center">{successMsg}</div>}
+                {errorMsg && <div className="text-red-400 text-sm mt-4 text-center font-medium bg-red-500/10 py-2 rounded-lg">{errorMsg}</div>}
+                {successMsg && <div className="text-green-400 text-sm mt-4 text-center font-medium bg-green-500/10 py-2 rounded-lg">{successMsg}</div>}
 
                 <motion.button variants={itemVariants} type="submit" disabled={loading}
-                  whileHover={{ scale:1.02, boxShadow:"0 8px 40px rgba(212,175,55,0.35)" }} whileTap={{ scale:0.97 }}
-                  className="w-full mt-4 flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold uppercase tracking-widest text-[#0d1520] disabled:opacity-50"
-                  style={{ background:"linear-gradient(135deg,#d4af37 0%,#f0c040 50%,#d4af37 100%)" }}>
+                  whileHover={{ scale:1.02, boxShadow: "0 10px 30px rgba(212,175,55,0.3)" }} whileTap={{ scale:0.98 }}
+                  className="w-full mt-6 py-4 rounded-2xl text-sm font-bold uppercase tracking-widest text-black disabled:opacity-50 transition-all shadow-xl"
+                  style={{ background: "linear-gradient(135deg, #d4af37 0%, #f0c040 50%, #d4af37 100%)" }}>
                   {loading ? (isLogin ? "Creating..." : "Signing In...") : (isLogin ? "Create Account" : "Sign In")}
                 </motion.button>
-
-                <motion.p variants={itemVariants} className="mt-5 text-center text-xs text-white/40">
-                  {isLogin ? "Already have an account?" : "Don't have an account?"}{" "}
-                  <button onClick={toggle} type="button" className="text-amber-400 font-semibold hover:text-amber-300 transition-colors">
-                    {isLogin ? "Sign In" : "Sign Up"}
-                  </button>
-                </motion.p>
               </motion.form>
             </AnimatePresence>
           </div>
 
         </motion.div>
-
-        {/* bottom glow */}
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-24 pointer-events-none"
-          style={{ background:"radial-gradient(ellipse,rgba(212,175,55,0.18) 0%,transparent 70%)", filter:"blur(16px)" }}/>
       </div>
     </main>
   );

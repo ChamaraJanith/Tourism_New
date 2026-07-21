@@ -28,15 +28,15 @@ export const boardOfDirectors: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/dharshana-weerakoon/",
     image: "/images/board_of_directers/Darshana_Weerakoon.jpeg",
   },
-  {
-    name: "Sumudu Masakorala",
-    title: "Director",
-    role: "Managing Director and Founder of Global Soft Solutions (Private) Limited.",
-    description:
-      "Brings expertise in technology, innovation, digital transformation, and business solutions.",
-    linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
-    image: "/images/board_of_directers/Sumudu_masakorala.jpeg",
-  },
+  // {
+  //   name: "Sumudu Masakorala",
+  //   title: "Director",
+  //   role: "Managing Director and Founder of Global Soft Solutions (Private) Limited.",
+  //   description:
+  //     "Brings expertise in technology, innovation, digital transformation, and business solutions.",
+  //   linkedin: "https://www.linkedin.com/in/sumudu-masakorala/",
+  //   image: "/images/board_of_directers/Sumudu_masakorala.jpeg",
+  // },
   // {
   //   name: "Dr. Jayaruwan Bandara",
   //   title: "Director",

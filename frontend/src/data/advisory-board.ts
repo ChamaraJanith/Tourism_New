@@ -89,7 +89,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Contributes expertise in strategic planning, risk management, and operational excellence.",
     linkedin: "https://www.linkedin.com/in/yoshitha-jayanetty-02481a53/",
-    image: "/images/board_of_directers/Yoshitha_Jayanette.jpeg",
+    image: "/images/board_of_directers/Yoshitha_Jayanette.jpg",
   }
 ];
 

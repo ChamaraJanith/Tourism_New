@@ -23,8 +23,14 @@ if (typeof window !== "undefined") {
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
+  const isLifestyleExperienceRoute = pathname?.startsWith("/lifestyle-experiences");
 
   useEffect(() => {
+    if (isLifestyleExperienceRoute) {
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
+      return;
+    }
+
     document.documentElement.classList.add("lenis", "lenis-smooth");
 
     const lenis = new Lenis({
@@ -52,6 +58,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   // Handle scroll to top on every pathname change, or to the target hash if present
   useEffect(() => {
+    if (isLifestyleExperienceRoute) {
+      return;
+    }
+
     let intervalId: NodeJS.Timeout | null = null;
     let attempts = 0;
     const maxAttempts = 30; // Try for 1.5 seconds (30 * 50ms)
@@ -128,7 +138,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       window.history.pushState = originalPushState;
       window.history.replaceState = originalReplaceState;
     };
-  }, [pathname]);
+  }, [pathname, isLifestyleExperienceRoute]);
 
   return children;
 }

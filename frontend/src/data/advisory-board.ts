@@ -110,6 +110,6 @@ export const globalRepresentatives: AdvisoryMember[] = [
     description:
       "Expert in operations management, organizational resilience, and continuous improvement across international markets.",
     linkedin: "https://www.linkedin.com/in/thisara-don/",
-    image: "/images/board_of_directers/Thisara_Sen.png",
+    image: "/images/board_of_directers/Thisara_Sen.jpg",
   }
 ];

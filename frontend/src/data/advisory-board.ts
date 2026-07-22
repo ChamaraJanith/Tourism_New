@@ -53,7 +53,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Business transformation leader specializing in strategic growth and organizational development.",
     linkedin: "https://www.linkedin.com/in/uditha-samaratunga/",
-    image: "/images/board_of_directers/Uditha_1.jpeg",
+    image: "/images/board_of_directers/Uditha_1.jpg",
   },
   {
     name: "Chris Berenger",

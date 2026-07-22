@@ -133,7 +133,7 @@ export default function AuthPage() {
     }
 
     setLoading(true);
-    const apiUrl   = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const apiUrl   = "";
     const endpoint = isLogin ? "/api/auth/signup" : "/api/auth/login";
     const payload  = isLogin ? { name, email, password, agreedToTerms } : { email, password };
 

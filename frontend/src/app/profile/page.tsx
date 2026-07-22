@@ -117,11 +117,9 @@ export default function ProfilePage() {
     setSaveLoading(true);
     setSaveError("");
     setSaveSuccess(false);
-
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
     
     try {
-      const res = await fetch(`${apiUrl}/api/auth/profile`, {
+      const res = await fetch(`/api/auth/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

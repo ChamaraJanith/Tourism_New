@@ -80,7 +80,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Specializes in business development, operational strategy, and corporate advisory services.",
     linkedin: "https://www.linkedin.com/in/muditha-hapuarachchi/",
-    image: "/images/board_of_directers/Muditha_Hapuarachchi.jpeg",
+    image: "/images/board_of_directers/Muditha_Hapuarachchi.jpg",
   },
   {
     name: "Yoshitha Jayanetty",

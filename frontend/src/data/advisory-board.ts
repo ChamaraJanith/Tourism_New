@@ -71,7 +71,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Provides expertise in legal, commercial, and corporate affairs.",
     linkedin: "https://www.linkedin.com/in/piyumal-herath/",
-    image: "/images/board/piyumal-herath.jpg",
+    image: "/images/board_of_directers/piyumal_1.jpg",
   },
   {
     name: "Muditha Hapuarachchi",
@@ -101,7 +101,7 @@ export const globalRepresentatives: AdvisoryMember[] = [
     description:
       "Specializes in tourism marketing, customer relationship management, and sustainable tourism development.",
     linkedin: "https://www.linkedin.com/in/warnika-dhanawansha-bb5476222/",
-    image: "/images/board/warnika-dhanawansha.jpg",
+    image: "/images/board_of_directers/varnika.jpg",
   },
   {
     name: "Thisara Seneviratne (UK/US)",

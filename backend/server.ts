@@ -1,19 +1,26 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { signUp, logIn, signOut, getSession, sendPasswordResetEmail, updateUserPassword, updateProfile } from './auth';
+import { signUp, logIn, signOut, getSession, sendPasswordResetEmail, updateUserPassword, updateProfile } from './services/auth';
 import { authenticateToken, AuthenticatedRequest } from './middleware/auth';
-
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+app.get('/', (_req: Request, res: Response): void => {
+  res.json({ message: 'Backend running' });
+});
+
+app.get('/health', (_req: Request, res: Response): void => {
+  res.status(200).json({ ok: true });
+});
 // --- Authentication Routes ---
 
-app.post('/api/auth/signup', async (req: Request, res: Response): Promise<void> => {
+app.post(['/api/auth/signup', '/api/auth/register'], async (req: Request, res: Response): Promise<void> => {
   const { email, password, name, agreedToTerms } = req.body;
   
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

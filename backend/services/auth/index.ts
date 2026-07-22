@@ -1,0 +1,5 @@
+export { signUp } from './register'
+export { logIn } from './login'
+export { signOut, getSession } from './session'
+export { sendPasswordResetEmail, updateUserPassword } from './password'
+export { updateProfile } from './profile'

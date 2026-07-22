@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProfile = exports.updateUserPassword = exports.sendPasswordResetEmail = exports.getSession = exports.signOut = exports.logIn = exports.signUp = void 0;
 const supabase_js_1 = require("@supabase/supabase-js");
 const supabase_1 = require("./supabase");
+const getSupabaseCredentials = () => ({
+    supabaseUrl: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+});
 /**
  * Signup a new user with email and password
  * @param email          - User's email address
@@ -130,8 +134,7 @@ exports.sendPasswordResetEmail = sendPasswordResetEmail;
  * @param newPassword - User's new password
  */
 const updateUserPassword = async (accessToken, newPassword) => {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
     // Create a request-scoped Supabase client authenticated as the user
     const userSupabase = (0, supabase_js_1.createClient)(supabaseUrl, supabaseAnonKey, {
         auth: {
@@ -161,8 +164,7 @@ exports.updateUserPassword = updateUserPassword;
  * @param avatarUrl   - User's new profile picture URL
  */
 const updateProfile = async (accessToken, name, avatarUrl) => {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
     // 1. Direct REST request to Supabase Auth GoTrue API to update metadata
     const res = await fetch(`${supabaseUrl}/auth/v1/user`, {
         method: 'PUT',

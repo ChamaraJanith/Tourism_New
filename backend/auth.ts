@@ -1,6 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 
+const getSupabaseCredentials = () => ({
+  supabaseUrl: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  supabaseAnonKey: process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+})
+
 /**
  * Signup a new user with email and password
  * @param email          - User's email address
@@ -145,8 +150,7 @@ export const sendPasswordResetEmail = async (email: string, redirectTo: string) 
  * @param newPassword - User's new password
  */
 export const updateUserPassword = async (accessToken: string, newPassword: string) => {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials()
 
   // Create a request-scoped Supabase client authenticated as the user
   const userSupabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -180,8 +184,7 @@ export const updateUserPassword = async (accessToken: string, newPassword: strin
  * @param avatarUrl   - User's new profile picture URL
  */
 export const updateProfile = async (accessToken: string, name: string, avatarUrl: string) => {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials()
 
   // 1. Direct REST request to Supabase Auth GoTrue API to update metadata
   const res = await fetch(`${supabaseUrl}/auth/v1/user`, {

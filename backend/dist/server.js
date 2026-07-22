@@ -6,15 +6,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const auth_1 = require("./auth");
+const auth_1 = require("./services/auth");
 const auth_2 = require("./middleware/auth");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: true, credentials: true }));
 app.use(express_1.default.json({ limit: '10mb' }));
 app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
+app.get('/', (_req, res) => {
+    res.json({ message: 'Backend running' });
+});
+app.get('/health', (_req, res) => {
+    res.status(200).json({ ok: true });
+});
 // --- Authentication Routes ---
-app.post('/api/auth/signup', async (req, res) => {
+app.post(['/api/auth/signup', '/api/auth/register'], async (req, res) => {
     const { email, password, name, agreedToTerms } = req.body;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailRegex.test(email)) {

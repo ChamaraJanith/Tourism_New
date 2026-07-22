@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/store";
 import { setCredentials } from "@/store/slices/authSlice";
 
@@ -9,7 +9,6 @@ const API_BASE = ""; // local frontend route or Vercel rewrite
 
 export default function AuthPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
 
   const [isSignup, setIsSignup] = useState(false);
@@ -23,10 +22,13 @@ export default function AuthPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (searchParams?.get("mode") === "signup") {
-      setIsSignup(true);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "signup") {
+        setIsSignup(true);
+      }
     }
-  }, [searchParams]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

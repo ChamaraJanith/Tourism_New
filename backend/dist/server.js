@@ -11,7 +11,8 @@ const auth_2 = require("./middleware/auth");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 app.use((0, cors_1.default)());
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: '10mb' }));
+app.use(express_1.default.urlencoded({ limit: '10mb', extended: true }));
 // --- Authentication Routes ---
 app.post('/api/auth/signup', async (req, res) => {
     const { email, password, name, agreedToTerms } = req.body;
@@ -148,6 +149,9 @@ app.post('/api/auth/reset-password', async (req, res) => {
         res.status(400).json({ error: error.message || 'Failed to update password' });
     }
 });
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
+exports.default = app;

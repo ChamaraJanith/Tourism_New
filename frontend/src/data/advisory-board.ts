@@ -26,7 +26,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Specializes in international tourism strategy, global partnerships, destination development, and sustainable tourism initiatives.",
     linkedin: "https://www.linkedin.com/in/dharshana-weerakoon/",
-    image: "/images/board_of_directers/Darshana_Weerakoon.jpeg",
+    image: "/images/board_of_directers/Darshana_Weerakoon.jpg",
   },
   // {
   //   name: "Sumudu Masakorala",

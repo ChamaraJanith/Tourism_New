@@ -259,14 +259,14 @@ export function EventFestival() {
           {/* Navigation Arrows */}
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1c2224]/80 backdrop-blur-sm border border-white/10 text-white hover:bg-[#f2be2e] hover:text-black hover:border-[#f2be2e] transition-all duration-300 shadow-xl"
+            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1c2224]/80 backdrop-blur-sm border border-white/10 text-white hover:bg-[#f2be2e] hover:text-black hover:border-[#f2be2e] transition-all duration-300 shadow-xl"
             aria-label="Previous festival"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1c2224]/80 backdrop-blur-sm border border-white/10 text-white hover:bg-[#f2be2e] hover:text-black hover:border-[#f2be2e] transition-all duration-300 shadow-xl"
+            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1c2224]/80 backdrop-blur-sm border border-white/10 text-white hover:bg-[#f2be2e] hover:text-black hover:border-[#f2be2e] transition-all duration-300 shadow-xl"
             aria-label="Next festival"
           >
             <ChevronRight className="w-5 h-5" />
@@ -274,11 +274,19 @@ export function EventFestival() {
 
           {/* Dot Indicators + Counter */}
           <div className="flex items-center justify-center gap-4 mt-8">
+            <button
+              onClick={prev}
+              className="sm:hidden p-2 rounded-full bg-[#1c2224]/80 border border-white/10 text-white active:bg-[#f2be2e] active:text-black transition-all duration-200"
+              aria-label="Previous festival"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
             <span className="text-xs text-gray-500 font-mono tabular-nums">
               {String(current + 1).padStart(2, "0")} / {String(events.length).padStart(2, "0")}
             </span>
 
-            <div className="flex gap-2">
+            <div className="hidden sm:flex gap-2">
               {events.map((_, index) => (
                 <button
                   key={index}
@@ -292,6 +300,14 @@ export function EventFestival() {
                 />
               ))}
             </div>
+
+            <button
+              onClick={next}
+              className="sm:hidden p-2 rounded-full bg-[#1c2224]/80 border border-white/10 text-white active:bg-[#f2be2e] active:text-black transition-all duration-200"
+              aria-label="Next festival"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 

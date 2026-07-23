@@ -219,6 +219,7 @@ export function EventFestival() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                     priority
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#171b1d]/80 hidden lg:block" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#171b1d] via-transparent to-transparent lg:hidden" />

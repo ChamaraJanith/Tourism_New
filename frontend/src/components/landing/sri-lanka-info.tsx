@@ -95,7 +95,7 @@ export function SriLankaClimateLive() {
       id="climate-live"
       className="bg-[#050816] py-16 text-white md:py-24"
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-3xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-400">
             Live Island Weather

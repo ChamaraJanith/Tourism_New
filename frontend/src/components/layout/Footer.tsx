@@ -222,21 +222,22 @@ export const Footer = () => {
                       <MapPin className="w-3.5 h-3.5 text-gray-400" />
                     </div>
                     <span className="text-gray-500 font-light text-sm leading-relaxed">
-                      No. 12, Galle Road,<br />
-                      Colombo 03, Sri Lanka
+                      22/20 ,Sepali Place,Yahampath Mawatha, Maharagama
+                      
+                      
                     </span>
                   </li>
                   <li className="flex items-center gap-3.5">
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                       <Phone className="w-3.5 h-3.5 text-gray-400" />
                     </div>
-                    <span className="text-gray-500 font-light text-sm">+94 11 234 5678</span>
+                    <span className="text-gray-500 font-light text-sm">+94 112 2160252</span>
                   </li>
                   <li className="flex items-center gap-3.5">
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                       <Mail className="w-3.5 h-3.5 text-gray-400" />
                     </div>
-                    <span className="text-gray-500 font-light text-sm">hello@yourtourism.lk</span>
+                    <span className="text-gray-500 font-light text-sm">info@ihvtravel.com</span>
                   </li>
                 </ul>
               </div>

@@ -221,11 +221,9 @@ export const Footer = () => {
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
                       <MapPin className="w-3.5 h-3.5 text-gray-400" />
                     </div>
-                    <span className="text-gray-500 font-light text-sm leading-relaxed">
+                    <div className="text-gray-500 font-light text-sm leading-relaxed">
                       22/20 ,Sepali Place,Yahampath Mawatha, Maharagama
-                      
-                      
-                    </span>
+                    </div>
                   </li>
                   <li className="flex items-center gap-3.5">
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">

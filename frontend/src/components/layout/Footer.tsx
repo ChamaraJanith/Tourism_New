@@ -25,8 +25,7 @@ const FOOTER_LINKS = {
   ],
   company: [
     { name: "About Us", href: "/#about" },
-    { name: "Board of Directors", href: "/#board" },
-    { name: "Contact Us", href: "/#contact" },
+    { name: "Board of Directors", href: "/#board-of-directors" },
     { name: "Terms & Conditions", href: "/terms" },
     { name: "Privacy Policy", href: "/privacy" },
   ],

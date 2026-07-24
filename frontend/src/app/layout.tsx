@@ -75,8 +75,8 @@ export default function RootLayout({
             <Navbar />
             <SmoothScroll>
               {children}
-              <Footer />
             </SmoothScroll>
+            <Footer />
           </AuthProvider>
         </ReduxProvider>
         <Script

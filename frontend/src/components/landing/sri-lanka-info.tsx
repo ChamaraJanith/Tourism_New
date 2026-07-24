@@ -150,32 +150,60 @@ export function SriLankaClimateLive() {
             Loading live weather data...
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {data.map((city) => (
-              <div
-                key={city.name}
-                className="rounded-3xl border border-emerald-900/40 bg-gradient-to-b from-white/8 to-white/4 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-500/40"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">
-                    {city.name}
-                  </h3>
-                  <MapPinned className="h-5 w-5 text-emerald-400" />
+          <div className="flex flex-col gap-6 items-center w-full">
+            {/* Row 1: 3 items */}
+            <div className="grid gap-6 w-full sm:grid-cols-2 lg:grid-cols-3">
+              {data.slice(0, 3).map((city) => (
+                <div
+                  key={city.name}
+                  className="rounded-3xl border border-emerald-900/40 bg-gradient-to-b from-white/8 to-white/4 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-500/40"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-white">
+                      {city.name}
+                    </h3>
+                    <MapPinned className="h-5 w-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ThermometerSun className="h-5 w-5 text-emerald-300" />
+                    <p className="text-3xl font-bold text-emerald-400">
+                      {city.temp}°C
+                    </p>
+                  </div>
+                  <div className="mt-3 flex items-center gap-2 text-sm text-slate-300">
+                    <Wind className="h-4 w-4 text-slate-400" />
+                    <span>Wind: {city.wind} km/h</span>
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                <div className="flex items-center gap-2">
-                  <ThermometerSun className="h-5 w-5 text-emerald-300" />
-                  <p className="text-3xl font-bold text-emerald-400">
-                    {city.temp}°C
-                  </p>
+            {/* Row 2: 2 items */}
+            <div className="grid gap-6 w-full sm:grid-cols-2 lg:grid-cols-2 lg:w-[66.666%]">
+              {data.slice(3, 5).map((city) => (
+                <div
+                  key={city.name}
+                  className="rounded-3xl border border-emerald-900/40 bg-gradient-to-b from-white/8 to-white/4 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-500/40"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-white">
+                      {city.name}
+                    </h3>
+                    <MapPinned className="h-5 w-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ThermometerSun className="h-5 w-5 text-emerald-300" />
+                    <p className="text-3xl font-bold text-emerald-400">
+                      {city.temp}°C
+                    </p>
+                  </div>
+                  <div className="mt-3 flex items-center gap-2 text-sm text-slate-300">
+                    <Wind className="h-4 w-4 text-slate-400" />
+                    <span>Wind: {city.wind} km/h</span>
+                  </div>
                 </div>
-
-                <div className="mt-3 flex items-center gap-2 text-sm text-slate-300">
-                  <Wind className="h-4 w-4 text-slate-400" />
-                  <span>Wind: {city.wind} km/h</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 

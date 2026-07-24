@@ -14,11 +14,11 @@ export default function Home() {
         <Hero />
         <WhyTravel />
         <Journeys />
-        <SriLankaClimateLive />
         <EventFestival />
         <Gallery />
         <AboutUs />
         <BoardOfDirectors/>
+        <SriLankaClimateLive />
       </main>
     </div>
   );

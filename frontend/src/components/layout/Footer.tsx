@@ -287,7 +287,7 @@ export const Footer = () => {
               {["Sri Lanka Tourism", "IATA Certified", "SLTDA Licensed"].map((badge) => (
                 <span
                   key={badge}
-                  className="text-[9px] text-white/20 uppercase tracking-[0.2em] font-medium border border-white/5 rounded-full px-3 py-1"
+                  className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:text-white hover:border-[#d4af37]/40 transition-colors duration-300"
                 >
                   {badge}
                 </span>
@@ -296,10 +296,10 @@ export const Footer = () => {
 
             {/* Legal */}
             <div className="flex gap-6">
-              <Link href="/terms" className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+              <Link href="/terms" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Terms
               </Link>
-              <Link href="/privacy" className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+              <Link href="/privacy" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Privacy
               </Link>
             </div>

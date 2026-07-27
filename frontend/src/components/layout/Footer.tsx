@@ -1,12 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Mail, MapPin, Phone, ArrowRight, ChevronRight, Send, Sparkles } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { Mail, MapPin, Phone, ArrowRight, ChevronRight, Send, Sparkles, Check, Copy } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
 import { FaTripadvisor } from "react-icons/fa";
 import Link from "next/link";
 import { fireBookingConfetti } from "@/lib/booking-confetti";
 import { useState } from "react";
+
+const CONTACT_EMAIL = "info@ihvtravel.com";
+const WHATSAPP_NUMBER = "+94 77 15 22 718";
+const WHATSAPP_LINK = "https://wa.me/94771522718";
 
 const FOOTER_LINKS = {
   explore: [
@@ -37,12 +41,14 @@ const SOCIALS = [
   { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
   { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
   { icon: FaTripadvisor, href: "https://tripadvisor.com", label: "TripAdvisor" },
+  { icon: FaWhatsapp, href: WHATSAPP_LINK, label: "WhatsApp" },
 ];
 
 export const Footer = () => {
   const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   if (pathname?.startsWith("/auth")) return null;
 
@@ -55,6 +61,21 @@ export const Footer = () => {
     }
   };
 
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = CONTACT_EMAIL;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <footer className="relative bg-[#050505] overflow-hidden">
       {/* ── Ambient Glow ── */}
@@ -64,9 +85,7 @@ export const Footer = () => {
       </div>
 
       <div className="relative z-10">
-        {/* ═══════════════════════════════════════════
-            TOP — Brand + Newsletter
-        ═══════════════════════════════════════════ */}
+        {/* ═══ TOP — Brand + Newsletter ═══ */}
         <div className="border-b border-white/[0.04]">
           <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 pt-12 md:pt-16 pb-10 md:pb-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -91,7 +110,11 @@ export const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={label}
-                      className="group w-10 h-10 md:w-11 md:h-11 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5 transition-all duration-400"
+                      className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-400 ${
+                        label === "WhatsApp"
+                          ? "border-[#25D366]/25 text-[#25D366]/70 hover:text-[#25D366] hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
+                          : "border-white/10 text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5"
+                      }`}
                     >
                       <Icon className="w-4 h-4" />
                     </a>
@@ -144,72 +167,31 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* ═══════════════════════════════════════════
-            MIDDLE — Link Columns
-        ═══════════════════════════════════════════ */}
+        {/* ═══ MIDDLE — Link Columns ═══ */}
         <div className="border-b border-white/[0.04]">
           <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-10 md:py-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
 
-              {/* Explore */}
-              <div>
-                <h4 className="text-[#d4af37] font-bold mb-4 md:mb-5 uppercase text-[10px] tracking-[0.4em]">
-                  Explore
-                </h4>
-                <ul className="space-y-2.5">
-                  {FOOTER_LINKS.explore.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
-                      >
-                        <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Partnerships */}
-              <div>
-                <h4 className="text-[#d4af37] font-bold mb-4 md:mb-5 uppercase text-[10px] tracking-[0.4em]">
-                  Partnerships
-                </h4>
-                <ul className="space-y-2.5">
-                  {FOOTER_LINKS.partnerships.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
-                      >
-                        <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Company */}
-              <div>
-                <h4 className="text-[#d4af37] font-bold mb-4 md:mb-5 uppercase text-[10px] tracking-[0.4em]">
-                  Company
-                </h4>
-                <ul className="space-y-2.5">
-                  {FOOTER_LINKS.company.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
-                      >
-                        <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {(["explore", "partnerships", "company"] as const).map((key) => (
+                <div key={key}>
+                  <h4 className="text-[#d4af37] font-bold mb-4 md:mb-5 uppercase text-[10px] tracking-[0.4em]">
+                    {key === "explore" ? "Explore" : key === "partnerships" ? "Partnerships" : "Company"}
+                  </h4>
+                  <ul className="space-y-2.5">
+                    {FOOTER_LINKS[key].map((link) => (
+                      <li key={link.name}>
+                        <Link
+                          href={link.href}
+                          className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
+                        >
+                          <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
 
               {/* Contact */}
               <div>
@@ -222,20 +204,56 @@ export const Footer = () => {
                       <MapPin className="w-3.5 h-3.5 text-gray-400" />
                     </div>
                     <div className="text-gray-500 font-light text-sm leading-relaxed">
-                      22/20 ,Sepali Place,Yahampath Mawatha, Maharagama
+                      22/20, Sepali Place, Yahampath Mawatha, Maharagama, Sri Lanka
                     </div>
                   </li>
+
                   <li className="flex items-center gap-3.5">
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                       <Phone className="w-3.5 h-3.5 text-gray-400" />
                     </div>
-                    <span className="text-gray-500 font-light text-sm">+94 112 2160252</span>
+                    <a href="tel:+941122160252" className="text-gray-500 hover:text-white font-light text-sm transition-colors duration-300">
+                      +94 112 2160252
+                    </a>
                   </li>
+
+                  {/* WhatsApp */}
+                  <li className="flex items-center gap-3.5">
+                    <div className="w-8 h-8 rounded-lg bg-[#25D366]/10 border border-[#25D366]/20 flex items-center justify-center shrink-0">
+                      <FaWhatsapp className="w-3.5 h-3.5 text-[#25D366]" />
+                    </div>
+                    <a
+                      href={WHATSAPP_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-2 text-gray-500 hover:text-[#25D366] font-light text-sm transition-colors duration-300"
+                    >
+                      {WHATSAPP_NUMBER}
+                      <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </a>
+                  </li>
+
+                  {/* Email — click to copy */}
                   <li className="flex items-center gap-3.5">
                     <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                       <Mail className="w-3.5 h-3.5 text-gray-400" />
                     </div>
-                    <span className="text-gray-500 font-light text-sm">info@ihvtravel.com</span>
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      aria-label={copied ? "Email copied" : `Copy email address ${CONTACT_EMAIL}`}
+                      title="Click to copy"
+                      className="group flex items-center gap-2 text-left text-gray-500 hover:text-white font-light text-sm transition-colors duration-300 focus:outline-none focus-visible:text-white"
+                    >
+                      <span>{CONTACT_EMAIL}</span>
+                      {copied ? (
+                        <span className="inline-flex items-center gap-1 text-[#00ff88] text-[10px] uppercase tracking-[0.2em] font-bold">
+                          <Check className="w-3 h-3" /> Copied
+                        </span>
+                      ) : (
+                        <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#d4af37]" />
+                      )}
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -244,15 +262,22 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* ═══════════════════════════════════════════
-            BOTTOM — Copyright + Legal + Trust Badges
-        ═══════════════════════════════════════════ */}
+        {/* ═══ BOTTOM — Copyright + Legal + Trust Badges ═══ */}
         <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-5 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
             {/* Copyright */}
-            <p className="text-white/15 text-[10px] uppercase tracking-[0.4em] font-light text-center md:text-left">
-              &copy; {new Date().getFullYear()} Your Tourism. All rights reserved.
+            <p className="text-white/25 text-[10px] leading-relaxed tracking-[0.15em] font-light text-center md:text-left max-w-md">
+              &copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of{" "}
+              <a
+                href="https://globalsoftcooperation.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#d4af37]/70 hover:text-[#d4af37] underline underline-offset-2 decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-colors duration-300"
+              >
+                Global Cooperation (Private) Limited
+              </a>
+              . All Rights Reserved.
             </p>
 
             {/* Trust Badges */}
@@ -269,16 +294,10 @@ export const Footer = () => {
 
             {/* Legal */}
             <div className="flex gap-6">
-              <Link
-                href="/terms"
-                className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300"
-              >
+              <Link href="/terms" className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Terms
               </Link>
-              <Link
-                href="/privacy"
-                className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300"
-              >
+              <Link href="/privacy" className="text-white/15 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Privacy
               </Link>
             </div>

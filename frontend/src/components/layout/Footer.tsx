@@ -110,11 +110,10 @@ export const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={label}
-                      className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-400 ${
-                        label === "WhatsApp"
+                      className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-400 ${label === "WhatsApp"
                           ? "border-[#25D366]/25 text-[#25D366]/70 hover:text-[#25D366] hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
                           : "border-white/10 text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5"
-                      }`}
+                        }`}
                     >
                       <Icon className="w-4 h-4" />
                     </a>
@@ -234,24 +233,27 @@ export const Footer = () => {
                   </li>
 
                   {/* Email — click to copy */}
-                  <li className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                  <li className="flex items-start gap-3.5 min-w-0">
+                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
                       <Mail className="w-3.5 h-3.5 text-gray-400" />
                     </div>
                     <button
                       type="button"
                       onClick={handleCopyEmail}
                       aria-label={copied ? "Email copied" : `Copy email address ${CONTACT_EMAIL}`}
+                      aria-live="polite"
                       title="Click to copy"
-                      className="group flex items-center gap-2 text-left text-gray-500 hover:text-white font-light text-sm transition-colors duration-300 focus:outline-none focus-visible:text-white"
+                      className="group flex flex-wrap items-center gap-x-2 gap-y-1.5 min-w-0 text-left text-gray-500 hover:text-white font-light text-sm transition-colors duration-300 focus:outline-none focus-visible:text-white active:text-white"
                     >
-                      <span>{CONTACT_EMAIL}</span>
+                      <span className="break-all">{CONTACT_EMAIL}</span>
+
                       {copied ? (
-                        <span className="inline-flex items-center gap-1 text-[#00ff88] text-[10px] uppercase tracking-[0.2em] font-bold">
-                          <Check className="w-3 h-3" /> Copied
+                        <span className="inline-flex items-center gap-1 shrink-0 bg-[#00ff88]/10 border border-[#00ff88]/25 text-[#00ff88] text-[9px] uppercase tracking-[0.2em] font-bold px-2 py-0.5 rounded-full">
+                          <Check className="w-3 h-3 shrink-0" />
+                          Copied
                         </span>
                       ) : (
-                        <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#d4af37]" />
+                        <Copy className="w-3 h-3 shrink-0 text-[#d4af37] opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
                       )}
                     </button>
                   </li>
@@ -270,7 +272,7 @@ export const Footer = () => {
             <p className="text-white/25 text-[10px] leading-relaxed tracking-[0.15em] font-light text-center md:text-left max-w-md">
               &copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of{" "}
               <a
-                href="https://globalsoftcooperation.com"
+                href="https://www.globalsoftsl.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#d4af37]/70 hover:text-[#d4af37] underline underline-offset-2 decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-colors duration-300"

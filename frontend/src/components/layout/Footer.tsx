@@ -269,7 +269,7 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
             {/* Copyright */}
-            <p className="text-white/25 text-[10px] leading-relaxed tracking-[0.15em] font-light text-center md:text-left max-w-md">
+             <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.12em] font-light text-center md:text-left max-w-md">
               &copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of{" "}
               <a
                 href="https://www.globalsoftsl.com/"

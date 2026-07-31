@@ -118,7 +118,7 @@ export default function BoardOfDirectors() {
   return (
     <section
       id="board-of-directors"
-      className="relative overflow-hidden bg-[#111416] py-14 md:py-16"
+      className="relative overflow-hidden bg-black py-14 md:py-16"
     >
       <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl" />
       <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-500/5 blur-2xl" />

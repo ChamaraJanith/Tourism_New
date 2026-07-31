@@ -32,7 +32,7 @@ export function Journeys() {
     <section
       ref={ref}
       id="journeys"
-      className="relative overflow-hidden bg-[#0a0c0e] px-5 py-24 sm:px-8 sm:py-32 lg:px-10"
+      className="relative overflow-hidden bg-black px-5 py-24 sm:px-8 sm:py-32 lg:px-10"
     >
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
         <Reveal>

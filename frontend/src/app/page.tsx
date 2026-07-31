@@ -9,7 +9,7 @@ import { SriLankaClimateLive } from "@/components/landing/sri-lanka-info";
  
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="flex min-h-full flex-col bg-black text-white">
       <main className="flex-1">
         <Hero />
         <WhyTravel />

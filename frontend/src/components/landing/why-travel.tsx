@@ -56,7 +56,7 @@ export function WhyTravel() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
  
   return (
-    <section className="relative py-24 sm:py-32 bg-[#111416] overflow-hidden">
+    <section className="relative py-24 sm:py-32 bg-black overflow-hidden">
 
       {/* Dynamic background glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-[#70305f]/10 to-blue-500/5 rounded-full blur-[140px] pointer-events-none" />

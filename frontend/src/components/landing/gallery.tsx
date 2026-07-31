@@ -492,7 +492,7 @@ const items = [
  
 export function Gallery() {
   return (
-    <section id="gallery" className="relative py-24 sm:py-32 bg-[#111416] overflow-hidden">
+    <section id="gallery" className="relative py-24 sm:py-32 bg-black overflow-hidden">
       {/* Background soft gradients */}
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-gradient-to-br from-amber-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-emerald-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />

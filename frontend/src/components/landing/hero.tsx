@@ -13,7 +13,7 @@ export function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative min-h-screen lg:h-screen w-full overflow-visible lg:overflow-hidden bg-[#111416] pb-12 lg:pb-0"
+      className="relative min-h-screen lg:h-screen w-full overflow-visible lg:overflow-hidden bg-black pb-12 lg:pb-0"
     >
       {/* ── Framed card ── */}
       <div className="relative mx-auto h-full w-full overflow-visible">
@@ -22,7 +22,7 @@ export function Hero() {
           {/* ── BG Video ── */}
           <motion.div
             id="hero-video-wrap"
-            className="absolute inset-0 z-0 bg-[#111416]"
+            className="absolute inset-0 z-0 bg-black"
           >
             <video
               autoPlay

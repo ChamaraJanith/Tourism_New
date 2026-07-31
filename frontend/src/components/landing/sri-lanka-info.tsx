@@ -93,7 +93,7 @@ export function SriLankaClimateLive() {
   return (
     <section
       id="climate-live"
-      className="bg-[#050816] py-16 text-white md:py-24"
+      className="bg-black py-16 text-white md:py-24"
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-3xl text-center">

@@ -165,7 +165,7 @@ export function EventFestival() {
   const event = events[current];
 
   return (
-    <section id="festivals" className="relative py-24 sm:py-32 bg-[#111416] overflow-hidden">
+    <section id="festivals" className="relative py-24 sm:py-32 bg-black overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-amber-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#70305f]/10 to-transparent rounded-full blur-[100px] pointer-events-none" />

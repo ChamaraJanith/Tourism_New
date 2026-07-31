@@ -32,7 +32,7 @@ const pillars = [
 
 export function AboutUs() {
   return (
-    <section id="about" className="relative py-28 sm:py-36 bg-[#0e1112] overflow-hidden border-t border-white/[0.03]">
+    <section id="about" className="relative py-28 sm:py-36 bg-black overflow-hidden border-t border-white/[0.03]">
       {/* Soft background light */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-950/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute top-10 right-10 w-[400px] h-[400px] bg-[#f2be2e]/5 rounded-full blur-[130px] pointer-events-none" />

@@ -17,8 +17,19 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Oversees world-class hospitality properties including Hideaway Beach Resort & Spa and Lily Beach Resort & Spa in the Maldives.",
     linkedin: "https://www.linkedin.com/in/michael-wieser-83664a3a/",
-    image: "/images/board_of_directers/Michael_Wieser_1.jpeg",
+    image: "/images/board_of_directers/gunther_photo.png",
   },
+  {
+    name: "Dr. Guenther Jauck",
+    title: "Chairman",
+    role: "Austrian hotelier and CEO of Dhonakulhi Investments Pvt. Ltd.",
+    description:
+      "Founder & Partner at Winning Business Models and Strategic Designer of Value Creation Systems",
+    linkedin: "https://www.linkedin.com/in/guentherjauck/",
+    image: "/images/board_of_directers/gun3.png",
+  },
+
+
   {
     name: "Dr. Dharshana Weerakoon DBA",
     title: "Managing Director",

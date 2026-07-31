@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description:
     "Private itineraries, boutique stays, and seamless logistics for discerning travelers.",
   icons: {
-    icon: "/images/Title.png",
+    icon: "/images/title2.jpeg",
   },
 };
 
@@ -41,7 +41,8 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <head>
-        <style dangerouslySetInnerHTML={{__html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .goog-te-banner-frame.skiptranslate,
           iframe.skiptranslate,
           .VIpgJd-ZVi9od-ORHb-OEVmcd,

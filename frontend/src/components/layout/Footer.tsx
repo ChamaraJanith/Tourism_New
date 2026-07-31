@@ -94,8 +94,8 @@ export const Footer = () => {
               <div>
                 <Link href="/" className="inline-block mb-4 group">
                   <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
-                    <span className="text-white">YOUR</span>
-                    <span className="text-[#d4af37]">TOURISM</span>
+                    <span className="text-white">IHV</span>
+                    <span className="text-[#d4af37]">TRAVEL</span>
                   </h2>
                   <div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-[#d4af37] to-transparent transition-all duration-700 mt-1" />
                 </Link>
@@ -111,8 +111,8 @@ export const Footer = () => {
                       rel="noopener noreferrer"
                       aria-label={label}
                       className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-400 ${label === "WhatsApp"
-                          ? "border-[#25D366]/25 text-[#25D366]/70 hover:text-[#25D366] hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
-                          : "border-white/10 text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5"
+                        ? "border-[#25D366]/25 text-[#25D366]/70 hover:text-[#25D366] hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
+                        : "border-white/10 text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5"
                         }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -269,7 +269,7 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
             {/* Copyright */}
-             <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.12em] font-light text-center md:text-left max-w-md">
+            <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.12em] font-light text-center md:text-left max-w-md">
               &copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of{" "}
               <a
                 href="https://www.globalsoftsl.com/"

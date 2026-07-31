@@ -53,7 +53,7 @@ export const Navbar = () => {
         { name: "Partner With Us", href: "/partnerships/partner-with-us" }
       ]
     },
-    { name: "Contact Us", href: "/#contact" }
+    { name: "Contact Us", href: "/contact" }
   ];
 
   const premiumNavItems = [
@@ -102,7 +102,7 @@ export const Navbar = () => {
     },
     {
       name: "Contact Us",
-      href: "/#contact",
+      href: "/contact",
       desc: "Get in touch with our concierge desk",
       icon: <Mail className="w-4 h-4 text-[#d4af37]" />
     }

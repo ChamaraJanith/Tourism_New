@@ -22,7 +22,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
   {
     name: "Dr. Guenther Jauck",
     title: "Chairman",
-    role: "Austrian hotelier and CEO of Dhonakulhi Investments Pvt. Ltd.",
+    role: "Business Strategy & Management Consultant",
     description:
       "Founder & Partner at Winning Business Models and Strategic Designer of Value Creation Systems",
     linkedin: "https://www.linkedin.com/in/guentherjauck/",

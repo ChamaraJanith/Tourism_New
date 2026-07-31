@@ -198,6 +198,10 @@ export const Navbar = () => {
       <div className="relative bg-[#111416]/80 backdrop-blur-md border-b border-x border-zinc-800 rounded-b-[2.5rem]">
         <header className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-6 sm:px-12 lg:px-16 py-3 sm:py-3.5">
 
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <img src="/images/title2.jpeg" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-105" />
+          </Link>
+
           <nav className="hidden xl:flex items-center gap-6 lg:gap-8">
             {navItems.map((item) => (
               <div key={item.name} className="group relative">

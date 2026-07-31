@@ -92,12 +92,15 @@ export const Footer = () => {
 
               {/* Brand */}
               <div>
-                <Link href="/" className="inline-block mb-4 group">
-                  <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
-                    <span className="text-white">IHV </span>
-                    <span className="text-[#d4af37]">TRAVEL</span>
-                  </h2>
-                  <div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-[#d4af37] to-transparent transition-all duration-700 mt-1" />
+                <Link href="/" className="inline-flex items-center gap-3 mb-4 group">
+                  <img src="/images/title2.jpeg" alt="IHV Travel Logo" className="h-10 w-auto object-contain rounded-lg shadow-md" />
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
+                      <span className="text-white">IHV </span>
+                      <span className="text-[#d4af37]">TRAVEL</span>
+                    </h2>
+                    <div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-[#d4af37] to-transparent transition-all duration-700 mt-1" />
+                  </div>
                 </Link>
                 <p className="text-gray-500 font-light text-sm leading-relaxed max-w-md mb-6">
                   Sri Lanka&apos;s premier luxury tourism partner. Crafting bespoke itineraries, curated experiences, and seamless journeys for discerning travellers since 2018.

@@ -17,7 +17,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Oversees world-class hospitality properties including Hideaway Beach Resort & Spa and Lily Beach Resort & Spa in the Maldives.",
     linkedin: "https://www.linkedin.com/in/michael-wieser-83664a3a/",
-    image: "/images/board_of_directers/gunther_photo.png",
+    image: "/images/board_of_directers/Michael_Wieser_1.jpeg",
   },
   {
     name: "Dr. Guenther Jauck",

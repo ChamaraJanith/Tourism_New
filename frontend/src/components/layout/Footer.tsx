@@ -94,7 +94,7 @@ export const Footer = () => {
               <div>
                 <Link href="/" className="inline-block mb-4 group">
                   <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
-                    <span className="text-white">IHV</span>
+                    <span className="text-white">IHV </span>
                     <span className="text-[#d4af37]">TRAVEL</span>
                   </h2>
                   <div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-[#d4af37] to-transparent transition-all duration-700 mt-1" />

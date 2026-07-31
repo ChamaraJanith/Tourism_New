@@ -287,13 +287,6 @@ export const Navbar = () => {
           </div>
         </header>
 
-        {/* Curved Dip SVG */}
-        <div className="hidden md:block absolute -bottom-[1px] left-0 right-0 translate-y-full pointer-events-none" style={{ height: 60 }}>
-          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0 H465 C500 0 520 0 535 28 Q560 60 600 60 Q640 60 665 28 C680 0 700 0 735 0 H1200 V0 H0Z" fill="#111416" fillOpacity="0.8" />
-            <path d="M465 0 C500 0 520 0 535 28 Q560 60 600 60 Q640 60 665 28 C680 0 700 0 735 0" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeOpacity="0.2" />
-          </svg>
-        </div>
       </div>
 
 

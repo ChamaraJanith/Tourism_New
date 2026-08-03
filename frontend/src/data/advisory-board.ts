@@ -35,7 +35,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
   description:
     "Seasoned hospitality executive specializing in hotel operations, asset development, pre-openings, renovations, rebranding, and performance management, with a proven track record of enhancing operational efficiency and business performance.",
   linkedin: "https://www.linkedin.com/in/giannimalerba/",
-  image: "/images/board_of_directers/Mr.Giannan2.png",
+  image: "/images/board_of_directers/Mr.Giannan4.png",
 },
   
 

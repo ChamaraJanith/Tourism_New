@@ -26,7 +26,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     description:
       "Founder & Partner at Winning Business Models and Strategic Designer of Value Creation Systems",
     linkedin: "https://www.linkedin.com/in/guentherjauck/",
-    image: "/images/board_of_directers/gun3.png",
+    image: "/images/board_of_directers/Mr.Gunther1.png",
   },
 
 

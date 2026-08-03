@@ -28,6 +28,16 @@ export const boardOfDirectors: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/guentherjauck/",
     image: "/images/board_of_directers/Mr.Gunther1.png",
   },
+  {
+  name: "Gianni Malerba",
+  title: "Vice Chairman",
+  role: "Hospitality & Asset Development Specialist",
+  description:
+    "Seasoned hospitality executive specializing in hotel operations, asset development, pre-openings, renovations, rebranding, and performance management, with a proven track record of enhancing operational efficiency and business performance.",
+  linkedin: "https://www.linkedin.com/in/giannimalerba/",
+  image: "/images/board_of_directers/Mr.Giannan2.png",
+},
+  
 
 
   {

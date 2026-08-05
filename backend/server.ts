@@ -23,7 +23,7 @@ app.get('/health', (_req: Request, res: Response): void => {
 
 app.post(['/api/auth/signup', '/api/auth/register'], async (req: Request, res: Response): Promise<void> => {
   const { email, password, name, agreedToTerms, nic, country, dob, contactNumber } = req.body;
-  
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!email || !emailRegex.test(email)) {
     res.status(400).json({ error: 'Please provide a valid email address' });
@@ -116,8 +116,8 @@ app.put('/api/auth/profile', authenticateToken, async (req: AuthenticatedRequest
 
   try {
     const data = await updateProfile(token, name, avatarUrl || '', nic, country, dob, contactNumber);
-    res.status(200).json({ 
-      message: 'Profile updated successfully', 
+    res.status(200).json({
+      message: 'Profile updated successfully',
       user: {
         id: data.user.id,
         email: data.user.email,
@@ -181,16 +181,16 @@ app.post('/api/auth/reset-password', async (req: Request, res: Response): Promis
 
 // --- Itinerary Request Route ---
 app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<void> => {
-  const { 
-    packageTitle, 
-    packageDuration, 
-    clientName, 
-    clientEmail, 
-    clientPhone, 
-    clientCountry, 
-    clientNic, 
-    clientDob, 
-    clientNotes 
+  const {
+    packageTitle,
+    packageDuration,
+    clientName,
+    clientEmail,
+    clientPhone,
+    clientCountry,
+    clientNic,
+    clientDob,
+    clientNotes
   } = req.body;
 
   if (!packageTitle || !clientName || !clientEmail) {
@@ -214,7 +214,7 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; padding: 20px; background-color: #ffffff;">
   <div style="max-width: 600px; margin: 0 auto;">
     <h2 style="font-size: 18px; color: #111111; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 20px;">
-      Serendib Luxury Travels - New Itinerary Request
+      International Hospitality Ventures (Private) Limited.
     </h2>
     
     <p style="font-size: 15px;">
@@ -272,9 +272,9 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
       clientDob,
       packageTitle,
     });
-    res.status(200).json({ 
-      success: true, 
-      message: 'Itinerary request simulated successfully (SMTP not configured on backend).' 
+    res.status(200).json({
+      success: true,
+      message: 'Itinerary request simulated successfully (SMTP not configured on backend).'
     });
     return;
   }

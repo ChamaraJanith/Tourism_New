@@ -181,7 +181,17 @@ app.post('/api/auth/reset-password', async (req: Request, res: Response): Promis
 
 // --- Itinerary Request Route ---
 app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<void> => {
-  const { packageTitle, packageDuration, clientName, clientEmail, clientPhone, clientCountry, clientNotes } = req.body;
+  const { 
+    packageTitle, 
+    packageDuration, 
+    clientName, 
+    clientEmail, 
+    clientPhone, 
+    clientCountry, 
+    clientNic, 
+    clientDob, 
+    clientNotes 
+  } = req.body;
 
   if (!packageTitle || !clientName || !clientEmail) {
     res.status(400).json({ error: 'Package title, client name, and client email are required fields.' });
@@ -202,156 +212,79 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      font-family: 'Inter', Arial, sans-serif;
-      background-color: #0b0f19;
-      color: #f3f4f6;
-      margin: 0;
-      padding: 0;
-    }
-    .wrapper {
-      max-width: 600px;
-      margin: 40px auto;
-      background-color: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-    .header {
-      background-color: #0b0f19;
-      padding: 35px 30px;
-      text-align: center;
-      border-bottom: 1px solid #1f2937;
-    }
-    .header h1 {
-      color: #d4af37;
-      font-size: 22px;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: 700;
-    }
-    .content {
-      padding: 40px 30px;
-      line-height: 1.6;
-    }
-    .content h2 {
-      color: #ffffff;
-      font-size: 18px;
-      margin-top: 0;
-      margin-bottom: 20px;
-      border-left: 3px solid #d4af37;
-      padding-left: 12px;
-      font-weight: 600;
-    }
-    .package-card {
-      background-color: #1f2937;
-      border: 1px solid #374151;
-      border-radius: 12px;
-      padding: 24px;
-      margin: 24px 0;
-    }
-    .package-title {
-      color: #d4af37;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .package-detail {
-      color: #9ca3af;
-      font-size: 14px;
-    }
-    .detail-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    .detail-table th, .detail-table td {
-      padding: 14px;
-      text-align: left;
-      border-bottom: 1px solid #1f2937;
-    }
-    .detail-table th {
-      color: #9ca3af;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      width: 35%;
-      font-weight: 600;
-    }
-    .detail-table td {
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .note-box {
-      background-color: rgba(212, 175, 55, 0.04);
-      border-left: 3px solid #d4af37;
-      padding: 18px;
-      border-radius: 0 10px 10px 0;
-      font-style: italic;
-      color: #e5e7eb;
-      margin-top: 20px;
-      line-height: 1.7;
-    }
-    .footer {
-      background-color: #0b0f19;
-      padding: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: #6b7280;
-      border-top: 1px solid #1f2937;
-    }
-  </style>
+  <meta charset="utf-8">
+  <title>New Itinerary Request</title>
 </head>
-<body>
-  <div class="wrapper">
-    <div class="header">
-      <h1>Serendib Luxury</h1>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; background-color: #ffffff; padding: 20px; margin: 0;">
+  <div style="max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 30px; background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    
+    <!-- Header -->
+    <div style="border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 25px;">
+      <h2 style="color: #111111; margin: 0; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+        Serendib Luxury Travels
+      </h2>
+      <p style="color: #666666; margin: 5px 0 0 0; font-size: 13px;">New Itinerary Request</p>
     </div>
-    <div class="content">
-      <h2>New Itinerary Request</h2>
-      <p style="color: #9ca3af; font-size: 14px; margin-bottom: 30px;">
-        A client has submitted an itinerary request for a curated signature journey package. The details are provided below:
-      </p>
-      
-      <div class="package-card">
-        <div class="package-title">${packageTitle}</div>
-        <div class="package-detail"><strong>Duration:</strong> ${packageDuration || 'Custom'}</div>
-      </div>
 
-      <h2>Client Information</h2>
-      <table class="detail-table">
-        <tr>
-          <th>Name</th>
-          <td>${clientName}</td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>${clientEmail}</td>
-        </tr>
-        <tr>
-          <th>Contact Number</th>
-          <td>${clientPhone || 'Not provided'}</td>
-        </tr>
-        <tr>
-          <th>Country</th>
-          <td>${clientCountry || 'Not provided'}</td>
-        </tr>
-      </table>
+    <!-- Intro Text -->
+    <p style="font-size: 15px; margin-top: 0; margin-bottom: 25px;">
+      Hello Team,<br/><br/>
+      You have received a new itinerary request from the website. Here are the details:
+    </p>
 
-      ${clientNotes ? `
-      <h2>Client Custom Notes</h2>
-      <div class="note-box">
-        "${clientNotes.replace(/\n/g, '<br/>')}"
-      </div>
-      ` : ''}
+    <!-- Package Detail -->
+    <div style="background-color: #f9f9f9; border-left: 4px solid #d4af37; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+      <strong style="font-size: 16px; color: #111111; display: block; margin-bottom: 5px;">Selected Journey Package</strong>
+      <span style="font-size: 15px; color: #333333;">${packageTitle}</span>
+      ${packageDuration ? `<span style="font-size: 14px; color: #666666; display: block; margin-top: 3px;">Duration: ${packageDuration}</span>` : ''}
     </div>
-    <div class="footer">
-      This is an automated notification from Serendib Luxury Travel Concierge.
+
+    <!-- Client Info Table -->
+    <h3 style="font-size: 15px; color: #111111; border-bottom: 1px solid #eeeeee; padding-bottom: 5px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
+      Client Details
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px;">
+      <tr>
+        <td style="padding: 8px 0; width: 35%; color: #666666; font-weight: bold;">Client Name:</td>
+        <td style="padding: 8px 0; width: 65%; color: #111111;">${clientName}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Email Address:</td>
+        <td style="padding: 8px 0; color: #111111;"><a href="mailto:${clientEmail}" style="color: #d4af37; text-decoration: none;">${clientEmail}</a></td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Contact Number:</td>
+        <td style="padding: 8px 0; color: #111111;">${clientPhone || 'Not provided'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Country of Residence:</td>
+        <td style="padding: 8px 0; color: #111111;">${clientCountry || 'Not provided'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #666666; font-weight: bold;">NIC Number:</td>
+        <td style="padding: 8px 0; color: #111111;">${clientNic || 'Not provided'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Date of Birth:</td>
+        <td style="padding: 8px 0; color: #111111;">${clientDob || 'Not provided'}</td>
+      </tr>
+    </table>
+
+    <!-- Client Notes -->
+    ${clientNotes ? `
+    <h3 style="font-size: 15px; color: #111111; border-bottom: 1px solid #eeeeee; padding-bottom: 5px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
+      Special Notes & Requirements
+    </h3>
+    <div style="background-color: #fdfaf2; border: 1px dashed #e8d090; padding: 15px; border-radius: 4px; font-style: italic; color: #555555; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
+      "${clientNotes.replace(/\n/g, '<br/>')}"
     </div>
+    ` : ''}
+
+    <!-- Footer -->
+    <div style="border-top: 1px solid #eeeeee; padding-top: 15px; margin-top: 30px; text-align: center; font-size: 11px; color: #999999;">
+      This is an automated request notification from the Serendib Luxury booking concierge engine.
+    </div>
+
   </div>
 </body>
 </html>
@@ -375,6 +308,8 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
       clientEmail,
       clientPhone,
       clientCountry,
+      clientNic,
+      clientDob,
       packageTitle,
     });
     res.status(200).json({ 

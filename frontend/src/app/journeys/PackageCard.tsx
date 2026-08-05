@@ -27,6 +27,8 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const [formEmail, setFormEmail] = useState('');
   const [formPhone, setFormPhone] = useState('');
   const [formCountry, setFormCountry] = useState('');
+  const [formNic, setFormNic] = useState('');
+  const [formDob, setFormDob] = useState('');
   const [formNotes, setFormNotes] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -41,6 +43,8 @@ export default function PackageCard({ pkg }: PackageCardProps) {
       setFormEmail(user.email || '');
       setFormPhone(user.contactNumber || '');
       setFormCountry(user.country || '');
+      setFormNic(user.nic || '');
+      setFormDob(user.dob || '');
     }
   }, [user]);
 
@@ -84,6 +88,8 @@ export default function PackageCard({ pkg }: PackageCardProps) {
           clientEmail: formEmail,
           clientPhone: formPhone,
           clientCountry: formCountry,
+          clientNic: formNic,
+          clientDob: formDob,
           clientNotes: formNotes,
         }),
       });
@@ -347,6 +353,38 @@ export default function PackageCard({ pkg }: PackageCardProps) {
                       disabled={isSending}
                       placeholder="Phone Number"
                       className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Client NIC & Date of Birth Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Client NIC */}
+                  <div className="space-y-1">
+                    <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                      NIC Number
+                    </label>
+                    <input
+                      type="text"
+                      value={formNic}
+                      onChange={(e) => setFormNic(e.target.value)}
+                      disabled={isSending}
+                      placeholder="NIC (e.g. 199912345678)"
+                      className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                    />
+                  </div>
+
+                  {/* Client DOB */}
+                  <div className="space-y-1">
+                    <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                      Date of Birth
+                    </label>
+                    <input
+                      type="date"
+                      value={formDob}
+                      onChange={(e) => setFormDob(e.target.value)}
+                      disabled={isSending}
+                      className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm [color-scheme:dark]"
                     />
                   </div>
                 </div>

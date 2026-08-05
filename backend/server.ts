@@ -211,47 +211,89 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
   const htmlContent = `
 <!DOCTYPE html>
 <html>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; padding: 20px; background-color: #ffffff;">
-  <div style="max-width: 600px; margin: 0 auto;">
-    <h2 style="font-size: 18px; color: #111111; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 20px;">
-      International Hospitality Ventures (Private) Limited.
-    </h2>
+<head>
+  <meta charset="utf-8">
+  <title>New Itinerary Request</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; background-color: #ffffff; padding: 20px; margin: 0;">
+  <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff;">
     
-    <p style="font-size: 15px;">
+    <!-- Header -->
+    <div style="margin-bottom: 25px;">
+      <h2 style="font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; color: #111111; margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+        International Hospitality Ventures (Private) Limited.
+      </h2>
+      <p style="font-family: Arial, sans-serif; font-size: 13px; color: #666666; margin: 0 0 12px 0;">
+        New Itinerary Request
+      </p>
+      <div style="height: 2px; background-color: #d4af37; width: 100%;"></div>
+    </div>
+
+    <!-- Intro Message -->
+    <p style="font-family: Arial, sans-serif; font-size: 14px; color: #333333; margin: 0 0 20px 0;">
       Hello Team,<br/><br/>
-      You have received a new itinerary request. Here are the details:
+      You have received a new itinerary request from the website. Here are the details:
     </p>
 
-    <p style="font-size: 15px;">
-      <strong>Selected Package:</strong> ${packageTitle}<br/>
-      <strong>Duration:</strong> ${packageDuration || 'Custom Plan'}
-    </p>
+    <!-- Package Highlight Bar -->
+    <div style="background-color: #f7f7f7; border-left: 4px solid #d4af37; padding: 12px 16px; margin-bottom: 30px; font-family: Arial, sans-serif; font-size: 14px; color: #333333; border-radius: 2px;">
+      <span style="font-weight: bold; color: #111111;">Selected Journey Package</span> 
+      <span style="color: #333333; margin-left: 5px;">${packageTitle}</span>
+      <span style="color: #666666; margin-left: 5px;">Duration: ${packageDuration || 'Custom Plan'}</span>
+    </div>
 
-    <p style="font-size: 15px; margin-top: 20px; font-weight: bold; text-decoration: underline;">Client Details:</p>
-    <p style="font-size: 14px; line-height: 1.8;">
-      • <strong>Client Name:</strong> ${clientName}<br/>
-      • <strong>Email Address:</strong> ${clientEmail}<br/>
-      • <strong>Contact Number:</strong> ${clientPhone || 'Not provided'}<br/>
-      • <strong>Country of Residence:</strong> ${clientCountry || 'Not provided'}<br/>
-      • <strong>NIC Number:</strong> ${clientNic || 'Not provided'}<br/>
-      • <strong>Date of Birth:</strong> ${clientDob || 'Not provided'}
-    </p>
+    <!-- Client Details Section -->
+    <div style="margin-bottom: 30px;">
+      <h3 style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #111111; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+        CLIENT DETAILS
+      </h3>
+      <div style="height: 1px; background-color: #e5e5e5; width: 100%; margin-bottom: 15px;"></div>
+      
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 13.5px;">
+        <tr>
+          <td style="padding: 12px 0; width: 35%; color: #555555; font-weight: bold; vertical-align: top;">Client Name:</td>
+          <td style="padding: 12px 0; width: 65%; color: #222222; vertical-align: top;">${clientName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; color: #555555; font-weight: bold; vertical-align: top;">Email Address:</td>
+          <td style="padding: 12px 0; color: #d4af37; vertical-align: top;"><a href="mailto:${clientEmail}" style="color: #d4af37; text-decoration: none; font-weight: bold;">${clientEmail}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; color: #555555; font-weight: bold; vertical-align: top;">Contact Number:</td>
+          <td style="padding: 12px 0; color: #222222; vertical-align: top;">${clientPhone || 'Not provided'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; color: #555555; font-weight: bold; vertical-align: top;">Country of Residence:</td>
+          <td style="padding: 12px 0; color: #222222; vertical-align: top;">${clientCountry || 'Not provided'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; color: #555555; font-weight: bold; vertical-align: top;">NIC Number:</td>
+          <td style="padding: 12px 0; color: #222222; vertical-align: top;">${clientNic || 'Not provided'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; color: #555555; font-weight: bold; vertical-align: top;">Date of Birth:</td>
+          <td style="padding: 12px 0; color: #222222; vertical-align: top;">${clientDob || 'Not provided'}</td>
+        </tr>
+      </table>
+    </div>
 
-    ${clientNotes ? `
-    <p style="font-size: 15px; margin-top: 20px; font-weight: bold; text-decoration: underline;">Special Notes / Requirements:</p>
-    <p style="font-size: 14px; white-space: pre-wrap; background-color: #f9f9f9; padding: 12px; border-radius: 4px; border-left: 3px solid #d4af37;">${clientNotes}</p>
-    ` : ''}
+    <!-- Special Notes Section -->
+    <div>
+      <h3 style="font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #111111; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+        SPECIAL NOTES & REQUIREMENTS
+      </h3>
+      <div style="height: 1px; background-color: #e5e5e5; width: 100%; margin-bottom: 15px;"></div>
+      
+      <p style="font-family: Arial, sans-serif; font-size: 13.5px; color: #444444; margin: 0; line-height: 1.6; white-space: pre-wrap;">${clientNotes || 'No special requirements specified.'}</p>
+    </div>
 
-    <p style="font-size: 11px; color: #999999; margin-top: 40px; border-top: 1px solid #eee; padding-top: 10px;">
-      This is an automated notification from the Serendib Luxury booking concierge engine.
-    </p>
   </div>
 </body>
 </html>
   `;
 
   const mailOptions = {
-    from: `"Serendib Luxury Concierge" <${fromEmail}>`,
+    from: `"International Hospitality Ventures (Private) Limited." <${fromEmail}>`,
     to: 'info@ihvtravel.com',
     replyTo: clientEmail,
     subject: `[New Request] Itinerary Request - ${packageTitle}`,

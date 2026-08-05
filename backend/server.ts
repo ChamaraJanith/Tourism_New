@@ -393,6 +393,9 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
         user: smtpUser,
         pass: smtpPass,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     await transporter.sendMail(mailOptions);

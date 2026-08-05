@@ -211,80 +211,40 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
   const htmlContent = `
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>New Itinerary Request</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; background-color: #ffffff; padding: 20px; margin: 0;">
-  <div style="max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 30px; background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; padding: 20px; background-color: #ffffff;">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="font-size: 18px; color: #111111; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 20px;">
+      Serendib Luxury Travels - New Itinerary Request
+    </h2>
     
-    <!-- Header -->
-    <div style="border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 25px;">
-      <h2 style="color: #111111; margin: 0; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-        Serendib Luxury Travels
-      </h2>
-      <p style="color: #666666; margin: 5px 0 0 0; font-size: 13px;">New Itinerary Request</p>
-    </div>
-
-    <!-- Intro Text -->
-    <p style="font-size: 15px; margin-top: 0; margin-bottom: 25px;">
+    <p style="font-size: 15px;">
       Hello Team,<br/><br/>
-      You have received a new itinerary request from the website. Here are the details:
+      You have received a new itinerary request. Here are the details:
     </p>
 
-    <!-- Package Detail -->
-    <div style="background-color: #f9f9f9; border-left: 4px solid #d4af37; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
-      <strong style="font-size: 16px; color: #111111; display: block; margin-bottom: 5px;">Selected Journey Package</strong>
-      <span style="font-size: 15px; color: #333333;">${packageTitle}</span>
-      ${packageDuration ? `<span style="font-size: 14px; color: #666666; display: block; margin-top: 3px;">Duration: ${packageDuration}</span>` : ''}
-    </div>
+    <p style="font-size: 15px;">
+      <strong>Selected Package:</strong> ${packageTitle}<br/>
+      <strong>Duration:</strong> ${packageDuration || 'Custom Plan'}
+    </p>
 
-    <!-- Client Info Table -->
-    <h3 style="font-size: 15px; color: #111111; border-bottom: 1px solid #eeeeee; padding-bottom: 5px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
-      Client Details
-    </h3>
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px;">
-      <tr>
-        <td style="padding: 8px 0; width: 35%; color: #666666; font-weight: bold;">Client Name:</td>
-        <td style="padding: 8px 0; width: 65%; color: #111111;">${clientName}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Email Address:</td>
-        <td style="padding: 8px 0; color: #111111;"><a href="mailto:${clientEmail}" style="color: #d4af37; text-decoration: none;">${clientEmail}</a></td>
-      </tr>
-      <tr>
-        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Contact Number:</td>
-        <td style="padding: 8px 0; color: #111111;">${clientPhone || 'Not provided'}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Country of Residence:</td>
-        <td style="padding: 8px 0; color: #111111;">${clientCountry || 'Not provided'}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px 0; color: #666666; font-weight: bold;">NIC Number:</td>
-        <td style="padding: 8px 0; color: #111111;">${clientNic || 'Not provided'}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px 0; color: #666666; font-weight: bold;">Date of Birth:</td>
-        <td style="padding: 8px 0; color: #111111;">${clientDob || 'Not provided'}</td>
-      </tr>
-    </table>
+    <p style="font-size: 15px; margin-top: 20px; font-weight: bold; text-decoration: underline;">Client Details:</p>
+    <p style="font-size: 14px; line-height: 1.8;">
+      • <strong>Client Name:</strong> ${clientName}<br/>
+      • <strong>Email Address:</strong> ${clientEmail}<br/>
+      • <strong>Contact Number:</strong> ${clientPhone || 'Not provided'}<br/>
+      • <strong>Country of Residence:</strong> ${clientCountry || 'Not provided'}<br/>
+      • <strong>NIC Number:</strong> ${clientNic || 'Not provided'}<br/>
+      • <strong>Date of Birth:</strong> ${clientDob || 'Not provided'}
+    </p>
 
-    <!-- Client Notes -->
     ${clientNotes ? `
-    <h3 style="font-size: 15px; color: #111111; border-bottom: 1px solid #eeeeee; padding-bottom: 5px; margin-top: 0; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;">
-      Special Notes & Requirements
-    </h3>
-    <div style="background-color: #fdfaf2; border: 1px dashed #e8d090; padding: 15px; border-radius: 4px; font-style: italic; color: #555555; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
-      "${clientNotes.replace(/\n/g, '<br/>')}"
-    </div>
+    <p style="font-size: 15px; margin-top: 20px; font-weight: bold; text-decoration: underline;">Special Notes / Requirements:</p>
+    <p style="font-size: 14px; white-space: pre-wrap; background-color: #f9f9f9; padding: 12px; border-radius: 4px; border-left: 3px solid #d4af37;">${clientNotes}</p>
     ` : ''}
 
-    <!-- Footer -->
-    <div style="border-top: 1px solid #eeeeee; padding-top: 15px; margin-top: 30px; text-align: center; font-size: 11px; color: #999999;">
-      This is an automated request notification from the Serendib Luxury booking concierge engine.
-    </div>
-
+    <p style="font-size: 11px; color: #999999; margin-top: 40px; border-top: 1px solid #eee; padding-top: 10px;">
+      This is an automated notification from the Serendib Luxury booking concierge engine.
+    </p>
   </div>
 </body>
 </html>

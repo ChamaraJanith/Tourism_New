@@ -17,7 +17,11 @@ export const signUp = async (
   email: string,
   password: string,
   fullName: string,
-  agreedToTerms: boolean
+  agreedToTerms: boolean,
+  nic?: string,
+  country?: string,
+  dob?: string,
+  contactNumber?: string
 ) => {
   if (!email || !emailRegex.test(email)) {
     throw new Error('Please provide a valid email address')
@@ -43,6 +47,10 @@ export const signUp = async (
     options: {
       data: {
         full_name: fullName,
+        nic,
+        country,
+        dob,
+        contact_number: contactNumber,
       },
     },
   })
@@ -60,6 +68,10 @@ export const signUp = async (
         email: data.user.email,
         full_name: fullName,
         agreed_to_terms: agreedToTerms,
+        nic,
+        country,
+        dob,
+        contact_number: contactNumber,
       })
       .select()
 

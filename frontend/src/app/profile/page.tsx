@@ -8,8 +8,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   User, Mail, Calendar, LogOut, Edit2, X, Check, 
   Camera, Upload, Compass as CompassIcon,
-  MapPin, Heart, Clock, Search, Briefcase, Key, Star, ChevronRight, Bookmark
+  MapPin, Heart, Clock, Search, Briefcase, Key, Star, ChevronRight, Bookmark,
+  Globe, Phone, CreditCard
 } from "lucide-react";
+
+const COUNTRY_CODES: Record<string, string> = {
+  "Sri Lanka": "+94",
+  "United Kingdom": "+44",
+  "United States": "+1",
+  "Australia": "+61",
+  "Germany": "+49",
+  "France": "+33",
+  "India": "+91",
+  "Canada": "+1",
+  "Japan": "+81",
+  "Maldives": "+960",
+  "Singapore": "+65",
+  "United Arab Emirates": "+971",
+  "Switzerland": "+41"
+};
+
+const COUNTRIES = Object.keys(COUNTRY_CODES);
 import Image from "next/image";
 
 // Curated luxury traveler presets
@@ -38,6 +57,10 @@ export default function ProfilePage() {
   // Form states
   const [editName, setEditName] = useState("");
   const [editAvatarUrl, setEditAvatarUrl] = useState("");
+  const [editNic, setEditNic] = useState("");
+  const [editCountry, setEditCountry] = useState("");
+  const [editDob, setEditDob] = useState("");
+  const [editContactNumber, setEditContactNumber] = useState("");
   
   const [saveLoading, setSaveLoading] = useState(false);
   const [saveError, setSaveError] = useState("");
@@ -54,6 +77,10 @@ export default function ProfilePage() {
     if (user) {
       setEditName(user.name);
       setEditAvatarUrl(user.avatarUrl || "");
+      setEditNic(user.nic || "");
+      setEditCountry(user.country || "");
+      setEditDob(user.dob || "");
+      setEditContactNumber(user.contactNumber || "");
     }
   }, [user]);
 
@@ -127,7 +154,11 @@ export default function ProfilePage() {
         },
         body: JSON.stringify({
           name: editName,
-          avatarUrl: editAvatarUrl
+          avatarUrl: editAvatarUrl,
+          nic: editNic,
+          country: editCountry,
+          dob: editDob,
+          contactNumber: editContactNumber
         })
       });
 
@@ -144,6 +175,10 @@ export default function ProfilePage() {
               name: data.user.name,
               profileId: data.user.profileId,
               avatarUrl: data.user.avatarUrl,
+              nic: data.user.nic,
+              country: data.user.country,
+              dob: data.user.dob,
+              contactNumber: data.user.contactNumber,
             },
             token: token || ""
           })
@@ -462,7 +497,7 @@ export default function ProfilePage() {
                     )}
                   </AnimatePresence>
 
-                  <form onSubmit={handleSaveProfile} className="flex flex-col gap-8">
+                  <form onSubmit={handleSaveProfile} className="flex flex-col gap-6">
                     {/* Name Input */}
                     <div className="flex flex-col gap-2">
                       <label htmlFor="name-input" className="text-xs text-zinc-400 uppercase tracking-widest font-bold">
@@ -477,6 +512,94 @@ export default function ProfilePage() {
                           onChange={(e) => setEditName(e.target.value)}
                           className="w-full bg-transparent py-4 pl-12 pr-4 text-sm text-white placeholder-white/20 outline-none font-medium"
                           placeholder="Your Full Name"
+                        />
+                      </div>
+                    </div>
+
+                    {/* NIC / Passport Input */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="nic-input" className="text-xs text-zinc-400 uppercase tracking-widest font-bold">
+                        NIC / Passport Number
+                      </label>
+                      <div className="relative flex items-center rounded-2xl border border-white/10 bg-white/5 focus-within:border-[#d4af37]/50 focus-within:bg-white/10 transition-all">
+                        <CreditCard size={18} className="absolute left-4 text-zinc-500" />
+                        <input
+                          id="nic-input"
+                          type="text"
+                          value={editNic}
+                          onChange={(e) => setEditNic(e.target.value)}
+                          className="w-full bg-transparent py-4 pl-12 pr-4 text-sm text-white placeholder-white/20 outline-none font-medium"
+                          placeholder="NIC or Passport Number"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Country Select */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="country-select" className="text-xs text-zinc-400 uppercase tracking-widest font-bold">
+                        Country of Residence
+                      </label>
+                      <div className="relative flex items-center rounded-2xl border border-white/10 bg-white/5 focus-within:border-[#d4af37]/50 focus-within:bg-white/10 transition-all">
+                        <Globe size={18} className="absolute left-4 text-zinc-500" />
+                        <select
+                          id="country-select"
+                          value={editCountry}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setEditCountry(val);
+                            const code = COUNTRY_CODES[val];
+                            if (code) {
+                              if (!editContactNumber || editContactNumber.startsWith("+")) {
+                                setEditContactNumber(code + " ");
+                              }
+                            }
+                          }}
+                          className="w-full bg-transparent py-4 pl-12 pr-4 text-sm text-white outline-none font-medium appearance-none"
+                        >
+                          <option value="" className="bg-[#070b10] text-zinc-500">Select Country</option>
+                          {COUNTRIES.map((c) => (
+                            <option key={c} value={c} className="bg-[#070b10] text-white">{c}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="dob-input" className="text-xs text-zinc-400 uppercase tracking-widest font-bold">
+                        Date of Birth
+                      </label>
+                      <div className="relative flex items-center rounded-2xl border border-white/10 bg-white/5 focus-within:border-[#d4af37]/50 focus-within:bg-white/10 transition-all">
+                        <Calendar size={18} className="absolute left-4 text-zinc-500" />
+                        <input
+                          id="dob-input"
+                          type="date"
+                          value={editDob}
+                          onChange={(e) => setEditDob(e.target.value)}
+                          onClick={(e) => {
+                            try {
+                              e.currentTarget.showPicker();
+                            } catch (err) {}
+                          }}
+                          className="w-full bg-transparent py-4 pl-12 pr-4 text-sm text-white outline-none font-medium [color-scheme:dark]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Contact Number */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="contact-input" className="text-xs text-zinc-400 uppercase tracking-widest font-bold">
+                        Contact Number
+                      </label>
+                      <div className="relative flex items-center rounded-2xl border border-white/10 bg-white/5 focus-within:border-[#d4af37]/50 focus-within:bg-white/10 transition-all">
+                        <Phone size={18} className="absolute left-4 text-zinc-500" />
+                        <input
+                          id="contact-input"
+                          type="tel"
+                          value={editContactNumber}
+                          onChange={(e) => setEditContactNumber(e.target.value)}
+                          className="w-full bg-transparent py-4 pl-12 pr-4 text-sm text-white placeholder-white/20 outline-none font-medium"
+                          placeholder="Contact Number"
                         />
                       </div>
                     </div>

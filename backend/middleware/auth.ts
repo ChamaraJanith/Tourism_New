@@ -46,6 +46,10 @@ export const authenticateToken = async (
         email: user.email,
         name: user.user_metadata?.full_name || '',
         avatarUrl: user.user_metadata?.avatar_url || '',
+        nic: user.user_metadata?.nic || '',
+        country: user.user_metadata?.country || '',
+        dob: user.user_metadata?.dob || '',
+        contactNumber: user.user_metadata?.contact_number || '',
       };
     } else {
       req.user = {
@@ -55,6 +59,10 @@ export const authenticateToken = async (
         agreedToTerms: profile.agreed_to_terms,
         profileId: profile.id, // Auto-incremented ID (starting 1)
         avatarUrl: user.user_metadata?.avatar_url || '',
+        nic: profile.nic || user.user_metadata?.nic || '',
+        country: profile.country || user.user_metadata?.country || '',
+        dob: profile.dob || user.user_metadata?.dob || '',
+        contactNumber: profile.contact_number || user.user_metadata?.contact_number || '',
       };
     }
 

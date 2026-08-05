@@ -11,8 +11,11 @@ import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase } from "lucide
 import { BespokeButton } from "@/components/ui/BespokeButton";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/auth")) return null;
   const dispatch = useAppDispatch();
   const isMenuOpen = useAppSelector((state) => state.ui.isMenuOpen);
   const { user, isAuthenticated, isInitialized } = useAppSelector((state) => state.auth);
@@ -202,13 +205,13 @@ export const Navbar = () => {
             <img src="/images/title2.jpeg" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-105" />
           </Link>
 
-          <nav className="hidden xl:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden xl:flex items-center justify-center gap-4 lg:gap-6 xl:gap-7 flex-1 mx-8">
             {navItems.map((item) => (
               <div key={item.name} className="group relative">
                 <Link
                   href={item.href}
                   scroll={item.href.includes('#') ? false : undefined}
-                  className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-gray-300 transition-colors hover:text-white py-2"
+                  className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.15em] text-gray-300 transition-colors hover:text-white py-2 whitespace-nowrap"
                 >
                   <motion.span whileHover={{ y: -1 }}>
                     {item.name}

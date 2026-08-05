@@ -23,10 +23,10 @@ if (typeof window !== "undefined") {
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
-  const isLifestyleExperienceRoute = pathname?.startsWith("/lifestyle-experiences");
+  const isExcludedRoute = pathname?.startsWith("/lifestyle-experiences") || pathname?.startsWith("/auth");
 
   useEffect(() => {
-    if (isLifestyleExperienceRoute) {
+    if (isExcludedRoute) {
       document.documentElement.classList.remove("lenis", "lenis-smooth");
       return;
     }
@@ -54,11 +54,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [isExcludedRoute]);
 
   // Handle scroll to top on every pathname change, or to the target hash if present
   useEffect(() => {
-    if (isLifestyleExperienceRoute) {
+    if (isExcludedRoute) {
       return;
     }
 
@@ -138,7 +138,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       window.history.pushState = originalPushState;
       window.history.replaceState = originalReplaceState;
     };
-  }, [pathname, isLifestyleExperienceRoute]);
+  }, [pathname, isExcludedRoute]);
 
   return children;
 }

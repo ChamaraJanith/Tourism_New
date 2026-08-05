@@ -1,7 +1,15 @@
 import { getSupabaseCredentials } from './common'
 import { supabase } from '../../supabase'
 
-export const updateProfile = async (accessToken: string, name: string, avatarUrl: string) => {
+export const updateProfile = async (
+  accessToken: string,
+  name: string,
+  avatarUrl: string,
+  nic?: string,
+  country?: string,
+  dob?: string,
+  contactNumber?: string
+) => {
   const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials()
 
   const res = await fetch(`${supabaseUrl}/auth/v1/user`, {
@@ -15,6 +23,10 @@ export const updateProfile = async (accessToken: string, name: string, avatarUrl
       data: {
         full_name: name,
         avatar_url: avatarUrl,
+        nic,
+        country,
+        dob,
+        contact_number: contactNumber,
       },
     }),
   })
@@ -28,7 +40,13 @@ export const updateProfile = async (accessToken: string, name: string, avatarUrl
 
   const { data: profileDataArray, error: profileError } = await supabase
     .from('users')
-    .update({ full_name: name })
+    .update({
+      full_name: name,
+      nic,
+      country,
+      dob,
+      contact_number: contactNumber,
+    })
     .eq('auth_id', userData.id)
     .select()
 

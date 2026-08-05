@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Users, CheckCircle2, Info, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Users, CheckCircle2, Info, ArrowRight, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAppSelector } from '@/hooks/store';
 
 interface PackageCardProps {
   pkg: {
@@ -18,6 +20,29 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+
+  // Modal and form states
+  const [showModal, setShowModal] = useState(false);
+  const [formName, setFormName] = useState('');
+  const [formEmail, setFormEmail] = useState('');
+  const [formPhone, setFormPhone] = useState('');
+  const [formCountry, setFormCountry] = useState('');
+  const [formNotes, setFormNotes] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const { user } = useAppSelector((state) => state.auth);
+
+  // Pre-fill user details if logged in
+  useEffect(() => {
+    if (user) {
+      setFormName(user.name || '');
+      setFormEmail(user.email || '');
+      setFormPhone(user.contactNumber || '');
+      setFormCountry(user.country || '');
+    }
+  }, [user]);
 
   // Auto-slideshow when not hovering
   useEffect(() => {
@@ -38,6 +63,48 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImage((prev) => (prev === 0 ? pkg.images.length - 1 : prev - 1));
+  };
+
+  const handleRequestSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSending(true);
+    setErrorMsg('');
+    setSuccessMsg('');
+
+    try {
+      const response = await fetch('/api/itinerary/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          packageTitle: pkg.title,
+          packageDuration: pkg.duration,
+          clientName: formName,
+          clientEmail: formEmail,
+          clientPhone: formPhone,
+          clientCountry: formCountry,
+          clientNotes: formNotes,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send itinerary request.');
+      }
+
+      setSuccessMsg('Your itinerary request has been submitted successfully! We will get in touch shortly.');
+      setFormNotes('');
+      // Auto close modal after 3 seconds
+      setTimeout(() => {
+        setShowModal(false);
+        setSuccessMsg('');
+      }, 3000);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'An error occurred. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -152,13 +219,169 @@ export default function PackageCard({ pkg }: PackageCardProps) {
 
         {/* Action Button */}
         <div className="mt-auto pt-4">
-          <button className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-white/5 to-white/5 hover:from-[#d4af37]/90 hover:to-[#c5a028] text-white hover:text-black rounded-xl transition-all duration-300 border border-white/10 hover:border-[#d4af37] font-bold uppercase tracking-wider text-xs">
+          <button 
+            onClick={() => setShowModal(true)}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-white/5 to-white/5 hover:from-[#d4af37]/90 hover:to-[#c5a028] text-white hover:text-black rounded-xl transition-all duration-300 border border-white/10 hover:border-[#d4af37] font-bold uppercase tracking-wider text-xs"
+          >
             Request Itinerary
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
       </div>
+
+      {/* Modal Backdrop & Content */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Background Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => !isSending && setShowModal(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            {/* Modal Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative w-full max-w-lg bg-[#111416]/95 border border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl z-10 max-h-[90vh] overflow-y-auto"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                disabled={isSending}
+                onClick={() => setShowModal(false)}
+                className="absolute top-6 right-6 text-zinc-400 hover:text-white hover:bg-white/5 p-2 rounded-full transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Modal Header */}
+              <div className="mb-6">
+                <span className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">Request Details</span>
+                <h3 className="text-xl md:text-2xl font-display font-semibold text-white mt-1">
+                  {pkg.title}
+                </h3>
+                <p className="text-gray-400 text-xs mt-1">
+                  Fill in your details and we will email you the custom curated itinerary.
+                </p>
+              </div>
+
+              {/* Modal Form */}
+              <form onSubmit={handleRequestSubmit} className="space-y-4">
+                {/* Status Message */}
+                {errorMsg && (
+                  <div className="p-3.5 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl font-medium">
+                    {errorMsg}
+                  </div>
+                )}
+                {successMsg && (
+                  <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded-xl font-medium">
+                    {successMsg}
+                  </div>
+                )}
+
+                {/* Client Name */}
+                <div className="space-y-1">
+                  <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    required
+                    disabled={isSending}
+                    placeholder="Enter your name"
+                    className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                  />
+                </div>
+
+                {/* Client Email */}
+                <div className="space-y-1">
+                  <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    value={formEmail}
+                    onChange={(e) => setFormEmail(e.target.value)}
+                    required
+                    disabled={isSending}
+                    placeholder="you@example.com"
+                    className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                  />
+                </div>
+
+                {/* Client Phone & Country Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Client Country */}
+                  <div className="space-y-1">
+                    <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                      Country
+                    </label>
+                    <input
+                      type="text"
+                      value={formCountry}
+                      onChange={(e) => setFormCountry(e.target.value)}
+                      disabled={isSending}
+                      placeholder="Country"
+                      className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                    />
+                  </div>
+
+                  {/* Client Phone */}
+                  <div className="space-y-1">
+                    <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                      Contact Number
+                    </label>
+                    <input
+                      type="tel"
+                      value={formPhone}
+                      onChange={(e) => setFormPhone(e.target.value)}
+                      disabled={isSending}
+                      placeholder="Phone Number"
+                      className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Custom Notes */}
+                <div className="space-y-1">
+                  <label className="text-[0.65rem] uppercase tracking-wider text-zinc-400 font-semibold">
+                    Special Customization Requests (Optional)
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formNotes}
+                    onChange={(e) => setFormNotes(e.target.value)}
+                    disabled={isSending}
+                    placeholder="E.g. Travel dates, number of guests, diet requirements..."
+                    className="w-full bg-zinc-950/40 border border-white/10 rounded-xl py-3 px-4 text-white placeholder-zinc-600 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm resize-none"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSending}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#d4af37] to-[#c5a028] text-black font-bold uppercase tracking-wider text-xs rounded-xl hover:from-white hover:to-white hover:text-black transition-all duration-300 shadow-lg disabled:opacity-50"
+                  >
+                    {isSending ? "Sending Itinerary..." : "Confirm Request"}
+                    {!isSending && <ArrowRight className="w-4 h-4" />}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

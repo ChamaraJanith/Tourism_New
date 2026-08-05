@@ -6,6 +6,10 @@ export interface User {
   name: string;
   profileId?: number;
   avatarUrl?: string;
+  nic?: string;
+  country?: string;
+  dob?: string;
+  contactNumber?: string;
 }
 
 interface AuthState {

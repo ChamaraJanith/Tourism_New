@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Mail, MapPin, Phone, ArrowRight, ChevronRight, Send, Sparkles, Check, Copy } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
 import { FaTripadvisor } from "react-icons/fa";
 import Link from "next/link";
 import { fireBookingConfetti } from "@/lib/booking-confetti";
@@ -11,6 +11,7 @@ import { useState } from "react";
 const CONTACT_EMAIL = "info@ihvtravel.com";
 const WHATSAPP_NUMBER = "+94 77 15 22 718";
 const WHATSAPP_LINK = "https://wa.me/94771522718";
+const LINKEDIN_URL = "https://www.linkedin.com/company/international-hospitality-ventures-private-limited";
 
 const FOOTER_LINKS = {
   explore: [
@@ -37,6 +38,7 @@ const FOOTER_LINKS = {
 };
 
 const SOCIALS = [
+  { icon: FaLinkedinIn, href: LINKEDIN_URL, label: "LinkedIn" },
   { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
   { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
   { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },

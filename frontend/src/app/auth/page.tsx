@@ -231,7 +231,7 @@ export default function AuthPage() {
               <Compass className="h-6 w-6 text-[#d4af37]" />
             </div>
             <span className="font-display tracking-[0.2em] text-white text-lg font-bold uppercase transition duration-300 group-hover:text-[#d4af37]">
-              Serendib
+              International Hospitality Ventures (Private) Limited
             </span>
           </Link>
         </div>
@@ -269,9 +269,8 @@ export default function AuthPage() {
                 style={{ width: currentSlide === index ? "2.5rem" : "0.75rem" }}
               >
                 <div
-                  className={`absolute inset-0 transition-colors duration-300 ${
-                    currentSlide === index ? "bg-[#d4af37]" : "bg-white/30"
-                  }`}
+                  className={`absolute inset-0 transition-colors duration-300 ${currentSlide === index ? "bg-[#d4af37]" : "bg-white/30"
+                    }`}
                 />
               </button>
             ))}
@@ -280,7 +279,7 @@ export default function AuthPage() {
 
         {/* Footer info inside image panel */}
         <div className="relative z-20 flex justify-between text-xs text-zinc-400 mt-12 border-t border-white/10 pt-6">
-          <span>&copy; {new Date().getFullYear()} Serendib Luxury.</span>
+          <span>&copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited.</span>
           <span className="flex gap-4">
             <Link href="/terms" className="hover:text-white transition">Terms</Link>
             <Link href="/privacy" className="hover:text-white transition">Privacy</Link>
@@ -307,7 +306,7 @@ export default function AuthPage() {
             <Link href="/" className="flex items-center gap-2 group">
               <Compass className="h-7 w-7 text-[#d4af37]" />
               <span className="font-display tracking-[0.2em] text-white text-xl font-bold uppercase">
-                Serendib
+                International Hospitality Ventures (Private) Limited
               </span>
             </Link>
             <p className="text-xs uppercase tracking-widest text-[#d4af37]/80">Luxury Sri Lankan Journeys</p>
@@ -334,9 +333,8 @@ export default function AuthPage() {
                 setError("");
                 setMessage("");
               }}
-              className={`relative flex-1 py-2.5 text-sm font-medium transition duration-300 rounded-lg focus:outline-none z-10 ${
-                !isSignup ? "text-black font-semibold" : "text-zinc-400 hover:text-white"
-              }`}
+              className={`relative flex-1 py-2.5 text-sm font-medium transition duration-300 rounded-lg focus:outline-none z-10 ${!isSignup ? "text-black font-semibold" : "text-zinc-400 hover:text-white"
+                }`}
             >
               {!isSignup && (
                 <motion.div
@@ -354,9 +352,8 @@ export default function AuthPage() {
                 setError("");
                 setMessage("");
               }}
-              className={`relative flex-1 py-2.5 text-sm font-medium transition duration-300 rounded-lg focus:outline-none z-10 ${
-                isSignup ? "text-black font-semibold" : "text-zinc-400 hover:text-white"
-              }`}
+              className={`relative flex-1 py-2.5 text-sm font-medium transition duration-300 rounded-lg focus:outline-none z-10 ${isSignup ? "text-black font-semibold" : "text-zinc-400 hover:text-white"
+                }`}
             >
               {isSignup && (
                 <motion.div
@@ -474,7 +471,7 @@ export default function AuthPage() {
                         onClick={(e) => {
                           try {
                             e.currentTarget.showPicker();
-                          } catch (err) {}
+                          } catch (err) { }
                         }}
                         required={isSignup}
                         className="w-full bg-zinc-950/50 hover:bg-zinc-950/70 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm [color-scheme:dark]"
@@ -520,7 +517,7 @@ export default function AuthPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full bg-zinc-950/50 hover:bg-zinc-950/70 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white placeholder-zinc-500 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
-                  placeholder="byron@serendib.com"
+                  placeholder="byron@ihvtravel.com"
                 />
               </div>
             </div>
@@ -617,14 +614,12 @@ export default function AuthPage() {
                         onChange={(e) => setAgreedToTerms(e.target.checked)}
                         className="sr-only"
                       />
-                      <div className={`h-5 w-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-                        agreedToTerms 
-                          ? "border-[#d4af37] bg-[#d4af37]/15" 
-                          : "border-white/20 bg-zinc-950/50"
-                      }`}>
-                        <Check className={`h-3.5 w-3.5 text-[#d4af37] transition duration-200 ${
-                          agreedToTerms ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                        }`} />
+                      <div className={`h-5 w-5 rounded-md border flex items-center justify-center transition-all duration-200 ${agreedToTerms
+                        ? "border-[#d4af37] bg-[#d4af37]/15"
+                        : "border-white/20 bg-zinc-950/50"
+                        }`}>
+                        <Check className={`h-3.5 w-3.5 text-[#d4af37] transition duration-200 ${agreedToTerms ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                          }`} />
                       </div>
                     </div>
                     <span>

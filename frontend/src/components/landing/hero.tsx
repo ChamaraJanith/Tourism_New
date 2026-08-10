@@ -41,7 +41,7 @@ export function Hero() {
  
           {/* ── HERO CONTENT AREA ── */}
           <div className="relative z-10 flex flex-1 items-center justify-center px-6 py-12 sm:px-12 lg:px-16 pointer-events-none">
-            <div className="w-full max-w-screen-2xl flex flex-col items-center text-center mt-48 lg:mt-80">
+            <div className="w-full max-w-screen-2xl flex flex-col items-center text-center mt-20 lg:mt-28">
               <motion.div
                 className="w-full"
               >

@@ -29,6 +29,7 @@ export const WaterfallHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/waterfall/2.webp"
           className="h-full w-full object-cover"
         >
           <source src="/videos/waterfall_hero.mp4" type="video/mp4" />

@@ -29,6 +29,7 @@ export const JoggingHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/jogging/1.jpg"
           className="h-full w-full object-cover scale-105"
         >
           <source src="/videos/jogging_hero.mp4" type="video/mp4" />

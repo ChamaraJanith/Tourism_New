@@ -39,6 +39,7 @@ export default function ExperiencePage() {
             muted
             playsInline
             preload="auto"
+            poster={experience.image}
             className="absolute inset-0 h-full w-full object-cover"
           >
             <source src={experience.video} type="video/mp4" />

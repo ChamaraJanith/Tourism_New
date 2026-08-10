@@ -29,6 +29,7 @@ export const SurfHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/hirikatiya/1.webp"
           className="h-full w-full object-cover scale-105"
         >
           <source src="/videos/hirikatiya_hero.mp4" type="video/mp4" />

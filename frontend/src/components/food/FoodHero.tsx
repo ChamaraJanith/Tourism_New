@@ -29,6 +29,7 @@ export const FoodHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/food/1.webp"
           className="h-full w-full object-cover scale-105"
         >
           <source src="/videos/organic_food_hero.mp4" type="video/mp4" />

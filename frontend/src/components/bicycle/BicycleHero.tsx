@@ -29,6 +29,7 @@ export const BicycleHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/bicycle_ride/1.webp"
           className="h-full w-full object-cover"
         >
           <source src="/videos/bicycle_ riding_hero.mp4" type="video/mp4" />

@@ -27,6 +27,7 @@ export const LakeHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/lake/1.jpg"
           className="h-full w-full object-cover scale-105"
         >
           <source src="/videos/dandeniya_hero.mp4" type="video/mp4" />

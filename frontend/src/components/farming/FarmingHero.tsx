@@ -30,6 +30,7 @@ export const FarmingHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/farm/5.jpg"
           className="h-full w-full object-cover scale-105"
         >
           <source src="/videos/farming_hero.mp4" type="video/mp4" />

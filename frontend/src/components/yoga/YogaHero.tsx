@@ -29,6 +29,7 @@ export const YogaHero = () => {
           muted
           playsInline
           preload="auto"
+          poster="/images/yoga/1.avif"
           className="h-full w-full object-cover"
         >
           <source src="/videos/yoga_hero.mp4" type="video/mp4" />

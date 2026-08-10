@@ -357,10 +357,11 @@ export default function SriLankanNetworkPage() {
         {/* ── HERO IMAGE ── */}
         <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] border border-white/10 group mb-24">
           <Image
-            src="https://images.unsplash.com/photo-1546708973-c351f5012586?auto=format&fit=crop&q=80&w=1920&h=800"
-            alt="Sri Lankan Tourism"
+            src="/images/nine_arch_bridge.png"
+            alt="Sri Lankan Tourism - Demodara Nine Arch Bridge"
             fill
-            className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+            priority
+            className="object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#111416] via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-center">

@@ -16,10 +16,11 @@ export default function LocalHospitalityPage() {
 
         <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] border border-white/10 group">
           <Image
-            src="https://images.unsplash.com/photo-1542314831-c53cd3816002?auto=format&fit=crop&q=80&w=1920&h=800"
-            alt="Local Hospitality"
+            src="/images/reception lobby.jfif"
+            alt="Local Hospitality - Luxury Reception Lobby"
             fill
-            className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+            priority
+            className="object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#111416] via-transparent to-transparent" />
           

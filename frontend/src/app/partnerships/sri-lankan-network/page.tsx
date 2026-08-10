@@ -360,6 +360,7 @@ export default function SriLankanNetworkPage() {
             src="/images/nine_arch_bridge.png"
             alt="Sri Lankan Tourism - Demodara Nine Arch Bridge"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
             priority
             className="object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
           />

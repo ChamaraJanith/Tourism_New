@@ -19,6 +19,7 @@ export default function LocalHospitalityPage() {
             src="/images/reception lobby.jfif"
             alt="Local Hospitality - Luxury Reception Lobby"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
             priority
             className="object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
           />

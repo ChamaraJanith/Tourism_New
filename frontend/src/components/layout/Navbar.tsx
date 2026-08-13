@@ -201,9 +201,15 @@ export const Navbar = () => {
       <div className="relative bg-[#111416]/80 backdrop-blur-md border-b border-x border-zinc-800 rounded-b-[2.5rem]">
         <header className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-6 sm:px-12 lg:px-16 py-3 sm:py-3.5">
 
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <img src="/images/title2.jpeg" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-105" />
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <img src="/images/title3.png" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-105" />
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className="text-sm md:text-base font-display font-bold text-white tracking-tight">IHV</span>
+              <span className="text-sm md:text-base font-display font-bold text-[#d4af37] tracking-tight">TRAVEL</span>
+            </div>
           </Link>
+
+          <div className="hidden sm:block h-8 w-px bg-white/6 rounded mx-3" aria-hidden="true" />
 
           <nav className="hidden xl:flex items-center justify-center gap-4 lg:gap-6 xl:gap-7 flex-1 mx-8">
             {navItems.map((item) => (

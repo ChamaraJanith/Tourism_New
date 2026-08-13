@@ -9,7 +9,7 @@ export const WildRideLogo = () => (
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
       className="shrink-0"
     >
-      <img src="/images/title2.jpeg" alt="Logo" className="w-10 h-10 object-contain rounded-lg shadow-md" />
+      <img src="/images/goldlogo.png" alt="Logo" className="w-10 h-10 object-contain rounded-lg shadow-md" />
     </motion.div>
     <div className="flex flex-col leading-none">
       <span className="text-[0.9rem] font-black tracking-widest text-[#1e2528]">IHV</span>

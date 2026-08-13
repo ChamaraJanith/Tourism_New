@@ -96,7 +96,7 @@ export const Footer = () => {
               {/* Brand */}
               <div>
                 <Link href="/" className="inline-flex items-center gap-3 mb-4 group">
-                  <img src="/images/title2.jpeg" alt="IHV Travel Logo" className="h-10 w-auto object-contain rounded-lg shadow-md" />
+                  <img src="/images/title3.png" alt="IHV Travel Logo" className="h-10 w-auto object-contain rounded-lg shadow-md" />
                   <div>
                     <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
                       <span className="text-white">IHV </span>

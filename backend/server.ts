@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
+import { supabase } from './supabase';
 import { signUp, logIn, signOut, getSession, sendPasswordResetEmail, updateUserPassword, updateProfile } from './services/auth';
 import { authenticateToken, AuthenticatedRequest } from './middleware/auth';
 
@@ -196,6 +197,32 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
   if (!packageTitle || !clientName || !clientEmail) {
     res.status(400).json({ error: 'Package title, client name, and client email are required fields.' });
     return;
+  }
+
+  // Store inquiry in Supabase database
+  try {
+    const { error: dbError } = await supabase
+      .from('itinerary_requests')
+      .insert([
+        {
+          package_title: packageTitle,
+          package_duration: packageDuration || '',
+          client_name: clientName,
+          client_email: clientEmail,
+          client_phone: clientPhone || '',
+          client_country: clientCountry || '',
+          client_nic: clientNic || '',
+          client_dob: clientDob || '',
+          client_notes: clientNotes || ''
+        }
+      ]);
+    if (dbError) {
+      console.warn('Could not save itinerary request to Supabase table:', dbError.message);
+    } else {
+      console.log('Successfully saved itinerary request to Supabase database.');
+    }
+  } catch (dbErr) {
+    console.warn('Error saving itinerary request to Supabase:', dbErr);
   }
 
   // Set up Nodemailer transport from environment variables

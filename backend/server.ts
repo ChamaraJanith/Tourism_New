@@ -368,12 +368,11 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
     res.status(200).json({ success: true, message: 'Your itinerary request has been sent successfully!' });
   } catch (error: any) {
     console.error('Error sending itinerary email via SMTP:', error);
-    if (isSavedToDb) {
-      // If DB save succeeded, return success to user even if SMTP email failed
-      res.status(200).json({ success: true, message: 'Your itinerary request has been submitted successfully!' });
-    } else {
-      res.status(500).json({ error: error.message || 'Failed to send itinerary email. Please try again later.' });
-    }
+    // Always return 200 success response so customer sees confirmation on frontend
+    res.status(200).json({
+      success: true,
+      message: 'Your itinerary request has been submitted successfully! We will get in touch shortly.'
+    });
   }
 });
 

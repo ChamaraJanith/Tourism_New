@@ -1,4 +1,4 @@
-const CACHE_NAME = 'full-quality-media-v1';
+const CACHE_NAME = 'full-quality-media-v2';
 
 // Install event
 self.addEventListener('install', (event) => {
@@ -49,7 +49,11 @@ self.addEventListener('fetch', (event) => {
             event.request.method === 'GET' &&
             url.protocol.startsWith('http')
           ) {
-            cache.put(event.request, networkResponse.clone());
+            try {
+              await cache.put(event.request, networkResponse.clone());
+            } catch (cErr) {
+              // Ignore cache storage errors for partial or extension requests
+            }
           }
           return networkResponse;
         } catch (error) {

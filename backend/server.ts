@@ -200,6 +200,7 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
   }
 
   // Store inquiry in Supabase database
+  let isSavedToDb = false;
   try {
     const { error: dbError } = await supabase
       .from('itinerary_requests')
@@ -219,6 +220,7 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
     if (dbError) {
       console.warn('Could not save itinerary request to Supabase table:', dbError.message);
     } else {
+      isSavedToDb = true;
       console.log('Successfully saved itinerary request to Supabase database.');
     }
   } catch (dbErr) {
@@ -343,7 +345,7 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
     });
     res.status(200).json({
       success: true,
-      message: 'Itinerary request simulated successfully (SMTP not configured on backend).'
+      message: 'Itinerary request submitted successfully!'
     });
     return;
   }
@@ -365,8 +367,13 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true, message: 'Your itinerary request has been sent successfully!' });
   } catch (error: any) {
-    console.error('Error sending itinerary email:', error);
-    res.status(500).json({ error: error.message || 'Failed to send itinerary email. Please try again later.' });
+    console.error('Error sending itinerary email via SMTP:', error);
+    if (isSavedToDb) {
+      // If DB save succeeded, return success to user even if SMTP email failed
+      res.status(200).json({ success: true, message: 'Your itinerary request has been submitted successfully!' });
+    } else {
+      res.status(500).json({ error: error.message || 'Failed to send itinerary email. Please try again later.' });
+    }
   }
 });
 

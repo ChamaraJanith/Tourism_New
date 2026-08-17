@@ -43,8 +43,12 @@ self.addEventListener('fetch', (event) => {
 
         try {
           const networkResponse = await fetch(event.request);
-          // Store exact uncompressed original file in cache
-          if (networkResponse.ok) {
+          // Only cache full 200 responses for HTTP(S) GET requests (skip 206 partial content and chrome-extensions)
+          if (
+            networkResponse.status === 200 &&
+            event.request.method === 'GET' &&
+            url.protocol.startsWith('http')
+          ) {
             cache.put(event.request, networkResponse.clone());
           }
           return networkResponse;

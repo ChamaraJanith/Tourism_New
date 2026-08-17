@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description:
     "Private itineraries, boutique stays, and seamless logistics for discerning travelers.",
   icons: {
-    icon: "/images/goldlogo.png.jpeg",
+    icon: "/images/goldlogo.png",
   },
 };
 

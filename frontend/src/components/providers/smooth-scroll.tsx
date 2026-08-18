@@ -48,9 +48,26 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
     rafId = requestAnimationFrame(raf);
 
+    // Watch for layout changes (e.g. Google Translate dynamic translations) and trigger lenis.resize()
+    const resizeObserver = new ResizeObserver(() => {
+      lenis.resize();
+    });
+    if (document.body) {
+      resizeObserver.observe(document.body);
+    }
+
+    const mutationObserver = new MutationObserver(() => {
+      lenis.resize();
+    });
+    if (document.body) {
+      mutationObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
     return () => {
       document.documentElement.classList.remove("lenis", "lenis-smooth");
       cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
       lenis.destroy();
       lenisRef.current = null;
     };

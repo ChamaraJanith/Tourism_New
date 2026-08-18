@@ -43,18 +43,30 @@ export default function RootLayout({
       <head>
         <style dangerouslySetInnerHTML={{
           __html: `
+          .goog-te-banner-frame,
           .goog-te-banner-frame.skiptranslate,
           iframe.skiptranslate,
           .VIpgJd-ZVi9od-ORHb-OEVmcd,
+          .VIpgJd-ZVi9od-a9v-wT26jd,
+          .goog-te-spinner-pos,
+          .goog-te-spinner,
+          #goog-gt-tt,
+          .goog-te-balloon-frame,
           .skiptranslate > iframe {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
+            pointer-events: none !important;
           }
           body {
             top: 0px !important;
             margin-top: 0px !important;
             padding-top: 0px !important;
+            position: static !important;
+          }
+          .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
           }
         `}} />
         <script type="text/javascript" dangerouslySetInnerHTML={{

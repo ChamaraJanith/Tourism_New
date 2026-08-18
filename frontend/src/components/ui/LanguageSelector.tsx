@@ -41,9 +41,21 @@ export const LanguageSelector = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const setGoogtransCookie = (langCode: string) => {
+    const val = `/en/${langCode}`;
+    // eslint-disable-next-line react-hooks/immutability
+    document.cookie = `googtrans=${val}; path=/`;
+    const host = window.location.hostname;
+    if (host && host !== 'localhost' && !host.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+      // eslint-disable-next-line react-hooks/immutability
+      document.cookie = `googtrans=${val}; domain=.${host}; path=/`;
+    }
+  };
+
   const handleLanguageChange = (lang: typeof languages[0]) => {
     setCurrentLang(lang);
     setIsOpen(false);
+    setGoogtransCookie(lang.code);
 
     // Try to use the Google Translate dropdown if it's loaded in the DOM
     const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
@@ -51,11 +63,6 @@ export const LanguageSelector = () => {
       select.value = lang.code;
       select.dispatchEvent(new Event("change"));
     } else {
-      // Fallback: set the cookie and reload
-      // eslint-disable-next-line react-hooks/immutability
-      document.cookie = `googtrans=/en/${lang.code}; path=/`;
-      // eslint-disable-next-line react-hooks/immutability
-      document.cookie = `googtrans=/en/${lang.code}; domain=.${window.location.hostname}; path=/`;
       window.location.reload();
     }
   };

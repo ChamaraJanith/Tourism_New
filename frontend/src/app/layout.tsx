@@ -59,6 +59,26 @@ export default function RootLayout({
         `}} />
         <script type="text/javascript" dangerouslySetInnerHTML={{
           __html: `
+            if (typeof window !== 'undefined') {
+              if (Node.prototype.removeChild) {
+                const origRemoveChild = Node.prototype.removeChild;
+                Node.prototype.removeChild = function (child) {
+                  if (child.parentNode !== this) {
+                    return child;
+                  }
+                  return origRemoveChild.call(this, child);
+                };
+              }
+              if (Node.prototype.insertBefore) {
+                const origInsertBefore = Node.prototype.insertBefore;
+                Node.prototype.insertBefore = function (newNode, referenceNode) {
+                  if (referenceNode && referenceNode.parentNode !== this) {
+                    return newNode;
+                  }
+                  return origInsertBefore.call(this, newNode, referenceNode);
+                };
+              }
+            }
             function googleTranslateElementInit() {
               new google.translate.TranslateElement({
                 pageLanguage: 'en',

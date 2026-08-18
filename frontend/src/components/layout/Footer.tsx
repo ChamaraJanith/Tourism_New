@@ -161,7 +161,7 @@ export const Footer = () => {
                       type="submit"
                       className="absolute right-2 top-2 bottom-2 px-6 bg-[#00ff88] hover:bg-[#00cc6a] text-black rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,255,136,0.35)] flex items-center gap-2"
                     >
-                      Subscribe
+                      <span>Subscribe</span>
                       <ArrowRight className="w-3 h-3" />
                     </button>
                   </form>
@@ -190,7 +190,7 @@ export const Footer = () => {
                           className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
                         >
                           <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
-                          {link.name}
+                          <span>{link.name}</span>
                         </Link>
                       </li>
                     ))}
@@ -233,7 +233,7 @@ export const Footer = () => {
                       rel="noopener noreferrer"
                       className="group flex items-center gap-2 text-gray-500 hover:text-[#25D366] font-light text-sm transition-colors duration-300"
                     >
-                      {WHATSAPP_NUMBER}
+                      <span>{WHATSAPP_NUMBER}</span>
                       <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                     </a>
                   </li>
@@ -276,7 +276,7 @@ export const Footer = () => {
 
             {/* Copyright */}
             <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.12em] font-light text-center md:text-left max-w-md">
-              &copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of{" "}
+              <span>&copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of </span>
               <a
                 href="https://www.globalsoftsl.com/"
                 target="_blank"
@@ -285,7 +285,7 @@ export const Footer = () => {
               >
                 Global Cooperation (Private) Limited
               </a>
-              . All Rights Reserved.
+              <span>. All Rights Reserved.</span>
             </p>
 
             {/* Trust Badges */}

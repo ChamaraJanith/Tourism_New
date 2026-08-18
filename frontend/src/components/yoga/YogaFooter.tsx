@@ -43,7 +43,7 @@ export const YogaFooter = () => {
                 <li key={i}>
                   <Link href="#" className="text-amber-50/40 hover:text-amber-400 transition-colors duration-500 font-light text-lg flex items-center gap-5 group">
                     <Sparkles className="w-4 h-4 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    {item}
+                    <span>{item}</span>
                   </Link>
                 </li>
               ))}

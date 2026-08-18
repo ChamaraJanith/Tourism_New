@@ -29,15 +29,15 @@ export const boardOfDirectors: AdvisoryMember[] = [
     image: "/images/board_of_directers/Mr.Gunther1.png",
   },
   {
-  name: "Gianni Malerba",
-  title: "Vice Chairman",
-  role: "Hospitality & Asset Development Specialist",
-  description:
-    "Seasoned hospitality executive specializing in hotel operations, asset development, pre-openings, renovations, rebranding, and performance management, with a proven track record of enhancing operational efficiency and business performance.",
-  linkedin: "https://www.linkedin.com/in/giannimalerba/",
-  image: "/images/board_of_directers/Mr.Giannan4.png",
-},
-  
+    name: "Gianni Malerba",
+    title: "Vice Chairman",
+    role: "Hospitality & Asset Development Specialist",
+    description:
+      "Seasoned hospitality executive specializing in hotel operations, asset development, pre-openings, renovations, rebranding, and performance management, with a proven track record of enhancing operational efficiency and business performance.",
+    linkedin: "https://www.linkedin.com/in/giannimalerba/",
+    image: "/images/board_of_directers/Mr.Giannan4.png",
+  },
+
 
 
   {
@@ -50,7 +50,7 @@ export const boardOfDirectors: AdvisoryMember[] = [
     image: "/images/board_of_directers/Darshana_Weerakoon.jpg",
   },
   {
-    name: "Dr. Uditha Samaratunga DBA",
+    name: "Dr. Uditha Samaratunga",
     title: "Director",
     role: "Chief Executive Officer of SaaGo Holdings (Private) Limited.",
     description:

@@ -11,6 +11,7 @@ const languages = [
   { code: "zh-CN", name: "中文", shortName: "ZH" },
   { code: "ja", name: "日本語", shortName: "JA" },
   { code: "fr", name: "Français", shortName: "FR" },
+  { code: "ru", name: "Русский", shortName: "RU" },
 ];
 
 export const LanguageSelector = () => {

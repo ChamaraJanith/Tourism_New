@@ -167,6 +167,8 @@ export default function JoinPartnerForm() {
                 <option value="tour-guide" className="bg-neutral-900 text-white">Tour Guide</option>
                 <option value="restaurant" className="bg-neutral-900 text-white">Restaurant / Cafe</option>
                 <option value="activity-provider" className="bg-neutral-900 text-white">Activity Provider</option>
+
+                <option value="global-representee" className="bg-neutral-900 text-white">Global Representee</option>
               </select>
             }
           />

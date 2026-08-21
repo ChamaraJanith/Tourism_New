@@ -202,11 +202,7 @@ export const Navbar = () => {
         <header className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-6 sm:px-12 lg:px-16 py-3 sm:py-3.5">
 
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <img src="/images/title3.png" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-105" />
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className="text-sm md:text-base font-display font-bold text-white tracking-tight">IHV</span>
-              <span className="text-sm md:text-base font-display font-bold text-[#d4af37] tracking-tight">TRAVEL</span>
-            </div>
+            <img src="/header-logo/1.png" alt="IHV Travel Logo" className="h-9 md:h-11 w-auto object-contain transition-transform group-hover:scale-105" />
           </Link>
 
           <div className="hidden sm:block h-8 w-px bg-white/6 rounded mx-3" aria-hidden="true" />

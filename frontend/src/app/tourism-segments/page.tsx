@@ -3,15 +3,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Sparkles, 
-  Search, 
-  ChevronRight, 
-  Compass, 
-  ShieldCheck, 
-  Award, 
-  HeartHandshake, 
-  X, 
+import {
+  Sparkles,
+  Search,
+  ChevronRight,
+  Compass,
+  ShieldCheck,
+  Award,
+  HeartHandshake,
+  X,
   ArrowRight,
   CheckCircle2,
   SlidersHorizontal,
@@ -142,7 +142,7 @@ const categorizedSegments: Category[] = [
         badge: "Oceanic Luxury",
         shortDesc: "Deep-sea diving, blue whale spotting, catamaran cruising, and kite-surfing on golden shores.",
         longDesc: "Discover marine marvels. Experience PADI master-guided reef diving, private luxury catamaran charters in Mirissa or Trincomalee, and world-class kite surfing in Kalpitiya.",
-        image: "/images/Whale.jfif",
+        image: "../../images/Whale.jfif",
         highlights: ["Private Catamaran & Yacht Rentals", "PADI Master-Certified Scuba Diving", "Seasonal Blue Whale Expeditions", "Pro Kite-Surfing & Wave Spots"],
         idealFor: "Divers, Sailors, & Coastal Enthusiasts"
       },
@@ -354,7 +354,7 @@ export default function TourismSegmentsPage() {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return cat;
 
-        const matchingItems = cat.items.filter(item => 
+        const matchingItems = cat.items.filter(item =>
           item.title.toLowerCase().includes(query) ||
           item.shortDesc.toLowerCase().includes(query) ||
           item.badge.toLowerCase().includes(query) ||
@@ -381,9 +381,9 @@ export default function TourismSegmentsPage() {
       {/* Hero Background Elements */}
       <div className="relative overflow-hidden pt-28 pb-20 border-b border-white/10 bg-gradient-to-b from-[#14171a] via-[#0b0d0e] to-[#0b0d0e]">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#d4af37]/10 blur-[130px] rounded-full pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           {/* Header Badge */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 text-[#d4af37] text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
@@ -427,16 +427,15 @@ export default function TourismSegmentsPage() {
       {/* Filter & Search Bar Section */}
       <div className="relative bg-[#14171a]/80 border-y border-white/10 py-6 px-4 sm:px-6 lg:px-8 my-6 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          
+
           {/* Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                selectedCategory === 'all'
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${selectedCategory === 'all'
                   ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
                   : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
-              }`}
+                }`}
             >
               All Segments ({totalSegmentsCount})
             </button>
@@ -446,11 +445,10 @@ export default function TourismSegmentsPage() {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                    selectedCategory === cat.id
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${selectedCategory === cat.id
                       ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
                       : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
-                  }`}
+                    }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   <span>{cat.title}</span>
@@ -470,7 +468,7 @@ export default function TourismSegmentsPage() {
               className="w-full pl-10 pr-8 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs sm:text-sm placeholder-gray-500 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all"
             />
             {searchQuery && (
-              <button 
+              <button
                 onClick={() => setSearchQuery('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
               >
@@ -503,7 +501,7 @@ export default function TourismSegmentsPage() {
               const CategoryIcon = category.icon;
               return (
                 <section key={category.id} className="scroll-mt-32">
-                  
+
                   {/* Category Header */}
                   <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-white/10 gap-4">
                     <div>
@@ -543,7 +541,7 @@ export default function TourismSegmentsPage() {
                               className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-100"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d0e] via-[#0b0d0e]/30 to-transparent" />
-                            
+
                             {/* Badge */}
                             <div className="absolute top-4 left-4">
                               <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-black/60 text-[#d4af37] backdrop-blur-md border border-[#d4af37]/30">
@@ -594,7 +592,7 @@ export default function TourismSegmentsPage() {
         {/* Customized Hybrid Concierge Callout Banner */}
         <section className="mt-24 rounded-3xl bg-gradient-to-r from-white/5 via-[#d4af37]/10 to-white/5 border border-[#d4af37]/30 p-8 sm:p-12 relative overflow-hidden text-center sm:text-left">
           <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-[#d4af37]/20 blur-3xl rounded-full pointer-events-none" />
-          
+
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#d4af37] mb-3">
@@ -630,15 +628,15 @@ export default function TourismSegmentsPage() {
 
       {/* Detail Modal Dialog */}
       {activeModalItem && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn overflow-y-auto"
           data-lenis-prevent="true"
         >
-          <div 
+          <div
             className="relative w-full max-w-3xl bg-[#14171a] border border-[#d4af37]/30 rounded-3xl overflow-hidden shadow-2xl max-h-[85vh] my-auto flex flex-col"
             data-lenis-prevent="true"
           >
-            
+
             {/* Modal Image Header */}
             <div className="relative h-48 sm:h-60 w-full shrink-0">
               <Image
@@ -648,7 +646,7 @@ export default function TourismSegmentsPage() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#14171a] via-[#14171a]/40 to-transparent" />
-              
+
               {/* Close Button */}
               <button
                 onClick={() => setActiveModalItem(null)}
@@ -668,7 +666,7 @@ export default function TourismSegmentsPage() {
             </div>
 
             {/* Modal Content Body - Scrollable */}
-            <div 
+            <div
               className="p-6 sm:p-8 overflow-y-auto overscroll-contain space-y-6 flex-1 text-left scrollbar-thin scrollbar-thumb-[#d4af37]/30"
               data-lenis-prevent="true"
             >

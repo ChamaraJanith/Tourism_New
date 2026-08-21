@@ -42,7 +42,7 @@ const events = [
     location: "Mihintale & Anuradhapura",
     badge: "Sacred Celebration",
     desc: "Commemorating the arrival of Buddhism to Sri Lanka. Mihintale and Anuradhapura glow with lanterns and pandals as thousands of pilgrims gather for this deeply spiritual celebration of faith and heritage.",
-    image: "/images/Poson_perahara_1.jfif",
+    image: "/images/Poson_perahara_1.jpg",
   },
   {
     title: "Nallur Kandaswamy Festival",
@@ -51,7 +51,7 @@ const events = [
     location: "Nallur Temple, Jaffna",
     badge: "Jaffna Gem",
     desc: "A spectacular 25-day Hindu festival in the heart of Jaffna. Drummers, dancers, and a grand bull procession culminate in the striking of the ceremonial pot — a visually stunning cultural spectacle.",
-    image: "/images/Nallur.jfif",
+    image: "/images/Nallur.jpg",
   },
   {
     title: "Kataragama Festival",
@@ -60,7 +60,7 @@ const events = [
     location: "Kataragama Sacred Grounds",
     badge: "Multi-Faith",
     desc: "A mesmerizing multi-faith devotional gathering at one of Sri Lanka's most sacred sites. Devotees walk on fire, perform self-mortification rituals, and offer prayers in a powerful display of spiritual devotion.",
-    image: "/images/Katharagama_Perahara.jfif",
+    image: "/images/Katharagama_Perahara.jpg",
   },
   {
     title: "Deepavali – Festival of Lights",
@@ -87,7 +87,7 @@ const events = [
     location: "Minneriya National Park",
     badge: "Wildlife Wonder",
     desc: "Witness one of the greatest wildlife spectacles on Earth — up to 300 wild elephants converge on the ancient reservoir of Minneriya during the dry season in a breathtaking natural drama.",
-    image: "/images/Minneriya.jfif",
+    image: "/images/Minneriya.jpg",
   },
   {
     title: "Blue Whale Watching Season",
@@ -96,7 +96,7 @@ const events = [
     location: "Mirissa & Trincomalee",
     badge: "Ocean Giants",
     desc: "Sri Lanka's southern and eastern coasts become a gateway to the largest animals ever to have lived. Boat out at dawn to encounter blue whales, sperm whales, and pods of spinner dolphins.",
-    image: "/images/Whale.jfif",
+    image: "/images/whale.jpg",
   },
   {
     title: "International Surfing Season",
@@ -105,7 +105,7 @@ const events = [
     location: "Arugam Bay",
     badge: "Rider's Paradise",
     desc: "Consistently ranked among the world's top surf destinations. Arugam Bay's consistent swells, laid-back beach culture, and competitive international events draw surfers from every corner of the globe.",
-    image: "/images/Arugambay.jfif",
+    image: "/images/Arugambay.jpg",
   },
   {
     title: "International Cricket Series",
@@ -114,7 +114,7 @@ const events = [
     location: "National Stadiums",
     badge: "Sporting Passion",
     desc: "Feel the electric energy of a Sri Lankan cricket match. Whether it's a Test series under floodlights at Galle or an ODI in Colombo, the passion and pride on display is unforgettable.",
-    image: "/images/Cricket.jfif",
+    image: "/images/Cricket.jpg",
   },
 ];
 

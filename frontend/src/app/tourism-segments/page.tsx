@@ -142,7 +142,7 @@ const categorizedSegments: Category[] = [
         badge: "Oceanic Luxury",
         shortDesc: "Deep-sea diving, blue whale spotting, catamaran cruising, and kite-surfing on golden shores.",
         longDesc: "Discover marine marvels. Experience PADI master-guided reef diving, private luxury catamaran charters in Mirissa or Trincomalee, and world-class kite surfing in Kalpitiya.",
-        image: "C:\Globalsoft\Tourism_New\frontend\public\images\whale.jpg",
+        image: "/images/whale.jpg",
         highlights: ["Private Catamaran & Yacht Rentals", "PADI Master-Certified Scuba Diving", "Seasonal Blue Whale Expeditions", "Pro Kite-Surfing & Wave Spots"],
         idealFor: "Divers, Sailors, & Coastal Enthusiasts"
       },
@@ -200,7 +200,7 @@ const categorizedSegments: Category[] = [
         badge: "Sacred Passages",
         shortDesc: "Monastery retreats, VIP access to ancient temples, sacred stupa pilgrimages, and monk blessings.",
         longDesc: "Nourish the soul. Journey through 2,500 years of Buddhist and Hindu heritage, including VIP access at the Temple of the Sacred Tooth Relic, silent forest monastery retreats, and personal blessing rituals.",
-        image: "/images/Katharagama_Perahara.jfif",
+        image: "/images/Katharagama_Perahara.jpg",
         highlights: ["VIP Access to Sacred Shrines", "Guided Meditation by Monks", "Sacred Heritage Pilgrimage Circuits", "Traditional Blessing Ceremonies"],
         idealFor: "Spiritual Seekers, Pilgrims, & Mindfulness Travelers"
       }
@@ -258,7 +258,7 @@ const categorizedSegments: Category[] = [
         badge: "Championship Level",
         shortDesc: "PGA green fees at Victoria Golf Resort, international cricket match VIP boxes, and marathon trips.",
         longDesc: "Play in paradise. Access world-class 18-hole golf courses, reserve VIP hospitality boxes for international cricket matches, or take part in surf and marathon events.",
-        image: "/images/Cricket.jfif",
+        image: "/images/Cricket.jpg",
         highlights: ["Championship 18-Hole Golf Passes", "VIP Stadium Boxes for Cricket", "Professional Surf Coaching Camps", "Marathon & Cycling Escorts"],
         idealFor: "Golfers, Athletes, & Sports Fans"
       },

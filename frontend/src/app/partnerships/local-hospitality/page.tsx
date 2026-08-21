@@ -16,7 +16,7 @@ export default function LocalHospitalityPage() {
 
         <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] border border-white/10 group">
           <Image
-            src="/images/reception lobby.jfif"
+            src="/images/reception_lobby.jpg"
             alt="Local Hospitality - Luxury Reception Lobby"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"

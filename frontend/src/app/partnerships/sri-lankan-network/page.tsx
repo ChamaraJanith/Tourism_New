@@ -357,7 +357,7 @@ export default function SriLankanNetworkPage() {
         {/* ── HERO IMAGE ── */}
         <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] border border-white/10 group mb-24">
           <Image
-            src="/images/nine_arch_bridge.png"
+            src="/images/empowering.png"
             alt="Sri Lankan Tourism - Demodara Nine Arch Bridge"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"

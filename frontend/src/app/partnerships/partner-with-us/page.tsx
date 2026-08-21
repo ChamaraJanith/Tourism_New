@@ -41,7 +41,7 @@ export default function PartnerWithUsPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Email</h3>
-                  <p className="text-white">partnerships@tourismnetwork.com</p>
+                  <p className="text-white">info@ihvtravel.com</p>
                 </div>
               </div>
 
@@ -61,7 +61,7 @@ export default function PartnerWithUsPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Office</h3>
-                  <p className="text-white">Colombo 01, Sri Lanka</p>
+                  <p className="text-white">22/20, Sepali Place, Yahampath Mawatha, Maharagama, Sri Lanka</p>
                 </div>
               </div>
             </div>

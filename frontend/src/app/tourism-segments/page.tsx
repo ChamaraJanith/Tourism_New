@@ -142,7 +142,7 @@ const categorizedSegments: Category[] = [
         badge: "Oceanic Luxury",
         shortDesc: "Deep-sea diving, blue whale spotting, catamaran cruising, and kite-surfing on golden shores.",
         longDesc: "Discover marine marvels. Experience PADI master-guided reef diving, private luxury catamaran charters in Mirissa or Trincomalee, and world-class kite surfing in Kalpitiya.",
-        image: "../../images/Whale.jfif",
+        image: "C:\Globalsoft\Tourism_New\frontend\public\images\whale.jpg",
         highlights: ["Private Catamaran & Yacht Rentals", "PADI Master-Certified Scuba Diving", "Seasonal Blue Whale Expeditions", "Pro Kite-Surfing & Wave Spots"],
         idealFor: "Divers, Sailors, & Coastal Enthusiasts"
       },
@@ -433,8 +433,8 @@ export default function TourismSegmentsPage() {
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${selectedCategory === 'all'
-                  ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
-                  : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
+                ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
+                : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
                 }`}
             >
               All Segments ({totalSegmentsCount})
@@ -446,8 +446,8 @@ export default function TourismSegmentsPage() {
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${selectedCategory === cat.id
-                      ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
-                      : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
+                    ? 'bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20 font-bold'
+                    : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5'
                     }`}
                 >
                   <Icon className="w-3.5 h-3.5" />

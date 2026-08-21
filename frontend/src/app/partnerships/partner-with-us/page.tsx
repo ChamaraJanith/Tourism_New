@@ -51,7 +51,7 @@ export default function PartnerWithUsPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Phone</h3>
-                  <p className="text-white">+94 11 234 5678</p>
+                  <p className="text-white">+94 112 2160252</p>
                 </div>
               </div>
 

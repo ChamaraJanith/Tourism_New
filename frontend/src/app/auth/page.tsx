@@ -22,6 +22,7 @@ import {
   CreditCard
 } from "lucide-react";
 import Link from "next/link";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
 
 const API_BASE = ""; // local frontend route or Vercel rewrite
 
@@ -301,6 +302,18 @@ export default function AuthPage() {
 
         {/* Centering wrapper */}
         <div className="w-full max-w-md mx-auto flex flex-col justify-start p-6 md:p-12 xl:p-16 space-y-8 relative z-10 py-12 lg:py-20 min-h-full">
+          {/* Top Header Navigation & Language Selector */}
+          <div className="flex items-center justify-between w-full">
+            <Link
+              href="/"
+              className="inline-flex items-center text-xs text-zinc-400 hover:text-[#d4af37] transition duration-200 group"
+            >
+              <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
+              Back to Home
+            </Link>
+            <LanguageSelector />
+          </div>
+
           {/* Mobile Brand Header */}
           <div className="flex lg:hidden flex-col items-center text-center space-y-2 mb-6">
             <Link href="/" className="flex items-center gap-2 group">

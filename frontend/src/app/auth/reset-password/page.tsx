@@ -17,6 +17,7 @@ import {
   KeyRound
 } from "lucide-react";
 import Link from "next/link";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { supabase } from "@/lib/supabase";
 import { updateUserPassword } from "@/lib/auth";
 
@@ -281,6 +282,7 @@ export default function ResetPasswordPage() {
               <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
               Back to Sign In
             </Link>
+            <LanguageSelector />
           </div>
 
           <motion.div

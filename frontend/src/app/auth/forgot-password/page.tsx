@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import Link from "next/link";
+import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { sendPasswordResetEmail } from "@/lib/auth";
 
 const SLIDES = [
@@ -179,7 +180,7 @@ export default function ForgotPasswordPage() {
       {/* RIGHT COLUMN: Password Reset Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 z-10 my-auto min-h-screen lg:min-h-full">
         <div className="w-full max-w-md space-y-8">
-          {/* Top navigation back button */}
+          {/* Top navigation back button & Language Selector */}
           <div className="flex items-center justify-between">
             <Link
               href="/auth"
@@ -188,6 +189,7 @@ export default function ForgotPasswordPage() {
               <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
               Back to Sign In
             </Link>
+            <LanguageSelector />
           </div>
 
           {/* Main Card */}

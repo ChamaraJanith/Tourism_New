@@ -21,6 +21,7 @@ export default function PartnerWithUsPage() {
               src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1000&h=1200"
               alt="Partner With Us"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#111416] via-transparent to-transparent" />

@@ -162,13 +162,10 @@ export default function JoinPartnerForm() {
                 <option value="" disabled className="bg-neutral-900 text-white/50">
                   Select the service type you provide
                 </option>
-                <option value="hotel" className="bg-neutral-900 text-white">Hotel / Resort / Villa</option>
-                <option value="vehicle-rental" className="bg-neutral-900 text-white">Vehicle Rental / Transport</option>
-                <option value="tour-guide" className="bg-neutral-900 text-white">Tour Guide</option>
-                <option value="restaurant" className="bg-neutral-900 text-white">Restaurant / Cafe</option>
-                <option value="activity-provider" className="bg-neutral-900 text-white">Activity Provider</option>
-
-                <option value="global-representee" className="bg-neutral-900 text-white">Global Representee</option>
+                <option value="Overseas-Representative" className="bg-neutral-900 text-white">Overseas Representative</option>
+                <option value="International-Sales-Manager" className="bg-neutral-900 text-white">International Sales Manager</option>
+                <option value="Business-Development-Representative" className="bg-neutral-900 text-white">Business Development Representative</option>
+                <option value="Tourism-&-Hospitality-Sales-Partner" className="bg-neutral-900 text-white">Tourism & Hospitality Sales Partner</option>
               </select>
             }
           />

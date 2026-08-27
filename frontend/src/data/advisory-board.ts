@@ -114,5 +114,14 @@ export const globalRepresentatives: AdvisoryMember[] = [
       "Expert in operations management, organizational resilience, and continuous improvement across international markets.",
     linkedin: "https://www.linkedin.com/in/thisara-don/",
     image: "/images/board_of_directers/Thisara_Sen.jpg",
+  },
+  {
+    name: "V. Shivakumar",
+    title: "Global Representative (India)",
+    role: "Experienced healthcare consultant and entrepreneur",
+    description:
+      "An experienced healthcare consultant and entrepreneur with expertise in training and capacity building, he will represent IHV in India, fostering strategic partnerships, business development, and tourism and investment opportunities between India and Sri Lanka.",
+    linkedin: "https://www.linkedin.com/in/shivakumar-v-711516289/",
+    image: "/images/board_of_directers/v_shivakumar.jpg",
   }
 ];

@@ -115,3 +115,4 @@ export const globalRepresentatives: AdvisoryMember[] = [
     linkedin: "https://www.linkedin.com/in/thisara-don/",
     image: "/images/board_of_directers/Thisara_Sen.jpg",
   }
+];

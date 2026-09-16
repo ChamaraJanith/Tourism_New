@@ -7,6 +7,7 @@ import { AuthProvider } from "@/components/providers/AuthProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Script from "next/script";
+import { Analytics } from '@vercel/analytics/react';
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -136,6 +137,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <Analytics />
       </body>
     </html>
   );

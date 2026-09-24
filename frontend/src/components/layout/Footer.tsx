@@ -291,7 +291,7 @@ export const Footer = () => {
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-3">
               <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
-                <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
+                <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-sm grayscale invert contrast-125 opacity-90" />
                 <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">IATA Certified</span>
               </div>
               <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">

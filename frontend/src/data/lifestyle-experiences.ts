@@ -14,6 +14,7 @@ export interface Experience {
   };
 }
 
+//experiense
 export const experiences: Experience[] = [
   {
     slug: "traditional-farming",

@@ -131,6 +131,6 @@ export const globalRepresentatives: AdvisoryMember[] = [
     description:
       "Leads and supports the company’s business development and strategic tourism partnerships in India, strengthening IHV’s presence and developing B2B relationships with travel trade partners.",
     linkedin: "https://www.linkedin.com/in/geeta-raza-912003b6/",
-    image: "/images/board_of_directers/geeth1.png",
+    image: "/images/board_of_directers/geet1.png",
   }
 ];

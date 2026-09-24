@@ -123,5 +123,14 @@ export const globalRepresentatives: AdvisoryMember[] = [
       "Experienced healthcare consultant and entrepreneur with expertise in training and capacity building, he will represent IHV in India, fostering strategic partnerships, business development, and tourism and investment opportunities between India and Sri Lanka.",
     linkedin: "https://www.linkedin.com/in/shivakumar-v-711516289/",
     image: "/images/board_of_directers/shiv1.jpg",
+  },
+  {
+    name: "Geeta Raza",
+    title: "Deputy Director – India Operations",
+    role: "Deputy Director – India Operations at International Hospitality Ventures (IHV).",
+    description:
+      "Leads and supports the company’s business development and strategic tourism partnerships in India, strengthening IHV’s presence and developing B2B relationships with travel trade partners.",
+    linkedin: "https://www.linkedin.com/in/geeta-raza-912003b6/",
+    image: "/images/board_of_directers/geeth1.png",
   }
 ];

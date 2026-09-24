@@ -126,10 +126,10 @@ export const globalRepresentatives: AdvisoryMember[] = [
   },
   {
     name: "Shabnam Raza (Geeta)",
-    title: "Deputy Director – India Representative",
-    role: "Deputy Director – India Representative at IHV Pvt. Ltd., Sri Lanka.",
+    title: "Deputy Director",
+    role: "Business Networking Professional",
     description:
-      "An experienced business-networking professional with strong associations across Indian business forums, industry organizations, and professional networks. She specializes in building meaningful partnerships and creating opportunities for cross-border collaboration. In her role, she leads IHV’s business development and strategic tourism initiatives in India, strengthening the company's regional presence and fostering vital B2B relationships with travel trade partners.",
+      "An experienced business-networking professional with strong associations across Indian business forums, industry organisations and professional networks. Shabnam specialises in building meaningful partnerships, connecting businesses and creating opportunities for cross-border collaboration.",
     linkedin: "https://www.linkedin.com/in/geeta-raza-912003b6/",
     image: "/images/board_of_directers/geet1.png",
   }

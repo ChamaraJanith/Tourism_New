@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname, '../../'),
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -14,7 +16,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // public/videos සහ images සදහා වසර 1ක Long-term Cache එකක් සැකසීම
         source: "/(videos|images)/:path*",
         headers: [
           {

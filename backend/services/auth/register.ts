@@ -134,17 +134,19 @@ export const signUpRep = async (
     const paddedSeq = nextSeq.toString().padStart(4, '0'); // 4 digits for reps
     const customId = `REP-${prefix}-${paddedSeq}`;
 
+    // Wait a brief moment to allow the database trigger to complete the insert
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     const { data: profileDataArray, error: profileError } = await supabase
       .from('users')
-      .insert({
-        auth_id: data.user.id,
-        email: data.user.email,
+      .update({
+        custom_id: customId,
+        role: 'representative',
         full_name: fullName,
         country,
-        contact_number: contactNumber,
-        custom_id: customId,
-        role: 'representative'
+        contact_number: contactNumber
       })
+      .eq('auth_id', data.user.id)
       .select()
 
     if (profileError) {

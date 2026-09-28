@@ -31,12 +31,12 @@ export default function RepDashboard() {
       if (!profileError && profileData) {
         setProfile(profileData);
 
-        // Fetch Reservations (Handling for their country - assuming we filter by some logic, or all for now)
-        // Since itinerary_requests doesn't have a country field explicitly yet, we fetch all or we can fetch based on some criteria. 
-        // For now, we fetch recent reservations.
+        // Filter reservations by the representative's country
+        // (Assumes itinerary_requests table has a 'client_country' or similar column)
         const { data: resData } = await supabase
           .from("itinerary_requests")
           .select("*")
+          .eq("client_country", profileData.country) // Make sure this column exists in DB
           .order("created_at", { ascending: false })
           .limit(10);
         

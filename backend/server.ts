@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
 import { supabase } from './supabase';
-import { signUp, logIn, signOut, getSession, sendPasswordResetEmail, updateUserPassword, updateProfile } from './services/auth';
+import { signUp, signUpRep, logIn, signOut, getSession, sendPasswordResetEmail, updateUserPassword, updateProfile } from './services/auth';
 import { authenticateToken, AuthenticatedRequest } from './middleware/auth';
 
 const app = express();
@@ -54,6 +54,24 @@ app.post(['/api/auth/signup', '/api/auth/register'], async (req: Request, res: R
     res.status(400).json({ error: error.message || 'Failed to sign up' });
   }
 });
+
+// Admin endpoint to register Global Representatives
+app.post('/api/auth/register-rep', async (req: Request, res: Response): Promise<void> => {
+  const { email, password, name, country, contactNumber } = req.body;
+
+  if (!email || !password || !name || !country) {
+    res.status(400).json({ error: 'Missing required fields' });
+    return;
+  }
+
+  try {
+    const data = await signUpRep(email, password, name, country, contactNumber);
+    res.status(200).json({ message: 'Representative created successfully', data });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message || 'Failed to create representative' });
+  }
+});
+
 
 app.post('/api/auth/login', async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;

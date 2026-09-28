@@ -8,7 +8,8 @@ import {
   Users, 
   Map, 
   Settings, 
-  LogOut 
+  LogOut,
+  Globe
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
@@ -18,6 +19,7 @@ const MENU_ITEMS = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
   { name: "Reservations", href: "/reservations", icon: CalendarCheck },
   { name: "Users", href: "/users", icon: Users },
+  { name: "Representatives", href: "/representatives", icon: Globe },
   { name: "Packages", href: "/packages", icon: Map },
   { name: "Settings", href: "/settings", icon: Settings },
 ];

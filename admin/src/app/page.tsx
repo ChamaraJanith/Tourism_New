@@ -10,21 +10,39 @@ import {
   ArrowDownRight 
 } from "lucide-react";
 
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
+// Mock stats for now until we aggregate real stats
 const STATS = [
-  { label: "Total Reservations", value: "248", change: "+12%", positive: true, icon: CalendarCheck },
-  { label: "Active Users", value: "1,429", change: "+5.2%", positive: true, icon: Users },
-  { label: "Total Revenue", value: "$124,500", change: "+18%", positive: true, icon: DollarSign },
-  { label: "Pending Approvals", value: "14", change: "-2%", positive: false, icon: TrendingUp },
+  { label: "Total Reservations", value: "0", change: "0%", positive: true, icon: CalendarCheck },
+  { label: "Active Users", value: "0", change: "0%", positive: true, icon: Users },
+  { label: "Total Revenue", value: "$0", change: "0%", positive: true, icon: DollarSign },
+  { label: "Pending Approvals", value: "0", change: "0%", positive: true, icon: TrendingUp },
 ];
 
-const RECENT_BOOKINGS = [
-  { id: "IHV-GSD-IND-0012", name: "Rahul Sharma", package: "The Grand Sri Lanka Discovery", status: "Approved", date: "Oct 12, 2026" },
-  { id: "IHV-LES-GBR-0045", name: "Emma Watson", package: "Luxury Escape Sri Lanka", status: "Pending", date: "Oct 11, 2026" },
-  { id: "IHV-RHC-GER-0089", name: "Lukas Schmidt", package: "Romance & Honeymoon", status: "Approved", date: "Oct 10, 2026" },
-  { id: "IHV-WNA-OTH-0102", name: "David Chen", package: "Wildlife & Nature Adventure", status: "Not Approved", date: "Oct 09, 2026" },
-];
+
 
 export default function DashboardOverview() {
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBookings() {
+      const { data, error } = await supabase
+        .from('itinerary_requests')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(10);
+        
+      if (!error && data) {
+        setBookings(data);
+      }
+      setLoading(false);
+    }
+    fetchBookings();
+  }, []);
+
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       
@@ -87,24 +105,49 @@ export default function DashboardOverview() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {RECENT_BOOKINGS.map((booking) => (
-                <tr key={booking.id} className="hover:bg-white/[0.02] transition">
-                  <td className="px-6 py-4 font-mono text-[#d4af37]">{booking.id}</td>
-                  <td className="px-6 py-4 text-slate-200 font-medium">{booking.name}</td>
-                  <td className="px-6 py-4 text-slate-400">{booking.package}</td>
-                  <td className="px-6 py-4 text-slate-400">{booking.date}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      booking.status === "Approved" ? "bg-emerald-500/10 text-emerald-400" :
-                      booking.status === "Pending" ? "bg-amber-500/10 text-amber-400" :
-                      "bg-rose-500/10 text-rose-400"
-                    }`}>
-                      {booking.status}
-                    </span>
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                    Loading reservations...
                   </td>
                 </tr>
-              ))}
+              ) : bookings.length > 0 ? (
+                bookings.map((booking) => (
+                  <tr key={booking.id} className="hover:bg-white/[0.02] transition">
+                    <td className="px-6 py-4 font-mono text-[#d4af37]">REQ-{String(booking.id).padStart(4, '0')}</td>
+                    <td className="px-6 py-4 text-slate-200 font-medium">
+                      {booking.client_name}
+                      <span className="block text-xs text-slate-500 font-normal mt-0.5">{booking.client_email}</span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-400">
+                      {booking.package_title}
+                      <span className="block text-xs text-slate-500 mt-0.5">{booking.package_duration || "Custom"}</span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-400">{booking.created_at ? new Date(booking.created_at).toLocaleDateString() : 'N/A'}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        booking.status === "Approved" ? "bg-emerald-500/10 text-emerald-400" :
+                        booking.status === "Pending" ? "bg-amber-500/10 text-amber-400" :
+                        "bg-amber-500/10 text-amber-400" // Default for now
+                      }`}>
+                        {booking.status || "Pending"}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <CalendarCheck className="w-8 h-8 text-slate-600 mb-2" />
+                      <p>No recent reservations found.</p>
+                      <p className="text-xs text-slate-600">New bookings will appear here.</p>
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
+
           </table>
         </div>
       </motion.div>

@@ -30,8 +30,18 @@ export default function LoginPage() {
       return;
     }
 
-    // Successful login — navigate to dashboard
-    window.location.href = "/";
+    // Check user role
+    const { data: profile } = await supabase
+      .from("users")
+      .select("role")
+      .eq("auth_id", data.session.user.id)
+      .single();
+
+    if (profile?.role === "representative") {
+      window.location.href = "/rep-dashboard";
+    } else {
+      window.location.href = "/";
+    }
   };
 
 

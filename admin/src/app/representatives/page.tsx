@@ -22,6 +22,9 @@ export default function RepresentativesPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [reps, setReps] = useState<any[]>([]);
+  const [editingRep, setEditingRep] = useState<any>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
   const fetchReps = async () => {
     const { data, error } = await supabase
@@ -81,6 +84,59 @@ export default function RepresentativesPage() {
     }
   };
 
+  const handleUpdateRep = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingRep) return;
+    
+    setIsUpdating(true);
+    setError("");
+    setSuccess("");
+
+    const { error } = await supabase
+      .from("users")
+      .update({
+        full_name: editingRep.full_name,
+        country: editingRep.country,
+        contact_number: editingRep.contact_number
+      })
+      .eq("id", editingRep.id);
+
+    setIsUpdating(false);
+
+    if (error) {
+      setError(error.message);
+    } else {
+      setSuccess("Representative updated successfully!");
+      setEditingRep(null);
+      fetchReps();
+    }
+  };
+
+  const handleDeleteRep = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to remove ${name}? This will revoke their access.`)) {
+      return;
+    }
+    
+    setIsDeleting(id);
+    setError("");
+    setSuccess("");
+
+    // Delete from public.users table (this revokes their role and dashboard access)
+    const { error } = await supabase
+      .from("users")
+      .delete()
+      .eq("id", id);
+      
+    setIsDeleting(null);
+
+    if (error) {
+      setError(error.message || "Failed to remove representative. Please check database RLS permissions.");
+    } else {
+      setSuccess("Representative removed successfully!");
+      fetchReps();
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
@@ -109,12 +165,12 @@ export default function RepresentativesPage() {
           
           {error && (
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm flex items-center gap-2">
-              <AlertCircle className="w-4 h-4" /> {error}
+              <AlertCircle className="w-4 h-4 shrink-0" /> {error}
             </div>
           )}
           {success && (
             <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-sm flex items-center gap-2">
-              <Check className="w-4 h-4" /> {success}
+              <Check className="w-4 h-4 shrink-0" /> {success}
             </div>
           )}
 
@@ -162,10 +218,54 @@ export default function RepresentativesPage() {
               </div>
             </div>
 
-            <div className="md:col-span-2 flex justify-end mt-2">
-              <button disabled={loading} type="submit" className="bg-[#d4af37] hover:bg-[#e8c84a] text-black font-semibold py-2.5 px-6 rounded-xl transition flex items-center gap-2 text-sm disabled:opacity-50">
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
-                {loading ? "Registering..." : "Save Representative"}
+            </div>
+          </form>
+        </motion.div>
+      )}
+
+      {/* Edit Form */}
+      {editingRep && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-[#111827] border border-[#d4af37]/30 rounded-2xl p-6"
+        >
+          <h2 className="text-lg font-semibold text-[#d4af37] mb-4">Edit Representative: {editingRep.custom_id}</h2>
+          
+          <form onSubmit={handleUpdateRep} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="space-y-1.5">
+              <label className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Full Name</label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input required value={editingRep.full_name} onChange={e => setEditingRep({...editingRep, full_name: e.target.value})} type="text" className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white text-sm focus:border-[#d4af37] outline-none transition" />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Assigned Country</label>
+              <div className="relative">
+                <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <select required value={editingRep.country} onChange={e => setEditingRep({...editingRep, country: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white text-sm focus:border-[#d4af37] outline-none transition appearance-none">
+                  {COUNTRIES.map(c => <option key={c} value={c} className="bg-[#030712]">{c}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Contact Number</label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input required value={editingRep.contact_number || ""} onChange={e => setEditingRep({...editingRep, contact_number: e.target.value})} type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white text-sm focus:border-[#d4af37] outline-none transition" />
+              </div>
+            </div>
+
+            <div className="md:col-span-2 flex justify-end mt-2 gap-3">
+              <button type="button" onClick={() => setEditingRep(null)} className="px-5 py-2.5 text-sm text-slate-400 hover:text-white transition">
+                Cancel
+              </button>
+              <button disabled={isUpdating} type="submit" className="bg-[#d4af37] hover:bg-[#e8c84a] text-black font-semibold py-2.5 px-6 rounded-xl transition flex items-center gap-2 text-sm disabled:opacity-50">
+                {isUpdating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                {isUpdating ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </form>
@@ -183,6 +283,7 @@ export default function RepresentativesPage() {
                 <th className="px-6 py-4 font-medium">Country</th>
                 <th className="px-6 py-4 font-medium">Email</th>
                 <th className="px-6 py-4 font-medium">Contact</th>
+                <th className="px-6 py-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -194,6 +295,21 @@ export default function RepresentativesPage() {
                     <td className="px-6 py-4 text-slate-400">{rep.country}</td>
                     <td className="px-6 py-4 text-slate-400">{rep.email}</td>
                     <td className="px-6 py-4 text-slate-400">{rep.contact_number}</td>
+                    <td className="px-6 py-4 text-right space-x-3">
+                      <button 
+                        onClick={() => { setEditingRep(rep); setShowAddForm(false); }}
+                        className="text-sm text-blue-400 hover:text-blue-300 font-medium transition"
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteRep(rep.id, rep.full_name)}
+                        disabled={isDeleting === rep.id}
+                        className="text-sm text-red-400 hover:text-red-300 font-medium transition disabled:opacity-50"
+                      >
+                        {isDeleting === rep.id ? "..." : "Remove"}
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (

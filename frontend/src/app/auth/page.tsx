@@ -124,6 +124,31 @@ export default function AuthPage() {
         setError("Please select your country of residence.");
         return;
       }
+      
+      // Validate NIC / Passport based on the selected country
+      const valId = nic.trim();
+      let idError = "";
+      if (country === "Sri Lanka") {
+        // Sri Lankan NIC (9 digits + V/X or 12 digits) or Passport (7-10 alphanumeric)
+        if (!/^([0-9]{9}[vVxX]|[0-9]{12})$/.test(valId) && !/^[a-zA-Z0-9]{7,10}$/.test(valId)) {
+          idError = "Invalid Sri Lankan NIC or Passport format.";
+        }
+      } else if (country === "India") {
+        // Indian Aadhaar (12 digits) or Passport
+        if (!/^\d{12}$/.test(valId) && !/^[A-Za-z][0-9]{7}$/.test(valId)) {
+          idError = "Invalid Indian Aadhaar or Passport format.";
+        }
+      } else {
+        // Generic ID/Passport validation for other countries (5 to 15 alphanumeric characters)
+        if (!/^[a-zA-Z0-9-]{5,15}$/.test(valId)) {
+          idError = `Invalid ID or Passport format for ${country}.`;
+        }
+      }
+
+      if (idError) {
+        setError(idError);
+        return;
+      }
       if (!dob) {
         setError("Please select your date of birth.");
         return;

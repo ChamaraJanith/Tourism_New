@@ -7,6 +7,7 @@ import { AuthProvider } from "@/components/providers/AuthProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
+import { Chatbot } from "@/components/layout/Chatbot";
 import Script from "next/script";
 import { Analytics } from '@vercel/analytics/react';
 
@@ -113,6 +114,7 @@ export default function RootLayout({
             </SmoothScroll>
             <Footer />
             <FloatingWhatsApp />
+            <Chatbot />
           </AuthProvider>
         </ReduxProvider>
         <Script

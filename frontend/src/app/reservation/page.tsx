@@ -368,8 +368,8 @@ export default function ReservationFormPage() {
                 <div className="text-right text-xs text-zinc-500 space-y-1">
                   <p><span className="text-zinc-400">Package:</span> {pkg?.label.split(". ")[1]}</p>
                   <p><span className="text-zinc-400">Origin:</span> {nationality} ({countryCode})</p>
-                  <p><span className="text-zinc-400">Rate:</span> {pkg?.rate}</p>
                 </div>
+
               </motion.div>
             )}
           </AnimatePresence>

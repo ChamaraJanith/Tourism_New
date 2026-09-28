@@ -10,8 +10,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isLoginPage) {
     // Login page: no sidebar, no auth check needed here (AuthGuard handles redirect away if already logged in)
-    return <>{children}</>;
+    return <div className="flex-1 w-full h-full">{children}</div>;
   }
+
 
   return (
     <AuthGuard>

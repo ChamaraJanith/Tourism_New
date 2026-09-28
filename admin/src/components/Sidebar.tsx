@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { 
@@ -15,7 +16,7 @@ import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 
 
-const MENU_ITEMS = [
+const ADMIN_MENU = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
   { name: "Reservations", href: "/reservations", icon: CalendarCheck },
   { name: "Users", href: "/users", icon: Users },
@@ -24,25 +25,47 @@ const MENU_ITEMS = [
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
+const REP_MENU = [
+  { name: "My Dashboard", href: "/rep-dashboard", icon: LayoutDashboard },
+];
+
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchRole() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data } = await supabase
+          .from("users")
+          .select("role")
+          .eq("auth_id", session.user.id)
+          .single();
+        if (data) setRole(data.role);
+      }
+    }
+    fetchRole();
+  }, []);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.push("/login");
   };
 
+  const menuItems = role === "representative" ? REP_MENU : ADMIN_MENU;
+
   return (
     <aside className="w-64 border-r border-white/5 bg-[#0a0f1a] flex flex-col h-full shrink-0">
       <div className="h-20 flex items-center px-6 border-b border-white/5">
         <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-          <span className="text-[#d4af37]">IHV</span> Admin
+          <span className="text-[#d4af37]">IHV</span> {role === "representative" ? "REP" : "Admin"}
         </h1>
       </div>
 
       <nav className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-        {MENU_ITEMS.map((item) => {
+        {menuItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
 

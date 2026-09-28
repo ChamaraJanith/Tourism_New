@@ -218,6 +218,11 @@ export default function RepresentativesPage() {
               </div>
             </div>
 
+            <div className="md:col-span-2 flex justify-end mt-2">
+              <button disabled={loading} type="submit" className="bg-[#d4af37] hover:bg-[#e8c84a] text-black font-semibold py-2.5 px-6 rounded-xl transition flex items-center gap-2 text-sm disabled:opacity-50">
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                {loading ? "Registering..." : "Save Representative"}
+              </button>
             </div>
           </form>
         </motion.div>

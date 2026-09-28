@@ -27,6 +27,7 @@ const ADMIN_MENU = [
 
 const REP_MENU = [
   { name: "My Dashboard", href: "/rep-dashboard", icon: LayoutDashboard },
+  { name: "Reservations", href: "/reservations", icon: CalendarCheck },
 ];
 
 export function Sidebar() {

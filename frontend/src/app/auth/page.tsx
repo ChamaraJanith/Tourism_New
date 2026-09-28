@@ -209,9 +209,15 @@ export default function AuthPage() {
           })
         );
 
+        if (email.toLowerCase() === "admin@ihvtravel.com") {
+          window.location.href = "http://localhost:3001/";
+          return;
+        }
+
         router.push("/profile");
         return;
       }
+
 
       setMessage(isSignup ? "Sign up successful. Please check your email to verify." : "Login successful.");
     } catch (err: any) {

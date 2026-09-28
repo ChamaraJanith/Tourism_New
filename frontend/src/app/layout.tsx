@@ -6,6 +6,7 @@ import { ReduxProvider } from "@/components/providers/ReduxProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import Script from "next/script";
 import { Analytics } from '@vercel/analytics/react';
 
@@ -111,6 +112,7 @@ export default function RootLayout({
               {children}
             </SmoothScroll>
             <Footer />
+            <FloatingWhatsApp />
           </AuthProvider>
         </ReduxProvider>
         <Script

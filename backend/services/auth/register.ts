@@ -134,20 +134,33 @@ export const signUpRep = async (
     const paddedSeq = nextSeq.toString().padStart(4, '0'); // 4 digits for reps
     const customId = `REP-${prefix}-${paddedSeq}`;
 
-    // Wait a brief moment to allow the database trigger to complete the insert
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     const { data: profileDataArray, error: profileError } = await supabase
       .from('users')
-      .update({
-        custom_id: customId,
-        role: 'representative',
+      .insert({
+        auth_id: data.user.id,
+        email: data.user.email,
         full_name: fullName,
         country,
-        contact_number: contactNumber
+        contact_number: contactNumber,
+        custom_id: customId,
+        role: 'representative'
       })
-      .eq('auth_id', data.user.id)
       .select()
+
+    if (!profileError && profileDataArray && profileDataArray.length > 0) {
+      // If a database trigger overwrote our customId with a 'USER-' prefix, force an update
+      if (profileDataArray[0].custom_id !== customId) {
+        const { data: updatedProfile, error: updateError } = await supabase
+          .from('users')
+          .update({ custom_id: customId, role: 'representative' })
+          .eq('auth_id', data.user.id)
+          .select()
+        
+        if (!updateError && updatedProfile && updatedProfile.length > 0) {
+          profileDataArray[0] = updatedProfile[0]
+        }
+      }
+    }
 
     if (profileError) {
       console.error('Error creating rep profile:', profileError.message)

@@ -105,7 +105,7 @@ export default function PrivacyPage() {
               </span>
             </div>
             <Link
-              href="/auth?mode=signup"
+              href="/login?mode=signup"
               className="w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-center text-[#070b10] transition-all bg-gradient-to-r from-[#d4af37] to-[#f0c040] hover:shadow-[0_10px_25px_rgba(212,175,55,0.3)] hover:scale-[1.02]"
             >
               Access Portal
@@ -164,7 +164,7 @@ export default function PrivacyPage() {
                 </span>
               </div>
               <Link
-                href="/auth?mode=signup"
+                href="/login?mode=signup"
                 className="w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-center text-[#070b10] transition-all bg-gradient-to-r from-[#d4af37] to-[#f0c040] hover:shadow-[0_10px_25px_rgba(212,175,55,0.3)] hover:scale-[1.02]"
               >
                 Access Portal

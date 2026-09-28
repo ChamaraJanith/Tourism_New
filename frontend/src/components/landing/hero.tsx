@@ -55,7 +55,7 @@ export function Hero() {
                 </p>
  
                 <div className="mt-8 flex flex-wrap justify-center items-center gap-4 pointer-events-auto">
-                  <BespokeButton variant="dark" href="/auth" className="!px-10 !py-4">
+                  <BespokeButton variant="dark" href="/login" className="!px-10 !py-4">
                     Start Your Journey
                     <ChevronDown size={14} className="-rotate-90 ml-2" />
                   </BespokeButton>

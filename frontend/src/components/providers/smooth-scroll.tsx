@@ -23,7 +23,7 @@ if (typeof window !== "undefined") {
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
-  const isExcludedRoute = pathname?.startsWith("/lifestyle-experiences") || pathname?.startsWith("/auth");
+  const isExcludedRoute = pathname?.startsWith("/lifestyle-experiences") || pathname?.startsWith("/login");
 
   useEffect(() => {
     if (isExcludedRoute) {

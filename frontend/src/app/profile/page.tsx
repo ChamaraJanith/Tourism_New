@@ -68,7 +68,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {
-      router.push("/auth");
+      router.push("/login");
     }
   }, [isInitialized, isAuthenticated, router]);
 
@@ -86,7 +86,7 @@ export default function ProfilePage() {
 
   const handleLogout = () => {
     dispatch(logOut());
-    router.push("/auth");
+    router.push("/login");
   };
 
   // Handle local file upload, resize, and convert to base64

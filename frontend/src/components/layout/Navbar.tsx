@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
   const pathname = usePathname();
-  if (pathname?.startsWith("/auth")) return null;
+  if (pathname?.startsWith("/login")) return null;
   const dispatch = useAppDispatch();
   const isMenuOpen = useAppSelector((state) => state.ui.isMenuOpen);
   const { user, isAuthenticated, isInitialized } = useAppSelector((state) => state.auth);
@@ -293,7 +293,7 @@ export const Navbar = () => {
             ) : (
               <BespokeButton
                 variant="emerald"
-                href="/auth"
+                href="/login"
                 className="!px-4 !py-2 !text-[0.55rem] md:!px-8 md:!py-3 md:!text-[0.65rem] shadow-lg"
               >
                 <UserIcon className="w-3 h-3 md:w-4 md:h-4" />

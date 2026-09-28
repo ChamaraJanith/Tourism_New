@@ -210,7 +210,9 @@ export default function AuthPage() {
         );
 
         if (email.toLowerCase() === "admin@ihvtravel.com") {
-          window.location.href = "http://localhost:3001/";
+          // Use environment variable for deployed admin URL, fallback to localhost
+          const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001";
+          window.location.href = `${adminUrl}/login`;
           return;
         }
 
@@ -574,7 +576,7 @@ export default function AuthPage() {
                 </label>
                 {!isSignup && (
                   <Link
-                    href="/auth/forgot-password"
+                    href="/login/forgot-password"
                     className="text-xs text-zinc-400 hover:text-[#d4af37] transition duration-200"
                   >
                     Forgot password?

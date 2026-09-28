@@ -55,7 +55,7 @@ export default function ReservationFormPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      router.push("/auth?redirect=/reservation");
+      router.push("/login?redirect=/reservation");
       return;
     }
     // TODO: POST form data to backend — backend assigns primary key serial
@@ -147,7 +147,7 @@ export default function ReservationFormPage() {
                   </div>
                 </div>
                 <Link
-                  href="/auth?redirect=/reservation"
+                  href="/login?redirect=/reservation"
                   className="shrink-0 flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition"
                 >
                   <LogIn className="w-3.5 h-3.5" />

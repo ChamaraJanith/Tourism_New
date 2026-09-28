@@ -183,7 +183,7 @@ export default function ForgotPasswordPage() {
           {/* Top navigation back button & Language Selector */}
           <div className="flex items-center justify-between">
             <Link
-              href="/auth"
+              href="/login"
               className="inline-flex items-center text-xs text-zinc-400 hover:text-[#d4af37] transition duration-200 group"
             >
               <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
@@ -296,7 +296,7 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 <Link
-                  href="/auth"
+                  href="/login"
                   className="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold uppercase tracking-wider transition duration-200"
                 >
                   Return to Sign In

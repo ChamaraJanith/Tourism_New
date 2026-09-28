@@ -53,7 +53,7 @@ export const Footer = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  if (pathname?.startsWith("/auth")) return null;
+  if (pathname?.startsWith("/login")) return null;
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();

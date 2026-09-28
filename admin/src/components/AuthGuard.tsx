@@ -20,11 +20,22 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     });
 
     // Listen for auth changes (sign-in / sign-out)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (!session && pathname !== "/login") {
         router.replace("/login");
       } else if (session && pathname === "/login") {
-        router.replace("/");
+        // Fetch role to redirect to correct dashboard
+        const { data: profile } = await supabase
+          .from("users")
+          .select("role")
+          .eq("auth_id", session.user.id)
+          .single();
+
+        if (profile?.role === "representative") {
+          router.replace("/rep-dashboard");
+        } else {
+          router.replace("/");
+        }
       } else {
         setChecking(false);
       }

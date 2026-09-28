@@ -113,7 +113,7 @@ export default function ResetPasswordPage() {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          router.push("/auth");
+          router.push("/login");
           return 0;
         }
         return prev - 1;
@@ -276,7 +276,7 @@ export default function ResetPasswordPage() {
         <div className="w-full max-w-md space-y-8">
           <div className="flex items-center justify-between">
             <Link
-              href="/auth"
+              href="/login"
               className="inline-flex items-center text-xs text-zinc-400 hover:text-[#d4af37] transition duration-200 group"
             >
               <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />
@@ -442,7 +442,7 @@ export default function ResetPasswordPage() {
                 </div>
 
                 <Link
-                  href="/auth"
+                  href="/login"
                   className="inline-flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#aa892c] hover:from-[#e5bd44] hover:to-[#b89531] text-zinc-950 font-semibold text-xs uppercase tracking-wider transition duration-200"
                 >
                   Proceed to Sign In Now

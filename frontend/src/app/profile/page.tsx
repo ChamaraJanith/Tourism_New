@@ -77,24 +77,24 @@ export default function ProfilePage() {
   }, [isInitialized, isAuthenticated, router]);
 
   useEffect(() => {
+    async function fetchBookings() {
+      setLoadingBookings(true);
+      const { data, error } = await supabase
+        .from('itinerary_requests')
+        .select('*')
+        .eq('client_email', user?.email)
+        .order('created_at', { ascending: false });
+      
+      if (data) {
+        setUserBookings(data);
+      }
+      setLoadingBookings(false);
+    }
+
     if (isAuthenticated && user?.email) {
       fetchBookings();
     }
   }, [isAuthenticated, user?.email]);
-
-  const fetchBookings = async () => {
-    setLoadingBookings(true);
-    const { data, error } = await supabase
-      .from('itinerary_requests')
-      .select('*')
-      .eq('client_email', user?.email)
-      .order('created_at', { ascending: false });
-    
-    if (data) {
-      setUserBookings(data);
-    }
-    setLoadingBookings(false);
-  };
 
   const handleDeleteBooking = async (id: string) => {
     if (confirm("Are you sure you want to delete this reservation?")) {

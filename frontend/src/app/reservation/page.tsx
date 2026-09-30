@@ -88,9 +88,7 @@ export default function ReservationFormPage() {
         client_country: data.clientCountry,
         client_nic: data.clientNic,
         client_dob: data.clientDob,
-        client_notes: data.clientNotes,
-        user_id: sessionData?.session?.user?.id, // In case RLS needs it
-        status: 'Pending'
+        client_notes: data.clientNotes
       };
 
       const { error: dbError } = await supabase

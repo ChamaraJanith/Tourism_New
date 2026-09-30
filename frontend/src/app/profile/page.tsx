@@ -110,8 +110,13 @@ export default function ProfilePage() {
     const { error } = await supabase
       .from('itinerary_requests')
       .update({
+        package_title: editBooking.package_title,
         client_name: editBooking.client_name,
         client_phone: editBooking.client_phone,
+        client_nic: editBooking.client_nic,
+        client_country: editBooking.client_country,
+        client_dob: editBooking.client_dob,
+        client_notes: editBooking.client_notes
       })
       .eq('id', editBooking.id);
       
@@ -788,23 +793,73 @@ export default function ProfilePage() {
               
               <h2 className="text-2xl font-bold text-white mb-6">Edit Reservation</h2>
               
-              <form onSubmit={handleUpdateBooking} className="flex flex-col gap-4">
+              <form onSubmit={handleUpdateBooking} className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Client Name</label>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Package Title</label>
                   <input
                     type="text"
-                    value={editBooking.client_name}
-                    onChange={(e) => setEditBooking({...editBooking, client_name: e.target.value})}
+                    value={editBooking.package_title || ""}
+                    onChange={(e) => setEditBooking({...editBooking, package_title: e.target.value})}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Phone Number</label>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Client Name</label>
                   <input
                     type="text"
-                    value={editBooking.client_phone}
-                    onChange={(e) => setEditBooking({...editBooking, client_phone: e.target.value})}
+                    value={editBooking.client_name || ""}
+                    onChange={(e) => setEditBooking({...editBooking, client_name: e.target.value})}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Phone</label>
+                    <input
+                      type="text"
+                      value={editBooking.client_phone || ""}
+                      onChange={(e) => setEditBooking({...editBooking, client_phone: e.target.value})}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Country</label>
+                    <input
+                      type="text"
+                      value={editBooking.client_country || ""}
+                      onChange={(e) => setEditBooking({...editBooking, client_country: e.target.value})}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">NIC / Passport</label>
+                    <input
+                      type="text"
+                      value={editBooking.client_nic || ""}
+                      onChange={(e) => setEditBooking({...editBooking, client_nic: e.target.value})}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Date of Travel</label>
+                    <input
+                      type="date"
+                      value={editBooking.client_dob || ""}
+                      onChange={(e) => setEditBooking({...editBooking, client_dob: e.target.value})}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                      style={{ colorScheme: "dark" }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Additional Notes (Diet, Travelers, etc.)</label>
+                  <textarea
+                    value={editBooking.client_notes || ""}
+                    onChange={(e) => setEditBooking({...editBooking, client_notes: e.target.value})}
+                    rows={6}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37] resize-none"
                   />
                 </div>
                 

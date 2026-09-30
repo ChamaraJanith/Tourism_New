@@ -52,14 +52,45 @@ export default function ReservationFormPage() {
   };
 
   // Auth guard: redirect to login on submit
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isAuthenticated) {
       router.push("/login?redirect=/reservation");
       return;
     }
-    // TODO: POST form data to backend — backend assigns primary key serial
-    alert("Reservation submitted! Serial number will be assigned by the server.");
+    
+    const formData = new FormData(e.currentTarget);
+    const pkg = PACKAGES.find((p) => p.id === selectedPackage);
+
+    const data = {
+      packageTitle: pkg?.label || "Custom Package",
+      packageDuration: "",
+      clientName: formData.get("fullName") as string || "",
+      clientEmail: formData.get("email") as string || "",
+      clientPhone: formData.get("contactNumber") as string || "",
+      clientCountry: nationality,
+      clientNic: formData.get("nic") as string || "",
+      clientDob: formData.get("passportValidity") as string || "",
+      clientNotes: `Passport: ${formData.get("passportNumber")}\nFax: ${formData.get("fax")}\nPax: ${formData.get("pax")}\nTravelers: ${travelerNames.join(", ")}\nDiet: ${formData.get("diet")}\nDisability: ${disabilityAssistance}\nDetails: ${formData.get("details")}`
+    };
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${apiUrl}/api/itinerary/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to submit reservation");
+      }
+      
+      alert("Reservation submitted successfully! Our team will get back to you soon.");
+      router.push("/");
+    } catch (err) {
+      alert("Error submitting reservation. Please try again.");
+    }
   };
 
   const pkg = PACKAGES.find((p) => p.id === selectedPackage);
@@ -170,15 +201,15 @@ export default function ReservationFormPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Full Name / Primary Contact:</label>
-                  <input type="text" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="text" name="fullName" required className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Contact Number (Phone/WhatsApp):</label>
-                  <input type="tel" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="tel" name="contactNumber" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Email Address:</label>
-                  <input type="email" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="email" name="email" required className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
               </div>
 
@@ -224,23 +255,23 @@ export default function ReservationFormPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">NIC Number:</label>
-                  <input type="text" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="nic" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Passport Number:</label>
-                  <input type="text" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="passportNumber" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Passport Validity Date:</label>
-                  <input type="date" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition [color-scheme:dark]" />
+                  <input type="date" name="passportValidity" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition [color-scheme:dark]" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Pax (Total Count):</label>
-                  <input type="number" min="1" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="number" name="pax" min="1" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Fax Number:</label>
-                  <input type="text" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="fax" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
               </div>
 
@@ -387,7 +418,7 @@ export default function ReservationFormPage() {
             <div className="p-6 md:p-8 space-y-6">
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-gray-400">Any Special Diet Requirements:</label>
-                <input type="text" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                <input type="text" name="diet" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
               </div>
               <div className="space-y-3">
                 <label className="text-xs uppercase tracking-widest text-gray-400">Disability Assistance Required:</label>
@@ -402,7 +433,7 @@ export default function ReservationFormPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-gray-400">Details:</label>
-                <textarea rows={3} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition resize-none" />
+                <textarea name="details" rows={3} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition resize-none" />
               </div>
             </div>
           </motion.div>

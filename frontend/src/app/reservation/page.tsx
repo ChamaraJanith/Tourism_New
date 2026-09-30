@@ -158,7 +158,7 @@ export default function ReservationFormPage() {
             <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-1 text-right">Serial No</p>
             <AnimatePresence mode="wait">
               <motion.div
-                key={fullSerial}
+                key={shortId}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}

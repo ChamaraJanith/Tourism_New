@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/hooks/store";
 import { LogIn, ShieldAlert, Plus, X } from "lucide-react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 // Package data with 3-letter codes and rate info
 const PACKAGES = [
@@ -75,21 +76,36 @@ export default function ReservationFormPage() {
     };
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-      const res = await fetch(`${apiUrl}/api/itinerary/request`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      // 1. Save to Supabase directly using the authenticated frontend session
+      const { data: sessionData } = await supabase.auth.getSession();
+      
+      const dbData = {
+        package_title: data.packageTitle,
+        package_duration: data.packageDuration,
+        client_name: data.clientName,
+        client_email: data.clientEmail,
+        client_phone: data.clientPhone,
+        client_country: data.clientCountry,
+        client_nic: data.clientNic,
+        client_dob: data.clientDob,
+        client_notes: data.clientNotes,
+        user_id: sessionData?.session?.user?.id, // In case RLS needs it
+        status: 'Pending'
+      };
 
-      if (!res.ok) {
-        throw new Error("Failed to submit reservation");
+      const { error: dbError } = await supabase
+        .from('itinerary_requests')
+        .insert([dbData]);
+
+      if (dbError) {
+        console.error("Supabase insert error:", dbError);
+        throw new Error("Failed to save reservation to database: " + dbError.message);
       }
       
       alert("Reservation submitted successfully! Our team will get back to you soon.");
       router.push("/");
-    } catch (err) {
-      alert("Error submitting reservation. Please try again.");
+    } catch (err: any) {
+      alert(err.message || "Error submitting reservation. Please try again.");
     }
   };
 

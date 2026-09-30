@@ -50,6 +50,19 @@ export default function ReservationsPage() {
     loadData();
   }, [router]);
 
+  const handleUpdateStatus = async (id: string, newStatus: string) => {
+    const { error } = await supabase
+      .from("itinerary_requests")
+      .update({ status: newStatus })
+      .eq("id", id);
+      
+    if (!error) {
+      setReservations(reservations.map(r => r.id === id ? { ...r, status: newStatus } : r));
+    } else {
+      alert("Error updating status");
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       <div>
@@ -108,13 +121,19 @@ export default function ReservationsPage() {
                     )}
                     <td className="px-6 py-4 text-slate-400">{booking.created_at ? new Date(booking.created_at).toLocaleDateString() : 'N/A'}</td>
                     <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        booking.status === "Approved" ? "bg-emerald-500/10 text-emerald-400" :
-                        booking.status === "Pending" ? "bg-amber-500/10 text-amber-400" :
-                        "bg-amber-500/10 text-amber-400"
-                      }`}>
-                        {booking.status || "Pending"}
-                      </span>
+                      <select 
+                        value={booking.status || "Pending"}
+                        onChange={(e) => handleUpdateStatus(booking.id, e.target.value)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold appearance-none cursor-pointer outline-none ${
+                          booking.status === "Confirmed" ? "bg-green-500/10 text-green-400 border border-green-500/20" :
+                          booking.status === "In Review" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" :
+                          "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                        }`}
+                      >
+                        <option value="Pending" className="bg-[#111827] text-amber-400">Pending</option>
+                        <option value="In Review" className="bg-[#111827] text-blue-400">In Review</option>
+                        <option value="Confirmed" className="bg-[#111827] text-green-400">Confirmed</option>
+                      </select>
                     </td>
                     <td className="px-6 py-4">
                       <button className="text-sm bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded transition text-white">Review</button>

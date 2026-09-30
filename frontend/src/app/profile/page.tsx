@@ -377,7 +377,17 @@ export default function ProfilePage() {
                                 {booking.serial_number || booking.id.substring(0,8)}
                               </span>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">{booking.package_title}</h3>
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="text-xl font-bold text-white">{booking.package_title}</h3>
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                              (!booking.status || booking.status === 'Pending') ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
+                              booking.status === 'In Review' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
+                              booking.status === 'Confirmed' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
+                              'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
+                            }`}>
+                              {booking.status || 'Pending'}
+                            </span>
+                          </div>
                             <p className="text-zinc-400 text-sm mb-4">Client: {booking.client_name} • Phone: {booking.client_phone}</p>
                             
                             <div className="flex flex-wrap gap-4 text-sm text-zinc-400">

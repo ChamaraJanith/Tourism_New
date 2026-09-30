@@ -39,12 +39,20 @@ export default function ReservationFormPage() {
   const [disabilityAssistance, setDisabilityAssistance] = useState("");
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [travelerNames, setTravelerNames] = useState<string[]>([""]);
-  const [reservationId, setReservationId] = useState<string>("");
+  const [reservationCount, setReservationCount] = useState<number>(0);
 
   React.useEffect(() => {
-    if (typeof window !== "undefined" && window.crypto) {
-      setReservationId(crypto.randomUUID());
+    async function fetchCount() {
+      const { count } = await supabase
+        .from('itinerary_requests')
+        .select('*', { count: 'exact', head: true });
+      if (count !== null) {
+        setReservationCount(count + 1);
+      } else {
+        setReservationCount(1);
+      }
     }
+    fetchCount();
   }, []);
 
   const handleAddTraveler = () => setTravelerNames([...travelerNames, ""]);
@@ -95,12 +103,9 @@ export default function ReservationFormPage() {
         client_country: data.clientCountry,
         client_nic: data.clientNic,
         client_dob: data.clientDob,
-        client_notes: data.clientNotes
+        client_notes: data.clientNotes,
+        serial_number: `IHV-${data.clientCountry === "India" ? "IND" : data.clientCountry === "Germany" ? "GER" : data.clientCountry === "United Kingdom" ? "GBR" : "OTH"}-${String(reservationCount).padStart(7, '0')}`
       };
-      
-      if (reservationId) {
-        dbData.id = reservationId;
-      }
 
       const { error: dbError } = await supabase
         .from('itinerary_requests')
@@ -120,7 +125,7 @@ export default function ReservationFormPage() {
 
   const pkg = PACKAGES.find((p) => p.id === selectedPackage);
   const countryCode = COUNTRY_SOURCE[nationality] ?? "___";
-  const shortId = reservationId ? reservationId.substring(0, 4).toUpperCase() : "AUTO";
+  const shortId = reservationCount > 0 ? String(reservationCount).padStart(7, '0') : "AUTO";
 
   return (
     <main className="min-h-screen bg-[#030712] py-24 sm:py-32 overflow-hidden relative selection:bg-[#d4af37]/30">

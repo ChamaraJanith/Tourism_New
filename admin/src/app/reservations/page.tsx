@@ -93,10 +93,7 @@ export default function ReservationsPage() {
                 reservations.map((booking) => (
                   <tr key={booking.id} className="hover:bg-white/[0.02] transition">
                     <td className="px-6 py-4 font-mono text-[#d4af37]">
-                      {`IHV-${(
-                        { "India": "IND", "Germany": "GER", "United Kingdom": "GBR", "Other": "OTH" }
-                        [booking.client_country as string] || "OTH"
-                      )}-${String(booking.id).substring(0, 4).toUpperCase()}`}
+                      {booking.serial_number || `IHV-OTH-0000000`}
                     </td>
                     <td className="px-6 py-4 text-slate-200 font-medium">
                       {booking.client_name}

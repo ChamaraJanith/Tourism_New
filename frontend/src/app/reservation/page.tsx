@@ -126,6 +126,7 @@ export default function ReservationFormPage() {
   const pkg = PACKAGES.find((p) => p.id === selectedPackage);
   const countryCode = COUNTRY_SOURCE[nationality] ?? "___";
   const shortId = reservationCount > 0 ? String(reservationCount).padStart(7, '0') : "AUTO";
+  const fullSerial = `IHV-${countryCode}-${shortId}`;
 
   return (
     <main className="min-h-screen bg-[#030712] py-24 sm:py-32 overflow-hidden relative selection:bg-[#d4af37]/30">

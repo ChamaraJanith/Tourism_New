@@ -39,6 +39,13 @@ export default function ReservationFormPage() {
   const [disabilityAssistance, setDisabilityAssistance] = useState("");
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [travelerNames, setTravelerNames] = useState<string[]>([""]);
+  const [reservationId, setReservationId] = useState<string>("");
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && window.crypto) {
+      setReservationId(crypto.randomUUID());
+    }
+  }, []);
 
   const handleAddTraveler = () => setTravelerNames([...travelerNames, ""]);
   const handleRemoveTraveler = (index: number) => {
@@ -79,7 +86,7 @@ export default function ReservationFormPage() {
       // 1. Save to Supabase directly using the authenticated frontend session
       const { data: sessionData } = await supabase.auth.getSession();
       
-      const dbData = {
+      const dbData: any = {
         package_title: data.packageTitle,
         package_duration: data.packageDuration,
         client_name: data.clientName,
@@ -90,6 +97,10 @@ export default function ReservationFormPage() {
         client_dob: data.clientDob,
         client_notes: data.clientNotes
       };
+      
+      if (reservationId) {
+        dbData.id = reservationId;
+      }
 
       const { error: dbError } = await supabase
         .from('itinerary_requests')
@@ -109,9 +120,7 @@ export default function ReservationFormPage() {
 
   const pkg = PACKAGES.find((p) => p.id === selectedPackage);
   const countryCode = COUNTRY_SOURCE[nationality] ?? "___";
-
-  // Serial number is assigned by backend on submit — show pending here
-  const fullSerial = `IHV-${countryCode}-????`;
+  const shortId = reservationId ? reservationId.substring(0, 4).toUpperCase() : "AUTO";
 
   return (
     <main className="min-h-screen bg-[#030712] py-24 sm:py-32 overflow-hidden relative selection:bg-[#d4af37]/30">
@@ -161,14 +170,14 @@ export default function ReservationFormPage() {
                   {countryCode}
                 </span>
                 <span className="text-zinc-600">-</span>
-                {/* Serial number — assigned by backend */}
-                <span className="text-sm font-bold px-2 py-1 rounded-md bg-zinc-800 text-zinc-400 border border-zinc-700 tracking-widest">
-                  AUTO
+                {/* Serial number — assigned on frontend mount */}
+                <span className="text-sm font-bold px-2 py-1 rounded-md bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30 tracking-widest">
+                  {shortId}
                 </span>
               </motion.div>
             </AnimatePresence>
             <p className="text-[9px] text-zinc-600 mt-1.5 text-right tracking-wider">
-              Number assigned by server on submission
+              Unique Reservation ID
             </p>
           </div>
         </motion.div>

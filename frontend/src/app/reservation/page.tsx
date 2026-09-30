@@ -40,6 +40,10 @@ export default function ReservationFormPage() {
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [travelerNames, setTravelerNames] = useState<string[]>([""]);
   const [reservationCount, setReservationCount] = useState<number>(0);
+  
+  const [editId, setEditId] = useState<string | null>(null);
+  const [initialData, setInitialData] = useState<any>(null);
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
 
   React.useEffect(() => {
     async function fetchCount() {
@@ -52,7 +56,32 @@ export default function ReservationFormPage() {
         setReservationCount(1);
       }
     }
-    fetchCount();
+    
+    async function fetchEditData(id: string) {
+      setIsLoadingForm(true);
+      const { data } = await supabase.from('itinerary_requests').select('*').eq('id', id).single();
+      if (data) {
+        setInitialData(data);
+        setNationality(data.client_country);
+        setDisabilityAssistance(data.client_notes?.match(/Disability: (.*)/)?.[1] || "No");
+        const pkgMatch = PACKAGES.find(p => p.label === data.package_title);
+        if (pkgMatch) setSelectedPackage(pkgMatch.id);
+        const tMatch = data.client_notes?.match(/Travelers: (.*)/)?.[1];
+        if (tMatch) setTravelerNames(tMatch.split(", "));
+      }
+      setIsLoadingForm(false);
+    }
+
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('edit');
+      if (id) {
+        setEditId(id);
+        fetchEditData(id);
+      } else {
+        fetchCount();
+      }
+    }
   }, []);
 
   const handleAddTraveler = () => setTravelerNames([...travelerNames, ""]);
@@ -104,20 +133,30 @@ export default function ReservationFormPage() {
         client_nic: data.clientNic,
         client_dob: data.clientDob,
         client_notes: data.clientNotes,
-        serial_number: `IHV-${data.clientCountry === "India" ? "IND" : data.clientCountry === "Germany" ? "GER" : data.clientCountry === "United Kingdom" ? "GBR" : "OTH"}-${String(reservationCount).padStart(7, '0')}`
       };
 
-      const { error: dbError } = await supabase
-        .from('itinerary_requests')
-        .insert([dbData]);
+      if (!editId) {
+        dbData.serial_number = `IHV-${data.clientCountry === "India" ? "IND" : data.clientCountry === "Germany" ? "GER" : data.clientCountry === "United Kingdom" ? "GBR" : "OTH"}-${String(reservationCount).padStart(7, '0')}`;
+      }
 
-      if (dbError) {
-        console.error("Supabase insert error:", dbError);
-        throw new Error("Failed to save reservation to database: " + dbError.message);
+      if (editId) {
+        const { error: dbError } = await supabase
+          .from('itinerary_requests')
+          .update(dbData)
+          .eq('id', editId);
+          
+        if (dbError) throw new Error("Failed to update reservation: " + dbError.message);
+        alert("Reservation updated successfully!");
+      } else {
+        const { error: dbError } = await supabase
+          .from('itinerary_requests')
+          .insert([dbData]);
+          
+        if (dbError) throw new Error("Failed to save reservation: " + dbError.message);
+        alert("Reservation submitted successfully! Our team will get back to you soon.");
       }
       
-      alert("Reservation submitted successfully! Our team will get back to you soon.");
-      router.push("/");
+      router.push("/profile");
     } catch (err: any) {
       alert(err.message || "Error submitting reservation. Please try again.");
     }
@@ -125,8 +164,26 @@ export default function ReservationFormPage() {
 
   const pkg = PACKAGES.find((p) => p.id === selectedPackage);
   const countryCode = COUNTRY_SOURCE[nationality] ?? "___";
-  const shortId = reservationCount > 0 ? String(reservationCount).padStart(7, '0') : "AUTO";
-  const fullSerial = `IHV-${countryCode}-${shortId}`;
+  
+  // Use existing serial if editing, else generate new
+  const shortId = editId && initialData 
+    ? (initialData.serial_number ? initialData.serial_number.split('-')[2] : initialData.id.substring(0,4).toUpperCase())
+    : (reservationCount > 0 ? String(reservationCount).padStart(7, '0') : "AUTO");
+    
+  const fullSerial = editId && initialData && initialData.serial_number
+    ? initialData.serial_number
+    : `IHV-${countryCode}-${shortId}`;
+
+  const getNoteField = (notes: string | undefined, key: string) => {
+    if (!notes) return "";
+    const regex = new RegExp(`${key}: (.*)`);
+    const match = notes.match(regex);
+    return match ? match[1] : "";
+  };
+
+  if (editId && isLoadingForm) {
+    return <div className="min-h-screen bg-[#030712] flex items-center justify-center text-white">Loading reservation...</div>;
+  }
 
   return (
     <main className="min-h-screen bg-[#030712] py-24 sm:py-32 overflow-hidden relative selection:bg-[#d4af37]/30">
@@ -230,15 +287,15 @@ export default function ReservationFormPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Full Name / Primary Contact:</label>
-                  <input type="text" name="fullName" required className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="text" name="fullName" required defaultValue={initialData?.client_name} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Contact Number (Phone/WhatsApp):</label>
-                  <input type="tel" name="contactNumber" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="tel" name="contactNumber" defaultValue={initialData?.client_phone} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Email Address:</label>
-                  <input type="email" name="email" required className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
+                  <input type="email" name="email" required defaultValue={initialData?.client_email} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/30 outline-none transition" />
                 </div>
               </div>
 
@@ -284,23 +341,23 @@ export default function ReservationFormPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">NIC Number:</label>
-                  <input type="text" name="nic" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="nic" defaultValue={initialData?.client_nic} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Passport Number:</label>
-                  <input type="text" name="passportNumber" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="passportNumber" defaultValue={getNoteField(initialData?.client_notes, "Passport")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Passport Validity Date:</label>
-                  <input type="date" name="passportValidity" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition [color-scheme:dark]" />
+                  <input type="date" name="passportValidity" defaultValue={initialData?.client_dob} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition [color-scheme:dark]" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Pax (Total Count):</label>
-                  <input type="number" name="pax" min="1" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="number" name="pax" min="1" defaultValue={getNoteField(initialData?.client_notes, "Pax")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Fax Number:</label>
-                  <input type="text" name="fax" className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
+                  <input type="text" name="fax" defaultValue={getNoteField(initialData?.client_notes, "Fax")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
               </div>
 

@@ -67,9 +67,6 @@ export default function ProfilePage() {
   const [userBookings, setUserBookings] = useState<any[]>([]);
   const [loadingBookings, setLoadingBookings] = useState(true);
 
-  // Edit Modal State
-  const [editBooking, setEditBooking] = useState<any>(null);
-
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {
       router.push("/login");
@@ -100,32 +97,6 @@ export default function ProfilePage() {
     if (confirm("Are you sure you want to delete this reservation?")) {
       await supabase.from('itinerary_requests').delete().eq('id', id);
       setUserBookings(userBookings.filter(b => b.id !== id));
-    }
-  };
-
-  const handleUpdateBooking = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!editBooking) return;
-    
-    const { error } = await supabase
-      .from('itinerary_requests')
-      .update({
-        package_title: editBooking.package_title,
-        client_name: editBooking.client_name,
-        client_phone: editBooking.client_phone,
-        client_nic: editBooking.client_nic,
-        client_country: editBooking.client_country,
-        client_dob: editBooking.client_dob,
-        client_notes: editBooking.client_notes
-      })
-      .eq('id', editBooking.id);
-      
-    if (!error) {
-      setUserBookings(userBookings.map(b => b.id === editBooking.id ? editBooking : b));
-      setEditBooking(null);
-      alert("Reservation updated successfully!");
-    } else {
-      alert("Error updating reservation: " + error.message);
     }
   };
 
@@ -422,7 +393,7 @@ export default function ProfilePage() {
                           </div>
                           
                           <div className="mt-6 flex gap-3">
-                            <button onClick={() => setEditBooking(booking)} className="px-5 py-2.5 bg-[#d4af37] text-black text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#e5c048] transition-colors flex items-center gap-2">
+                            <button onClick={() => router.push(`/reservation?edit=${booking.id}`)} className="px-5 py-2.5 bg-[#d4af37] text-black text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#e5c048] transition-colors flex items-center gap-2">
                               <Edit2 size={14} /> Update
                             </button>
                             <button onClick={() => handleDeleteBooking(booking.id)} className="px-5 py-2.5 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-red-500/20 transition-colors flex items-center gap-2">
@@ -773,104 +744,6 @@ export default function ProfilePage() {
         </div>
         
       </div>
-
-      {/* Edit Booking Modal */}
-      <AnimatePresence>
-        {editBooking && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-[#0b101a] border border-white/10 rounded-3xl p-6 md:p-8 max-w-md w-full relative"
-            >
-              <button 
-                onClick={() => setEditBooking(null)}
-                className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors"
-              >
-                <X size={20} />
-              </button>
-              
-              <h2 className="text-2xl font-bold text-white mb-6">Edit Reservation</h2>
-              
-              <form onSubmit={handleUpdateBooking} className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Package Title</label>
-                  <input
-                    type="text"
-                    value={editBooking.package_title || ""}
-                    onChange={(e) => setEditBooking({...editBooking, package_title: e.target.value})}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Client Name</label>
-                  <input
-                    type="text"
-                    value={editBooking.client_name || ""}
-                    onChange={(e) => setEditBooking({...editBooking, client_name: e.target.value})}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Phone</label>
-                    <input
-                      type="text"
-                      value={editBooking.client_phone || ""}
-                      onChange={(e) => setEditBooking({...editBooking, client_phone: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Country</label>
-                    <input
-                      type="text"
-                      value={editBooking.client_country || ""}
-                      onChange={(e) => setEditBooking({...editBooking, client_country: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">NIC / Passport</label>
-                    <input
-                      type="text"
-                      value={editBooking.client_nic || ""}
-                      onChange={(e) => setEditBooking({...editBooking, client_nic: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Date of Travel</label>
-                    <input
-                      type="date"
-                      value={editBooking.client_dob || ""}
-                      onChange={(e) => setEditBooking({...editBooking, client_dob: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
-                      style={{ colorScheme: "dark" }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Additional Notes (Diet, Travelers, etc.)</label>
-                  <textarea
-                    value={editBooking.client_notes || ""}
-                    onChange={(e) => setEditBooking({...editBooking, client_notes: e.target.value})}
-                    rows={6}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37] resize-none"
-                  />
-                </div>
-                
-                <button type="submit" className="mt-4 w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3 rounded-xl hover:bg-[#e5c048] transition-colors">
-                  Save Changes
-                </button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }

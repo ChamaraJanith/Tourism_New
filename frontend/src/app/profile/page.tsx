@@ -9,8 +9,9 @@ import {
   User, Mail, Calendar, LogOut, Edit2, X, Check, 
   Camera, Upload, Compass as CompassIcon,
   MapPin, Heart, Clock, Search, Briefcase, Key, Star, ChevronRight, Bookmark,
-  Globe, Phone, CreditCard
+  Globe, Phone, CreditCard, Trash2
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const COUNTRY_CODES: Record<string, string> = {
   "Sri Lanka": "+94",
@@ -39,9 +40,6 @@ const PRESET_AVATARS = [
   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
 ];
 
-// Bookings state (empty for now until backend is connected)
-const BOOKINGS: any[] = [];
-
 // Saved properties state (empty for now until backend is connected)
 const SAVED: any[] = [];
 
@@ -66,11 +64,65 @@ export default function ProfilePage() {
   const [saveError, setSaveError] = useState("");
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  const [userBookings, setUserBookings] = useState<any[]>([]);
+  const [loadingBookings, setLoadingBookings] = useState(true);
+
+  // Edit Modal State
+  const [editBooking, setEditBooking] = useState<any>(null);
+
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {
       router.push("/login");
     }
   }, [isInitialized, isAuthenticated, router]);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      fetchBookings();
+    }
+  }, [isAuthenticated, user?.email]);
+
+  const fetchBookings = async () => {
+    setLoadingBookings(true);
+    const { data, error } = await supabase
+      .from('itinerary_requests')
+      .select('*')
+      .eq('client_email', user?.email)
+      .order('created_at', { ascending: false });
+    
+    if (data) {
+      setUserBookings(data);
+    }
+    setLoadingBookings(false);
+  };
+
+  const handleDeleteBooking = async (id: string) => {
+    if (confirm("Are you sure you want to delete this reservation?")) {
+      await supabase.from('itinerary_requests').delete().eq('id', id);
+      setUserBookings(userBookings.filter(b => b.id !== id));
+    }
+  };
+
+  const handleUpdateBooking = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editBooking) return;
+    
+    const { error } = await supabase
+      .from('itinerary_requests')
+      .update({
+        client_name: editBooking.client_name,
+        client_phone: editBooking.client_phone,
+      })
+      .eq('id', editBooking.id);
+      
+    if (!error) {
+      setUserBookings(userBookings.map(b => b.id === editBooking.id ? editBooking : b));
+      setEditBooking(null);
+      alert("Reservation updated successfully!");
+    } else {
+      alert("Error updating reservation: " + error.message);
+    }
+  };
 
   // Sync form states with user details when edit mode is opened
   useEffect(() => {
@@ -328,15 +380,16 @@ export default function ProfilePage() {
                 </div>
                 
                 <div className="flex flex-col gap-4">
-                  {BOOKINGS.length > 0 ? (
-                    BOOKINGS.map((booking) => (
+                  {loadingBookings ? (
+                     <div className="py-12 text-center text-zinc-500">Loading your reservations...</div>
+                  ) : userBookings.length > 0 ? (
+                    userBookings.map((booking) => (
                       <div key={booking.id} className="group flex flex-col sm:flex-row bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:border-[#d4af37]/30 transition-all hover:bg-white/[0.04]">
-                        <div className="relative w-full sm:w-64 h-48 sm:h-auto shrink-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={booking.image} alt={booking.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="relative w-full sm:w-64 h-48 sm:h-auto shrink-0 bg-zinc-900/50 flex items-center justify-center">
+                          <CompassIcon size={48} className="text-[#d4af37]/20" />
                           <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                            <span className={`text-[10px] font-bold uppercase tracking-widest ${booking.status === "Upcoming" ? "text-emerald-400" : booking.status === "Completed" ? "text-zinc-300" : "text-red-400"}`}>
-                              {booking.status}
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
+                              {booking.status || 'Pending'}
                             </span>
                           </div>
                         </div>
@@ -344,29 +397,31 @@ export default function ProfilePage() {
                         <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                           <div>
                             <div className="flex items-center justify-between gap-4 mb-2">
-                              <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{booking.id}</span>
-                              <span className="text-lg font-bold text-[#d4af37]">{booking.price}</span>
+                              <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono text-[#d4af37]">
+                                {booking.serial_number || booking.id.substring(0,8)}
+                              </span>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-4">{booking.title}</h3>
+                            <h3 className="text-xl font-bold text-white mb-2">{booking.package_title}</h3>
+                            <p className="text-zinc-400 text-sm mb-4">Client: {booking.client_name} • Phone: {booking.client_phone}</p>
                             
                             <div className="flex flex-wrap gap-4 text-sm text-zinc-400">
                               <div className="flex items-center gap-2">
                                 <Calendar size={16} className="text-zinc-500" />
-                                <span>{booking.date}</span>
+                                <span>{new Date(booking.created_at).toLocaleDateString()}</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <User size={16} className="text-zinc-500" />
-                                <span>{booking.guests} Guests</span>
+                                <MapPin size={16} className="text-zinc-500" />
+                                <span>{booking.client_country || 'Not specified'}</span>
                               </div>
                             </div>
                           </div>
                           
                           <div className="mt-6 flex gap-3">
-                            <button className="px-5 py-2.5 bg-[#d4af37] text-black text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#e5c048] transition-colors">
-                              Manage Booking
+                            <button onClick={() => setEditBooking(booking)} className="px-5 py-2.5 bg-[#d4af37] text-black text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#e5c048] transition-colors flex items-center gap-2">
+                              <Edit2 size={14} /> Update
                             </button>
-                            <button className="px-5 py-2.5 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-white/10 transition-colors">
-                              View Receipt
+                            <button onClick={() => handleDeleteBooking(booking.id)} className="px-5 py-2.5 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-red-500/20 transition-colors flex items-center gap-2">
+                              <Trash2 size={14} /> Cancel
                             </button>
                           </div>
                         </div>
@@ -713,6 +768,54 @@ export default function ProfilePage() {
         </div>
         
       </div>
+
+      {/* Edit Booking Modal */}
+      <AnimatePresence>
+        {editBooking && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-[#0b101a] border border-white/10 rounded-3xl p-6 md:p-8 max-w-md w-full relative"
+            >
+              <button 
+                onClick={() => setEditBooking(null)}
+                className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
+              
+              <h2 className="text-2xl font-bold text-white mb-6">Edit Reservation</h2>
+              
+              <form onSubmit={handleUpdateBooking} className="flex flex-col gap-4">
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Client Name</label>
+                  <input
+                    type="text"
+                    value={editBooking.client_name}
+                    onChange={(e) => setEditBooking({...editBooking, client_name: e.target.value})}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">Phone Number</label>
+                  <input
+                    type="text"
+                    value={editBooking.client_phone}
+                    onChange={(e) => setEditBooking({...editBooking, client_phone: e.target.value})}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#d4af37]"
+                  />
+                </div>
+                
+                <button type="submit" className="mt-4 w-full bg-[#d4af37] text-black font-bold uppercase tracking-widest py-3 rounded-xl hover:bg-[#e5c048] transition-colors">
+                  Save Changes
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

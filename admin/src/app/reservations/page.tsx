@@ -92,7 +92,12 @@ export default function ReservationsPage() {
               ) : reservations.length > 0 ? (
                 reservations.map((booking) => (
                   <tr key={booking.id} className="hover:bg-white/[0.02] transition">
-                    <td className="px-6 py-4 font-mono text-[#d4af37]">REQ-{String(booking.id).padStart(4, '0')}</td>
+                    <td className="px-6 py-4 font-mono text-[#d4af37]">
+                      {`IHV-${(
+                        { "India": "IND", "Germany": "GER", "United Kingdom": "GBR", "Other": "OTH" }
+                        [booking.client_country as string] || "OTH"
+                      )}-${String(booking.id).substring(0, 4).toUpperCase()}`}
+                    </td>
                     <td className="px-6 py-4 text-slate-200 font-medium">
                       {booking.client_name}
                       <span className="block text-xs text-slate-500 font-normal mt-0.5">{booking.client_email}</span>

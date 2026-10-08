@@ -71,9 +71,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [nic, setNic] = useState("");
   const [country, setCountry] = useState("");
-  const [dob, setDob] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -116,41 +114,8 @@ export default function AuthPage() {
         setError("Please enter your full name.");
         return;
       }
-      if (!nic.trim()) {
-        setError("Please enter your National Identity Card (NIC) / Passport number.");
-        return;
-      }
       if (!country) {
         setError("Please select your country of residence.");
-        return;
-      }
-      
-      // Validate NIC / Passport based on the selected country
-      const valId = nic.trim();
-      let idError = "";
-      if (country === "Sri Lanka") {
-        // Sri Lankan NIC (9 digits + V/X or 12 digits) or Passport (7-10 alphanumeric)
-        if (!/^([0-9]{9}[vVxX]|[0-9]{12})$/.test(valId) && !/^[a-zA-Z0-9]{7,10}$/.test(valId)) {
-          idError = "Invalid Sri Lankan NIC or Passport format.";
-        }
-      } else if (country === "India") {
-        // Indian Aadhaar (12 digits) or Passport
-        if (!/^\d{12}$/.test(valId) && !/^[A-Za-z][0-9]{7}$/.test(valId)) {
-          idError = "Invalid Indian Aadhaar or Passport format.";
-        }
-      } else {
-        // Generic ID/Passport validation for other countries (5 to 15 alphanumeric characters)
-        if (!/^[a-zA-Z0-9-]{5,15}$/.test(valId)) {
-          idError = `Invalid ID or Passport format for ${country}.`;
-        }
-      }
-
-      if (idError) {
-        setError(idError);
-        return;
-      }
-      if (!dob) {
-        setError("Please select your date of birth.");
         return;
       }
       if (!contactNumber.trim()) {
@@ -177,7 +142,7 @@ export default function AuthPage() {
 
     const endpoint = isSignup ? "/api/auth/signup" : "/api/auth/login";
     const body = isSignup
-      ? { name, email, password, agreedToTerms, nic, country, dob, contactNumber }
+      ? { name, email, password, agreedToTerms, country, contactNumber }
       : { email, password };
 
     try {
@@ -206,9 +171,7 @@ export default function AuthPage() {
               name: profile?.full_name || user?.user_metadata?.full_name || name || "",
               profileId: profile?.id,
               avatarUrl: user?.user_metadata?.avatar_url || "",
-              nic: profile?.nic || user?.user_metadata?.nic || nic || "",
               country: profile?.country || user?.user_metadata?.country || country || "",
-              dob: profile?.dob || user?.user_metadata?.dob || dob || "",
               contactNumber: profile?.contact_number || user?.user_metadata?.contact_number || contactNumber || "",
             },
             token: session.access_token,
@@ -442,25 +405,6 @@ export default function AuthPage() {
                     </div>
                   </div>
 
-                  {/* NIC / Passport field */}
-                  <div className="space-y-1.5">
-                    <label className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">
-                      NIC / Passport Number
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500 group-focus-within:text-[#d4af37] transition duration-200">
-                        <CreditCard className="h-4 w-4" />
-                      </div>
-                      <input
-                        type="text"
-                        value={nic}
-                        onChange={(e) => setNic(e.target.value)}
-                        required={isSignup}
-                        className="w-full bg-zinc-950/50 hover:bg-zinc-950/70 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white placeholder-zinc-500 outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm"
-                        placeholder="199208143210 or N1234567"
-                      />
-                    </div>
-                  </div>
 
                   {/* Country of Residence Dropdown */}
                   <div className="space-y-1.5">
@@ -499,29 +443,6 @@ export default function AuthPage() {
                     </div>
                   </div>
 
-                  {/* Date of Birth field */}
-                  <div className="space-y-1.5">
-                    <label className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">
-                      Date of Birth
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500 group-focus-within:text-[#d4af37] transition duration-200">
-                        <Calendar className="h-4 w-4" />
-                      </div>
-                      <input
-                        type="date"
-                        value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                        onClick={(e) => {
-                          try {
-                            e.currentTarget.showPicker();
-                          } catch (err) { }
-                        }}
-                        required={isSignup}
-                        className="w-full bg-zinc-950/50 hover:bg-zinc-950/70 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/35 text-sm [color-scheme:dark]"
-                      />
-                    </div>
-                  </div>
 
                   {/* Contact Number field */}
                   <div className="space-y-1.5">

@@ -114,9 +114,9 @@ export default function ReservationFormPage() {
       clientEmail: formData.get("email") as string || "",
       clientPhone: formData.get("contactNumber") as string || "",
       clientCountry: nationality,
-      clientNic: formData.get("nic") as string || "",
-      clientDob: formData.get("passportValidity") as string || "",
-      clientNotes: `Passport: ${formData.get("passportNumber")}\nFax: ${formData.get("fax")}\nPax: ${formData.get("pax")}\nTravelers: ${travelerNames.join(", ")}\nDiet: ${formData.get("diet")}\nDisability: ${disabilityAssistance}\nDetails: ${formData.get("details")}`
+      clientNic: "",
+      clientDob: "",
+      clientNotes: `Pax: ${formData.get("pax")}\nTravelers: ${travelerNames.join(", ")}\nDiet: ${formData.get("diet")}\nDisability: ${disabilityAssistance}\nDetails: ${formData.get("details")}`
     };
 
     try {
@@ -339,25 +339,9 @@ export default function ReservationFormPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-400">NIC Number:</label>
-                  <input type="text" name="nic" defaultValue={initialData?.client_nic} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-400">Passport Number:</label>
-                  <input type="text" name="passportNumber" defaultValue={getNoteField(initialData?.client_notes, "Passport")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-400">Passport Validity Date:</label>
-                  <input type="date" name="passportValidity" defaultValue={initialData?.client_dob} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition [color-scheme:dark]" />
-                </div>
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-2">
                   <label className="text-xs uppercase tracking-widest text-gray-400">Pax (Total Count):</label>
                   <input type="number" name="pax" min="1" defaultValue={getNoteField(initialData?.client_notes, "Pax")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
-                </div>
-                <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-400">Fax Number:</label>
-                  <input type="text" name="fax" defaultValue={getNoteField(initialData?.client_notes, "Fax")} className="w-full bg-black/30 border border-white/10 rounded-lg py-2.5 px-4 text-white focus:border-[#d4af37] outline-none transition" />
                 </div>
               </div>
 

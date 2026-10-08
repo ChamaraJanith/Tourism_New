@@ -167,6 +167,12 @@ export default function AuthPage() {
       }
     }
 
+    if (!isSignup && email.toLowerCase() === "admin@ihvtravel.com") {
+      const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001";
+      window.location.href = `${adminUrl}/login`;
+      return;
+    }
+
     setLoading(true);
 
     const endpoint = isSignup ? "/api/auth/signup" : "/api/auth/login";
@@ -208,14 +214,6 @@ export default function AuthPage() {
             token: session.access_token,
           })
         );
-
-        if (email.toLowerCase() === "admin@ihvtravel.com") {
-          // Use environment variable for deployed admin URL, fallback to localhost
-          const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001";
-          window.location.href = `${adminUrl}/login`;
-          return;
-        }
-
         router.push("/profile");
         return;
       }

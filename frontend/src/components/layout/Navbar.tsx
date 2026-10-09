@@ -15,7 +15,6 @@ import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
   const pathname = usePathname();
-  if (pathname?.startsWith("/login")) return null;
   const dispatch = useAppDispatch();
   const isMenuOpen = useAppSelector((state) => state.ui.isMenuOpen);
   const { user, isAuthenticated, isInitialized } = useAppSelector((state) => state.auth);
@@ -200,6 +199,8 @@ export const Navbar = () => {
     };
   }, [isMenuOpen, dispatch]);
 
+  if (pathname?.startsWith("/login")) return null;
+
   return (
     <div
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${showNavbar ? "translate-y-0" : "-translate-y-full"
@@ -280,7 +281,7 @@ export const Navbar = () => {
                       <UserIcon size={11} />
                     </div>
                   )}
-                  <span>Hi, {user.name.split(' ')[0]}</span>
+                  <span>Hi, {user.name ? user.name.split(' ')[0] : 'User'}</span>
                 </Link>
                 <BespokeButton
                   variant="secondary"
@@ -309,26 +310,28 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => {
-                dispatch(setMenuOpen(false));
-                setExpandedMobileItem(null);
-              }}
-              className="fixed inset-0 z-40 bg-black/30 xl:hidden"
-            />
-
-            <motion.div
-              ref={mobileMenuRef}
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="absolute inset-x-0 top-full z-50 overflow-hidden px-4 pb-6 pt-2 xl:hidden max-h-[85vh] overflow-y-auto"
-            >
+          <motion.div
+            key="mobile-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => {
+              dispatch(setMenuOpen(false));
+              setExpandedMobileItem(null);
+            }}
+            className="fixed inset-0 z-40 bg-black/30 xl:hidden"
+          />
+        )}
+        {isMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            ref={mobileMenuRef}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute inset-x-0 top-full z-50 overflow-hidden px-4 pb-6 pt-2 xl:hidden max-h-[85vh] overflow-y-auto"
+          >
               <div className="rounded-[1.8rem] border border-white/10 bg-[#111416]/95 p-5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-2xl flex flex-col gap-3">
                 <div className="flex flex-col gap-2">
                   {premiumNavItems.map((item) => (
@@ -367,6 +370,7 @@ export const Navbar = () => {
                         <AnimatePresence>
                           {expandedMobileItem === item.name && (
                             <motion.div
+                              key={`submenu-${item.name}`}
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
@@ -397,7 +401,6 @@ export const Navbar = () => {
                 </div>
               </div>
             </motion.div>
-          </>
         )}
       </AnimatePresence>
     </div>

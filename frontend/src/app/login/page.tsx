@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { FcGoogle } from "react-icons/fc";
+import { supabase } from "@/lib/supabase";
 
 const API_BASE = ""; // local frontend route or Vercel rewrite
 
@@ -98,6 +100,59 @@ export default function AuthPage() {
       }
     }
   }, []);
+
+  // Handle OAuth Redirect
+  useEffect(() => {
+    const handleOAuthRedirect = async () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get("access_token");
+        if (accessToken) {
+          localStorage.setItem("auth_token", accessToken);
+          window.history.replaceState(null, "", window.location.pathname);
+          
+          try {
+            setLoading(true);
+            const res = await fetch(`${API_BASE}/api/auth/me`, {
+              headers: { "Authorization": `Bearer ${accessToken}` }
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.user) {
+                dispatch(
+                  setCredentials({
+                    user: data.user,
+                    token: accessToken,
+                  })
+                );
+                router.push("/");
+              }
+            }
+          } catch (error) {
+            console.error("OAuth redirect error:", error);
+            setError("Failed to authenticate with Google.");
+          } finally {
+            setLoading(false);
+          }
+        }
+      }
+    };
+    handleOAuthRedirect();
+  }, [dispatch, router]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/login`,
+        },
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err?.message || "Failed to sign in with Google.");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -177,7 +232,7 @@ export default function AuthPage() {
             token: session.access_token,
           })
         );
-        router.push("/profile");
+        router.push("/");
         return;
       }
 
@@ -652,8 +707,25 @@ export default function AuthPage() {
             </button>
           </form>
 
+          {/* Social Login Separator */}
+          <div className="flex items-center mt-2 mb-2">
+            <div className="flex-1 border-t border-white/10"></div>
+            <span className="px-3 text-xs text-zinc-500 uppercase tracking-widest">Or continue with</span>
+            <div className="flex-1 border-t border-white/10"></div>
+          </div>
+
+          {/* Google Sign In Button */}
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-3 bg-zinc-900/50 hover:bg-zinc-800/80 border border-white/10 py-3.5 px-4 rounded-xl text-sm font-medium text-white transition duration-200 shadow-sm"
+          >
+            <FcGoogle className="h-5 w-5" />
+            <span>Sign {isSignup ? "Up" : "In"} with Google</span>
+          </button>
+
           {/* Mobile Back / Back-to-Home footer link */}
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center pt-4">
             <Link
               href="/"
               className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-[#d4af37] transition duration-200"

@@ -3,6 +3,9 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 import { AuthGuard } from "@/components/AuthGuard";
+import { NotificationProvider } from "@/context/NotificationContext";
+import { AdminHeader } from "@/components/AdminHeader";
+import { RealtimeToast } from "@/components/RealtimeToast";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -13,13 +16,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return <div className="flex-1 w-full h-full">{children}</div>;
   }
 
-
   return (
     <AuthGuard>
-      <Sidebar />
-      <main className="flex-1 h-full overflow-y-auto p-6 md:p-8">
-        {children}
-      </main>
+      <NotificationProvider>
+        <Sidebar />
+        <div className="flex-1 h-full flex flex-col overflow-hidden">
+          <AdminHeader />
+          <main className="flex-1 overflow-y-auto p-6 md:p-8">
+            {children}
+          </main>
+        </div>
+        <RealtimeToast />
+      </NotificationProvider>
     </AuthGuard>
   );
 }
+

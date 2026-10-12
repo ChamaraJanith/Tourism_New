@@ -49,11 +49,56 @@ export default function ReservationsPage() {
         if (resData) {
           setReservations(resData);
         }
+
+        // Realtime subscription for live updates on this page
+        const channel = supabase
+          .channel("reservations-live-table")
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "itinerary_requests" },
+            (payload: any) => {
+              if (payload.eventType === "INSERT") {
+                const newRes = payload.new;
+                if (currentProfile?.role === "representative" && currentProfile?.country) {
+                  if (newRes.client_country !== currentProfile.country) return;
+                }
+                setReservations((prev) => [newRes, ...prev.filter((r) => r.id !== newRes.id)]);
+              } else if (payload.eventType === "UPDATE") {
+                const updated = payload.new;
+                setReservations((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
+              } else if (payload.eventType === "DELETE") {
+                const oldId = payload.old?.id;
+                if (oldId) setReservations((prev) => prev.filter((r) => r.id !== oldId));
+              }
+            }
+          )
+          .subscribe();
+
+        // Interval poller fallback every 10s
+        const pollInterval = setInterval(async () => {
+          let pollQuery = supabase
+            .from("itinerary_requests")
+            .select("*")
+            .order("created_at", { ascending: false });
+          if (currentProfile?.role === "representative" && currentProfile?.country) {
+            pollQuery = pollQuery.eq("client_country", currentProfile.country);
+          }
+          const { data: latest } = await pollQuery;
+          if (latest) {
+            setReservations(latest);
+          }
+        }, 10000);
+
+        return () => {
+          supabase.removeChannel(channel);
+          clearInterval(pollInterval);
+        };
       }
       setLoading(false);
     }
     loadData();
   }, [router]);
+
 
   const handleUpdateStatus = async (id: string, newStatus: string) => {
     const { error } = await supabase

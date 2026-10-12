@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { useNotifications } from "@/context/NotificationContext";
 
 
 const ADMIN_MENU = [
@@ -35,6 +36,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [role, setRole] = useState<string | null>(null);
+  const { unreadCount } = useNotifications();
 
   useEffect(() => {
     async function fetchRole() {
@@ -86,7 +88,12 @@ export function Sidebar() {
                 />
               )}
               <Icon className={`w-5 h-5 transition-colors ${isActive ? "text-[#d4af37]" : "text-slate-500 group-hover:text-slate-300"}`} />
-              <span className="font-medium">{item.name}</span>
+              <span className="font-medium flex-1">{item.name}</span>
+              {item.href === "/reservations" && unreadCount > 0 && (
+                <span className="px-2 py-0.5 text-[10px] font-extrabold bg-[#d4af37] text-black rounded-full shadow-md shadow-[#d4af37]/30 animate-pulse shrink-0">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </Link>
           );
         })}

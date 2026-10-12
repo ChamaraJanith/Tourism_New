@@ -1,28 +1,23 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Users, CheckCircle2, Info, ArrowRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Users, CheckCircle2, Info, ArrowRight, X, MapPin, Compass, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppSelector } from '@/hooks/store';
+import { TravelPackage } from './PackageData';
 
 interface PackageCardProps {
-  pkg: {
-    id: number;
-    title: string;
-    duration: string;
-    description: string;
-    images: string[];
-    includes: string[];
-    idealFor: string;
-  };
+  pkg: TravelPackage;
 }
 
 export default function PackageCard({ pkg }: PackageCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<'itinerary' | 'includes'>('itinerary');
   const [isHovering, setIsHovering] = useState(false);
 
   // Modal and form states
   const [showModal, setShowModal] = useState(false);
+  const [showModalItineraryPreview, setShowModalItineraryPreview] = useState(false);
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formPhone, setFormPhone] = useState('');
@@ -186,39 +181,122 @@ export default function PackageCard({ pkg }: PackageCardProps) {
         </p>
 
         {/* Expand/Collapse Toggle */}
-        <button 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#d4af37] hover:text-[#f3e5ab] transition-colors w-max mb-6 outline-none"
-        >
-          <Info className="w-4 h-4" />
-          {isExpanded ? 'Hide Details' : 'More Info'}
-        </button>
+        <div className="flex items-center gap-3 mb-6">
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#d4af37] hover:text-[#f3e5ab] transition-colors outline-none"
+          >
+            <Info className="w-4 h-4" />
+            {isExpanded ? 'Hide Details' : pkg.itinerary ? 'View Itinerary & Details' : 'More Info'}
+          </button>
+          {pkg.itinerary && !isExpanded && (
+            <span className="text-[10px] font-semibold text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/20 px-2.5 py-0.5 rounded-full">
+              {pkg.itinerary.length} Stages Plan
+            </span>
+          )}
+        </div>
 
         {/* Expandable Section */}
         <div 
           className={`grid transition-all duration-500 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mb-6' : 'grid-rows-[0fr] opacity-0 mb-0'}`}
         >
           <div className="overflow-hidden">
-            <div className="pt-4 border-t border-white/5">
-              <h4 className="text-white font-semibold mb-3 flex items-center gap-2 text-sm">
-                Journey Includes:
-              </h4>
-              <ul className="space-y-2 mb-6">
-                {pkg.includes.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-gray-400 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="pt-4 border-t border-white/5 space-y-5">
               
-              <div className="bg-[#d4af37]/5 border border-[#d4af37]/20 rounded-xl p-4 flex items-start gap-3">
-                <Users className="w-5 h-5 text-[#d4af37] shrink-0 mt-0.5" />
-                <div>
-                  <span className="block text-white text-xs font-semibold uppercase tracking-wider mb-1">Ideal For</span>
-                  <span className="text-gray-400 text-sm leading-snug">{pkg.idealFor}</span>
+              {/* Tab Selector if itinerary is available */}
+              {pkg.itinerary && (
+                <div className="flex items-center gap-2 p-1 bg-white/[0.03] border border-white/10 rounded-xl">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('itinerary')}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                      activeTab === 'itinerary'
+                        ? 'bg-[#d4af37] text-black shadow-md'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <Compass className="w-3.5 h-3.5" />
+                    Itinerary ({pkg.duration.split('|')[0].trim() || '15 Days'})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('includes')}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                      activeTab === 'includes'
+                        ? 'bg-[#d4af37] text-black shadow-md'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    Inclusions
+                  </button>
                 </div>
-              </div>
+              )}
+
+              {/* Itinerary Timeline */}
+              {pkg.itinerary && activeTab === 'itinerary' && (
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-center justify-between pb-1">
+                    <h4 className="text-white font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
+                      Day-by-Day Schedule
+                    </h4>
+                    <span className="text-[11px] text-[#d4af37]">Complete 15-Day Route</span>
+                  </div>
+
+                  <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#d4af37]/30">
+                    {pkg.itinerary.map((step, idx) => (
+                      <div key={idx} className="relative group/step">
+                        {/* Dot indicator */}
+                        <div className="absolute -left-6 top-1.5 w-5 h-5 rounded-full bg-[#111416] border border-[#d4af37] flex items-center justify-center text-[9px] font-bold text-[#d4af37] shadow-sm group-hover/step:scale-110 transition-transform">
+                          {idx + 1}
+                        </div>
+
+                        {/* Card */}
+                        <div className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-[#d4af37]/30 rounded-xl p-3 transition-colors">
+                          <span className="inline-block text-[10px] font-bold tracking-wider text-[#d4af37] bg-[#d4af37]/10 px-2 py-0.5 rounded uppercase mb-1">
+                            {step.day}
+                          </span>
+                          <h5 className="text-sm font-semibold text-white leading-snug">
+                            {step.title}
+                          </h5>
+                          {step.description && (
+                            <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                              {step.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Inclusions & Highlights */}
+              {(!pkg.itinerary || activeTab === 'includes') && (
+                <div>
+                  <h4 className="text-white font-semibold mb-3 flex items-center gap-2 text-sm">
+                    Journey Includes:
+                  </h4>
+                  <ul className="space-y-2 mb-6">
+                    {pkg.includes.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-gray-400 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="bg-[#d4af37]/5 border border-[#d4af37]/20 rounded-xl p-4 flex items-start gap-3">
+                    <Users className="w-5 h-5 text-[#d4af37] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="block text-white text-xs font-semibold uppercase tracking-wider mb-1">Ideal For</span>
+                      <span className="text-gray-400 text-sm leading-snug">{pkg.idealFor}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
         </div>
@@ -269,13 +347,49 @@ export default function PackageCard({ pkg }: PackageCardProps) {
 
               {/* Modal Header */}
               <div className="mb-6">
-                <span className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">Request Details</span>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">Request Details</span>
+                  <span className="text-[10px] font-semibold bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/30 px-2.5 py-0.5 rounded-full">
+                    {pkg.duration}
+                  </span>
+                </div>
                 <h3 className="text-xl md:text-2xl font-display font-semibold text-white mt-1">
                   {pkg.title}
                 </h3>
                 <p className="text-gray-400 text-xs mt-1">
                   Fill in your details and we will email you the custom curated itinerary.
                 </p>
+
+                {/* Itinerary Preview Toggle inside Modal if package has itinerary */}
+                {pkg.itinerary && (
+                  <div className="mt-3 pt-3 border-t border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => setShowModalItineraryPreview(!showModalItineraryPreview)}
+                      className="w-full flex items-center justify-between text-xs text-[#d4af37] bg-white/[0.03] hover:bg-white/[0.06] p-2.5 rounded-xl border border-white/10 transition-colors"
+                    >
+                      <span className="flex items-center gap-1.5 font-medium">
+                        <Compass className="w-3.5 h-3.5" />
+                        {showModalItineraryPreview ? 'Hide Itinerary Schedule' : `View 15-Day Itinerary (${pkg.itinerary.length} Stages)`}
+                      </span>
+                      {showModalItineraryPreview ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </button>
+                    {showModalItineraryPreview && (
+                      <div className="mt-2 max-h-48 overflow-y-auto space-y-1.5 p-2 bg-black/40 border border-white/5 rounded-xl text-xs">
+                        {pkg.itinerary.map((st, i) => (
+                          <div key={i} className="flex items-start gap-2 py-1 border-b border-white/5 last:border-0">
+                            <span className="text-[10px] text-[#d4af37] font-bold uppercase shrink-0 min-w-[70px]">
+                              {st.day}
+                            </span>
+                            <span className="text-gray-300 text-[11px] leading-tight">
+                              {st.title}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Modal Form */}

@@ -1,4 +1,21 @@
-export const PACKAGES = [
+export interface PackageItineraryItem {
+  day: string;
+  title: string;
+  description?: string;
+}
+
+export interface TravelPackage {
+  id: number;
+  title: string;
+  duration: string;
+  description: string;
+  images: string[];
+  includes: string[];
+  idealFor: string;
+  itinerary?: PackageItineraryItem[];
+}
+
+export const PACKAGES: TravelPackage[] = [
   {
     id: 1,
     title: 'The Grand Sri Lanka Discovery',
@@ -76,8 +93,8 @@ export const PACKAGES = [
   {
     id: 4,
     title: 'Wildlife & Nature Adventure',
-    duration: '7 Days | 6 Nights',
-    description: 'Explore one of the world\'s richest biodiversity destinations.',
+    duration: '15 Days | 14 Nights',
+    description: 'Explore one of the world\'s richest biodiversity destinations across 15 breathtaking days.',
     images: [
       '/images/Travel_Packages/Wildlife_and_Nature_Adventure/Picture16.jpg',
       '/images/Travel_Packages/Wildlife_and_Nature_Adventure/Picture17.jpg',
@@ -87,15 +104,70 @@ export const PACKAGES = [
       '/images/Travel_Packages/Wildlife_and_Nature_Adventure/Picture21.jpg'
     ],
     includes: [
-      'Jeep Safaris',
-      'Leopard Tracking',
-      'Elephant Gathering Experience',
-      'Whale & Dolphin Watching',
-      'Rainforest Trekking',
-      'Bird Watching',
-      'Nature Photography Opportunities'
+      'Kalpitiya Coastal & Dolphin Excursions',
+      'Wilpattu 4x4 Jeep Safari Adventure',
+      'Habarana Lion’s Rock & Rural Village Tour',
+      'Ramboda Falls & Temple of the Tooth City Tour',
+      'Ella Scenic Hill Country Train Ride',
+      'Arugam Bay Coastal Trail Trek',
+      'Yala National Park Safari (Leopard Tracking)',
+      'Udawalawe National Park Elephant Safari',
+      'Unawatuna Whale Watching & Bicycle Ride',
+      'Experienced Naturalist Guides & Private Transfers'
     ],
-    idealFor: 'Wildlife lovers and photographers.'
+    itinerary: [
+      {
+        day: 'DAY 01 & 02',
+        title: 'ARRIVE KALPITIYA, SRI LANKA',
+        description: 'Warm airport greeting, scenic coastal transfer to Kalpitiya. Unwind along pristine lagoons and golden beaches with optional dolphin watching.'
+      },
+      {
+        day: 'DAY 03',
+        title: 'WILPATTU | SAFARI ADVENTURE',
+        description: 'Thrilling open 4x4 safari expedition inside Wilpattu National Park tracking elusive leopards, sloth bears, and endemic wetland birds.'
+      },
+      {
+        day: 'DAY 04 & 05',
+        title: 'HABARANA | LION’S ROCK - VILLAGE TOUR',
+        description: 'Climb the ancient Sigiriya Lion\'s Rock fortress and experience an authentic rural Habarana village tour with traditional hospitality.'
+      },
+      {
+        day: 'DAY 06',
+        title: 'RAMBODA | TEMPLE OF THE TOOTH-CITY TOUR',
+        description: 'Ascend through misty hill country via Ramboda Falls to sacred Kandy. Visit the UNESCO World Heritage Temple of the Tooth Relic and historic city.'
+      },
+      {
+        day: 'DAY 07',
+        title: 'ELLA | TRAIN RIDE',
+        description: 'Embark on the iconic scenic train journey through lush tea plantations and mountain viaducts into Ella, visiting Nine Arches Bridge.'
+      },
+      {
+        day: 'DAY 08, 09, 10',
+        title: 'ARUGAM BAY | TRAIL TREK',
+        description: 'Three adventurous days exploring east coast trail treks, pristine nature walks, lagoon biodiversity, and world-class surf coastlines.'
+      },
+      {
+        day: 'DAY 11',
+        title: 'YALA NATIONAL PARK | SAFARI ADVENTURE',
+        description: 'Deep wilderness safari in Yala National Park, renowned worldwide for the highest leopard density, wild elephants, and spotted deer.'
+      },
+      {
+        day: 'DAY 12',
+        title: 'UDAWALAWE NATIONAL PARK | ELEPHANT SAFARI',
+        description: 'Safari game drive through Udawalawe grasslands, encountering majestic herds of wild Asian elephants and exotic bird life in their sanctuary.'
+      },
+      {
+        day: 'DAY 13, 14',
+        title: 'UNAWATUNA | WHALE WATCHING - BICYCLE RIDE',
+        description: 'Early morning blue whale watching expedition in southern waters, followed by scenic village bicycle rides and tranquil beach leisure.'
+      },
+      {
+        day: 'DAY 15',
+        title: 'DEPARTURE',
+        description: 'Breakfast by the Indian Ocean, southern expressway transfer to Bandaranaike International Airport (CMB) with lifelong safari memories.'
+      }
+    ],
+    idealFor: 'Wildlife lovers, photographers, safari enthusiasts, and adventure seekers.'
   },
   {
     id: 5,

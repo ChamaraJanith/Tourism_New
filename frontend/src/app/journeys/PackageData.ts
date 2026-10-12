@@ -196,8 +196,8 @@ export const PACKAGES: TravelPackage[] = [
   {
     id: 6,
     title: 'Romance & Honeymoon Collection',
-    duration: '8 Days | 7 Nights',
-    description: 'Celebrate love in one of the world\'s most romantic island destinations.',
+    duration: '11 Days | 10 Nights',
+    description: 'Celebrate love across 11 unforgettable days in one of the world\'s most romantic island destinations.',
     images: [
       '/images/Travel_Packages/Romance_and_Honeymoon_Collection/Picture28.jpg',
       '/images/Travel_Packages/Romance_and_Honeymoon_Collection/Picture29.jpg',
@@ -208,15 +208,74 @@ export const PACKAGES: TravelPackage[] = [
       '/images/Travel_Packages/Romance_and_Honeymoon_Collection/Picture35.jpg'
     ],
     includes: [
-      'Luxury Honeymoon Suite',
-      'Romantic Beach Dinner',
-      'Couples\' Spa Experience',
-      'Champagne Welcome',
-      'Flower Decorations',
-      'Private Excursions',
-      'Professional Photography (Optional)'
+      'Luxury Honeymoon Suite & Boutique Stays',
+      'Romantic Candlelit Beach Dinner in Bentota',
+      'Arrival Couples\' Ayurvedic Massage in Colombo',
+      'Sigiriya Private Stargazing Experience',
+      'Sigiriya Countryside Bicycle Ride & Safari',
+      'Scenic Kandy & Nuwara Eliya Tea Country Tour',
+      'Iconic Hill Country Train Journey to Ella',
+      'Madu River Boat Safari & Turtle Hatchery Visit',
+      'Private Chauffeur Guide & Dedicated Concierge'
     ],
-    idealFor: 'Honeymooners, anniversaries, and proposals.'
+    itinerary: [
+      {
+        day: 'DAY 01',
+        title: 'ARRIVE COLOMBO | AYURVEDIC MASSAGE',
+        description: 'Warm airport welcome and transfer to luxury accommodation. Unwind after your flight with a rejuvenating couples\' Ayurvedic massage.'
+      },
+      {
+        day: 'DAY 02',
+        title: 'SIGIRIYA | STARGAZING',
+        description: 'Journey to the cultural heartland of Sigiriya. Spend a romantic evening under clear night skies with an enchanting stargazing experience.'
+      },
+      {
+        day: 'DAY 03',
+        title: 'SIGIRIYA | VILLAGE TOUR',
+        description: 'Immerse yourselves in rural Sri Lankan heritage with a private village tour, lake catamaran ride, and authentic traditional culinary lunch.'
+      },
+      {
+        day: 'DAY 04',
+        title: 'SIGIRIYA | BICYCLE RIDE | SAFARI ADVENTURE',
+        description: 'Morning scenic bicycle ride through lush village pathways followed by an afternoon open 4x4 safari adventure tracking wild elephant herds.'
+      },
+      {
+        day: 'DAY 05',
+        title: 'KANDY | CITY TOUR',
+        description: 'Travel to the historic royal city of Kandy. Tour around Kandy Lake, visit the sacred Temple of the Tooth Relic, and explore cultural landmarks.'
+      },
+      {
+        day: 'DAY 06',
+        title: 'NUWARA ELIYA | FACTORY VISIT',
+        description: 'Ascend into misty tea country, also known as Little England. Visit a prestigious Ceylon tea estate and factory with artisanal tea tasting.'
+      },
+      {
+        day: 'DAY 07',
+        title: 'ELLA | TRAIN RIDE',
+        description: 'Board the iconic scenic train ride winding through lush mountain valleys and tea hills to Ella. Marvel at the Nine Arches Bridge and gorge vistas.'
+      },
+      {
+        day: 'DAY 08',
+        title: 'BENTOTA | BOAT RIDE - TURTLE HATCHERY',
+        description: 'Descend to coastal Bentota. Enjoy a serene Madu River boat safari through mangrove tunnels and visit a sea turtle conservation hatchery.'
+      },
+      {
+        day: 'DAY 09',
+        title: 'BENTOTA | CANDLELIT DINNER',
+        description: 'Leisurely beachfront relaxation by golden sands, culminating in an intimate private candlelit dinner under the stars by the ocean.'
+      },
+      {
+        day: 'DAY 10',
+        title: 'NEGOMBO',
+        description: 'Transfer to the charming coastal town of Negombo. Stroll along the beach, explore the colonial canals, or relax at a luxury seaside resort.'
+      },
+      {
+        day: 'DAY 11',
+        title: 'DEPARTURE',
+        description: 'Relaxed breakfast by the ocean and smooth transfer to Bandaranaike International Airport for your departure flight with cherished memories.'
+      }
+    ],
+    idealFor: 'Honeymooners, couples, romantic escapes, and anniversary celebrations.'
   },
   {
     id: 7,

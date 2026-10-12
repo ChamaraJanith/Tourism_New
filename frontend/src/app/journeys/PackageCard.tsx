@@ -241,7 +241,9 @@ export default function PackageCard({ pkg }: PackageCardProps) {
                       <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
                       Day-by-Day Schedule
                     </h4>
-                    <span className="text-[11px] text-[#d4af37]">Complete 15-Day Route</span>
+                    <span className="text-[11px] text-[#d4af37]">
+                      {pkg.duration.split('|')[0]?.trim() || 'Custom'} Route
+                    </span>
                   </div>
 
                   <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#d4af37]/30">
@@ -370,7 +372,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
                     >
                       <span className="flex items-center gap-1.5 font-medium">
                         <Compass className="w-3.5 h-3.5" />
-                        {showModalItineraryPreview ? 'Hide Itinerary Schedule' : `View 15-Day Itinerary (${pkg.itinerary.length} Stages)`}
+                        {showModalItineraryPreview ? 'Hide Itinerary Schedule' : `View ${pkg.duration.split('|')[0]?.trim() || ''} Itinerary (${pkg.itinerary.length} Stages)`}
                       </span>
                       {showModalItineraryPreview ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>

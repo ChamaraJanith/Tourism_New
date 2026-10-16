@@ -126,7 +126,7 @@ export const globalRepresentatives: AdvisoryMember[] = [
   },
   {
     name: "Shabnam Raza (Geeta)",
-    title: "Deputy Director",
+    title: "Director",
     role: "Business Networking Professional",
     description:
       "An experienced business-networking professional with strong associations across Indian business forums, industry organisations and professional networks. Shabnam specialises in building meaningful partnerships, connecting businesses and creating opportunities for cross-border collaboration.",

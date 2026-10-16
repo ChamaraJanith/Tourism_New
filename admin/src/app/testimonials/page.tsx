@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS public.testimonials (
   quote TEXT NOT NULL,
   short_quote TEXT,
   tags TEXT[] DEFAULT ARRAY[]::TEXT[],
-  bg_image TEXT DEFAULT 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200',
+  bg_image TEXT DEFAULT '/images/nine_arch_bridge.png',
   avatar TEXT,
   status TEXT NOT NULL DEFAULT 'Pending',
   created_at TIMESTAMPTZ DEFAULT NOW(),

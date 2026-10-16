@@ -47,7 +47,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "A perfectly paced exploration of Sri Lanka's hidden highlands. The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.",
     short_quote: "The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.",
     tags: ["Highland Expedition", "Culture Trails"],
-    bg_image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200"
+    bg_image: "/images/nine_arch_bridge.png"
   },
   {
     id: "def-2",
@@ -59,7 +59,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "Booking the Dandeniya Lake retreat was the best wellness decision I've ever made. The sound of birds at sunrise, combined with organic food and top-tier service, was unmatched.",
     short_quote: "Booking the Dandeniya Lake retreat was the best wellness decision I've ever made. Top-tier service was unmatched.",
     tags: ["Lake Retreat", "Ayurvedic Spa"],
-    bg_image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200"
+    bg_image: "/images/lake/7.webp"
   },
   {
     id: "def-3",
@@ -71,7 +71,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "Our bespoke organic farming day combined with a culinary workshop blew us away. The children learned to harvest local yams while we sipped fresh coconut water.",
     short_quote: "Our bespoke organic farming day combined with a culinary workshop blew us away. Sipping fresh coconut water.",
     tags: ["Organic Village", "Local Kitchen"],
-    bg_image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200"
+    bg_image: "/images/farm/11.jpg"
   }
 ];
 
@@ -119,19 +119,26 @@ export function TravelerTestimonials() {
           .order("created_at", { ascending: false });
 
         if (!error && data && data.length > 0) {
-          const formatted: TestimonialItem[] = data.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            role: item.role || "Private Client",
-            country: item.country || "International",
-            flag: item.flag || COUNTRY_FLAGS[item.country] || "🌍",
-            rating: item.rating || 5,
-            quote: item.quote,
-            short_quote: item.short_quote || item.quote.slice(0, 120) + "...",
-            tags: Array.isArray(item.tags) && item.tags.length > 0 ? item.tags : ["Exclusive Journey"],
-            bg_image: item.bg_image || "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200",
-            status: item.status
-          }));
+          const formatted: TestimonialItem[] = data.map((item: any) => {
+            let image = item.bg_image;
+            // Prevent old kitten placeholder URL from showing
+            if (!image || image.includes("photo-1545249390-6bdfa286032f")) {
+              image = "/images/nine_arch_bridge.png";
+            }
+            return {
+              id: item.id,
+              name: item.name,
+              role: item.role || "Private Client",
+              country: item.country || "International",
+              flag: item.flag || COUNTRY_FLAGS[item.country] || "🌍",
+              rating: item.rating || 5,
+              quote: item.quote,
+              short_quote: item.short_quote || item.quote.slice(0, 120) + "...",
+              tags: Array.isArray(item.tags) && item.tags.length > 0 ? item.tags : ["Exclusive Journey"],
+              bg_image: image,
+              status: item.status
+            };
+          });
           setTestimonials(formatted);
         }
       } catch (err) {
@@ -144,7 +151,10 @@ export function TravelerTestimonials() {
 
   // Safe current active item
   const currentItem = testimonials[activeTestimonial] || testimonials[0] || DEFAULT_TESTIMONIALS[0];
-  const bgImg = currentItem.bg_image || currentItem.bgImage || "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200";
+  let bgImg = currentItem.bg_image || currentItem.bgImage || "/images/nine_arch_bridge.png";
+  if (bgImg.includes("photo-1545249390-6bdfa286032f")) {
+    bgImg = "/images/nine_arch_bridge.png";
+  }
   const quoteText = currentItem.quote;
   const shortQuoteText = currentItem.short_quote || currentItem.shortQuote || (quoteText.length > 100 ? quoteText.slice(0, 100) + "..." : quoteText);
 
@@ -166,9 +176,10 @@ export function TravelerTestimonials() {
         quote: formData.quote.trim(),
         short_quote: formData.quote.trim().slice(0, 120) + "...",
         tags: tags,
-        bg_image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200",
+        bg_image: "/images/nine_arch_bridge.png",
         status: "Pending" // Review needs admin acceptance before showing publicly
       };
+
 
       // 1. Insert into Supabase
       const { error: dbError } = await supabase.from("testimonials").insert([payload]);

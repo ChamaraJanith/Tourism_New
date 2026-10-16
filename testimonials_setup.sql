@@ -26,6 +26,11 @@ ALTER TABLE public.testimonials DROP COLUMN IF EXISTS video_url;
 -- Disable Row Level Security (RLS) so frontend and admin can read/write without auth blocking
 ALTER TABLE public.testimonials DISABLE ROW LEVEL SECURITY;
 
+-- Update existing rows to use authentic Sri Lanka images
+UPDATE public.testimonials SET bg_image = '/images/nine_arch_bridge.png' WHERE name = 'Eleanor Vance';
+UPDATE public.testimonials SET bg_image = '/images/lake/7.webp' WHERE name = 'Marcus Aurelius';
+UPDATE public.testimonials SET bg_image = '/images/farm/11.jpg' WHERE name = 'Samantha Miller';
+
 -- Insert initial sample approved reviews (only if table is empty)
 INSERT INTO public.testimonials (name, role, country, flag, rating, quote, short_quote, tags, bg_image, status)
 SELECT 
@@ -37,7 +42,7 @@ SELECT
   'A perfectly paced exploration of Sri Lanka''s hidden highlands. The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.', 
   'The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.', 
   ARRAY['Highland Expedition', 'Culture Trails'], 
-  'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200', 
+  '/images/nine_arch_bridge.png', 
   'Approved'
 WHERE NOT EXISTS (SELECT 1 FROM public.testimonials);
 
@@ -51,7 +56,7 @@ SELECT
   'Booking the Dandeniya Lake retreat was the best wellness decision I''ve ever made. The sound of birds at sunrise, combined with organic food and top-tier service, was unmatched.', 
   'Booking the Dandeniya Lake retreat was the best wellness decision I''ve ever made. Top-tier service was unmatched.', 
   ARRAY['Lake Retreat', 'Ayurvedic Spa'], 
-  'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200', 
+  '/images/lake/7.webp', 
   'Approved'
 WHERE (SELECT COUNT(*) FROM public.testimonials) = 1;
 
@@ -65,6 +70,7 @@ SELECT
   'Our bespoke organic farming day combined with a culinary workshop blew us away. The children learned to harvest local yams while we sipped fresh coconut water.', 
   'Our bespoke organic farming day combined with a culinary workshop blew us away. Sipping fresh coconut water.', 
   ARRAY['Organic Village', 'Local Kitchen'], 
-  'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200', 
+  '/images/farm/11.jpg', 
   'Approved'
 WHERE (SELECT COUNT(*) FROM public.testimonials) = 2;
+

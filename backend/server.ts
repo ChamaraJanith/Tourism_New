@@ -424,7 +424,7 @@ app.get('/api/testimonials', async (req: Request, res: Response): Promise<void> 
 
 // POST /api/testimonials (Submit new testimonial - defaults to Pending)
 app.post('/api/testimonials', async (req: Request, res: Response): Promise<void> => {
-  const { name, role, country, flag, rating, quote, shortQuote, tags, bgImage, videoUrl, avatar } = req.body;
+  const { name, role, country, flag, rating, quote, shortQuote, tags, bgImage, avatar } = req.body;
 
   if (!name || !name.trim()) {
     res.status(400).json({ error: 'Name is required' });
@@ -449,7 +449,6 @@ app.post('/api/testimonials', async (req: Request, res: Response): Promise<void>
           short_quote: shortQuote?.trim() || quote.trim().slice(0, 110) + '...',
           tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
           bg_image: bgImage || 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200',
-          video_url: videoUrl || null,
           avatar: avatar || null,
           status: 'Pending',
         }

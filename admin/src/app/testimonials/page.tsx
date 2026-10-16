@@ -9,16 +9,12 @@ import {
   Trash2, 
   Plus, 
   Search, 
-  Filter, 
   Clock, 
   ShieldCheck, 
   CheckCircle2, 
   AlertTriangle, 
   Copy, 
-  Video, 
-  ExternalLink,
   MessageSquareQuote,
-  Sparkles,
   RefreshCw
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,7 +30,6 @@ export interface Testimonial {
   short_quote?: string;
   tags: string[];
   bg_image?: string;
-  video_url?: string;
   status: "Pending" | "Approved" | "Rejected";
   created_at: string;
 }
@@ -51,8 +46,7 @@ const INITIAL_MOCK_TESTIMONIALS: Testimonial[] = [
     short_quote: "The expert local guides knew every secret tea plantation trail.",
     tags: ["Highland Expedition", "Culture Trails"],
     status: "Approved",
-    created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-    video_url: "https://www.youtube.com/embed/eXbqp2u3wms"
+    created_at: new Date(Date.now() - 86400000 * 2).toISOString()
   },
   {
     id: "mock-2",
@@ -65,8 +59,7 @@ const INITIAL_MOCK_TESTIMONIALS: Testimonial[] = [
     short_quote: "Booking the Dandeniya Lake retreat was the best wellness decision.",
     tags: ["Lake Retreat", "Ayurvedic Spa"],
     status: "Approved",
-    created_at: new Date(Date.now() - 86400000 * 4).toISOString(),
-    video_url: "https://www.youtube.com/embed/HdH1s90L0Q4"
+    created_at: new Date(Date.now() - 86400000 * 4).toISOString()
   },
   {
     id: "mock-3",
@@ -95,7 +88,6 @@ CREATE TABLE IF NOT EXISTS public.testimonials (
   short_quote TEXT,
   tags TEXT[] DEFAULT ARRAY[]::TEXT[],
   bg_image TEXT DEFAULT 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200',
-  video_url TEXT,
   avatar TEXT,
   status TEXT NOT NULL DEFAULT 'Pending',
   created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -121,8 +113,7 @@ export default function TestimonialsAdminPage() {
     rating: 5,
     quote: "",
     tags: "Highland Expedition",
-    status: "Approved" as "Approved" | "Pending",
-    videoUrl: ""
+    status: "Approved" as "Approved" | "Pending"
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -144,7 +135,6 @@ export default function TestimonialsAdminPage() {
       } else if (data) {
         setTableMissing(false);
         if (data.length === 0) {
-          // If empty in DB, display initial mock
           setTestimonials(INITIAL_MOCK_TESTIMONIALS);
         } else {
           setTestimonials(data);
@@ -192,7 +182,6 @@ export default function TestimonialsAdminPage() {
   }, []);
 
   const handleUpdateStatus = async (id: string, newStatus: "Approved" | "Rejected" | "Pending") => {
-    // Optimistic update
     setTestimonials((prev) =>
       prev.map((item) => (item.id === id ? { ...item, status: newStatus } : item))
     );
@@ -248,7 +237,6 @@ export default function TestimonialsAdminPage() {
       short_quote: newReview.quote.trim().slice(0, 110) + "...",
       tags: [newReview.tags],
       status: newReview.status,
-      video_url: newReview.videoUrl.trim() || undefined,
       created_at: new Date().toISOString()
     };
 
@@ -266,7 +254,6 @@ export default function TestimonialsAdminPage() {
         setIsAddModalOpen(false);
       }
     } else {
-      // Local fallback
       setTestimonials((prev) => [
         { ...newItem, id: `local-${Date.now()}` } as Testimonial,
         ...prev
@@ -276,7 +263,6 @@ export default function TestimonialsAdminPage() {
     setIsSubmitting(false);
   };
 
-  // Filtered list
   const filteredTestimonials = testimonials.filter((item) => {
     const matchesStatus = filterStatus === "All" || item.status === filterStatus;
     const matchesSearch =
@@ -529,17 +515,6 @@ export default function TestimonialsAdminPage() {
                         </span>
                       ))}
                     </div>
-
-                    {item.video_url && (
-                      <a
-                        href={item.video_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[#d4af37] hover:underline"
-                      >
-                        <Video className="w-3.5 h-3.5" /> Video Attached
-                      </a>
-                    )}
                   </div>
 
                   {/* Quote Body */}
@@ -728,17 +703,6 @@ export default function TestimonialsAdminPage() {
                     value={newReview.quote}
                     onChange={(e) => setNewReview({ ...newReview, quote: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none resize-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Video URL (Optional)</label>
-                  <input
-                    type="url"
-                    placeholder="https://www.youtube.com/embed/..."
-                    value={newReview.videoUrl}
-                    onChange={(e) => setNewReview({ ...newReview, videoUrl: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none"
                   />
                 </div>
 

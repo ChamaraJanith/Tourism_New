@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Star, 
-  Play, 
   X, 
   Plus, 
   CheckCircle2, 
@@ -14,8 +13,7 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck,
-  Video
+  ShieldCheck
 } from "lucide-react";
 import { Reveal } from "./reveal";
 import { supabase } from "@/lib/supabase";
@@ -33,8 +31,6 @@ export interface TestimonialItem {
   tags: string[];
   bg_image?: string;
   bgImage?: string;
-  video_url?: string;
-  videoUrl?: string;
   status?: string;
   created_at?: string;
 }
@@ -51,8 +47,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "A perfectly paced exploration of Sri Lanka's hidden highlands. The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.",
     short_quote: "The expert local guides knew every secret tea plantation trail. Pure luxury coupled with wild, raw authenticity.",
     tags: ["Highland Expedition", "Culture Trails"],
-    bg_image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200",
-    video_url: "https://www.youtube.com/embed/eXbqp2u3wms?autoplay=1"
+    bg_image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "def-2",
@@ -64,8 +59,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "Booking the Dandeniya Lake retreat was the best wellness decision I've ever made. The sound of birds at sunrise, combined with organic food and top-tier service, was unmatched.",
     short_quote: "Booking the Dandeniya Lake retreat was the best wellness decision I've ever made. Top-tier service was unmatched.",
     tags: ["Lake Retreat", "Ayurvedic Spa"],
-    bg_image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
-    video_url: "https://www.youtube.com/embed/HdH1s90L0Q4?autoplay=1"
+    bg_image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "def-3",
@@ -77,8 +71,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     quote: "Our bespoke organic farming day combined with a culinary workshop blew us away. The children learned to harvest local yams while we sipped fresh coconut water.",
     short_quote: "Our bespoke organic farming day combined with a culinary workshop blew us away. Sipping fresh coconut water.",
     tags: ["Organic Village", "Local Kitchen"],
-    bg_image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200",
-    video_url: "https://www.youtube.com/embed/8_3a7qWkP88?autoplay=1"
+    bg_image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200"
   }
 ];
 
@@ -100,7 +93,6 @@ const COUNTRY_FLAGS: Record<string, string> = {
 export function TravelerTestimonials() {
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>(DEFAULT_TESTIMONIALS);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,8 +105,7 @@ export function TravelerTestimonials() {
     role: "Private Client",
     rating: 5,
     tag: "Highland Expedition",
-    quote: "",
-    videoUrl: ""
+    quote: ""
   });
 
   // Fetch approved testimonials from Supabase
@@ -139,7 +130,6 @@ export function TravelerTestimonials() {
             short_quote: item.short_quote || item.quote.slice(0, 120) + "...",
             tags: Array.isArray(item.tags) && item.tags.length > 0 ? item.tags : ["Exclusive Journey"],
             bg_image: item.bg_image || "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200",
-            video_url: item.video_url || undefined,
             status: item.status
           }));
           setTestimonials(formatted);
@@ -157,7 +147,6 @@ export function TravelerTestimonials() {
   const bgImg = currentItem.bg_image || currentItem.bgImage || "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200";
   const quoteText = currentItem.quote;
   const shortQuoteText = currentItem.short_quote || currentItem.shortQuote || (quoteText.length > 100 ? quoteText.slice(0, 100) + "..." : quoteText);
-  const currentVideo = currentItem.video_url || currentItem.videoUrl;
 
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -177,7 +166,6 @@ export function TravelerTestimonials() {
         quote: formData.quote.trim(),
         short_quote: formData.quote.trim().slice(0, 120) + "...",
         tags: tags,
-        video_url: formData.videoUrl.trim() || null,
         bg_image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200",
         status: "Pending" // Review needs admin acceptance before showing publicly
       };
@@ -205,13 +193,11 @@ export function TravelerTestimonials() {
           role: "Private Client",
           rating: 5,
           tag: "Highland Expedition",
-          quote: "",
-          videoUrl: ""
+          quote: ""
         });
       }, 3500);
     } catch (err) {
       console.error("Error submitting review:", err);
-      // Still show success to user so they feel acknowledged
       setSubmittedSuccess(true);
       setTimeout(() => {
         setIsModalOpen(false);
@@ -303,7 +289,7 @@ export function TravelerTestimonials() {
           </div>
         </div>
 
-        {/* Main Grid: Left featured visual / video card, Right review selector */}
+        {/* Main Grid: Left featured visual card, Right review selector */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
           
           {/* Main Visual Card */}
@@ -338,25 +324,13 @@ export function TravelerTestimonials() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
 
-            {/* Play Button Overlay (if video exists) */}
-            {currentVideo ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button 
-                  onClick={() => setIsPlayingVideo(true)}
-                  aria-label="Play video testimonial"
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#d4af37] text-black flex items-center justify-center shadow-2xl shadow-[#d4af37]/30 hover:scale-110 active:scale-95 transition-all duration-300 z-10"
-                >
-                  <Play className="w-8 h-8 fill-current ml-1" />
-                </button>
+            {/* Verified Badge */}
+            <div className="absolute top-6 right-6 z-10">
+              <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs text-white/90 flex items-center gap-1.5 shadow-lg">
+                <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
+                Verified Guest Experience
               </div>
-            ) : (
-              <div className="absolute top-6 right-6 z-10">
-                <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs text-white/80 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-                  Verified Guest Story
-                </div>
-              </div>
-            )}
+            </div>
 
             {/* Floating Review Summary Card */}
             <div className="relative z-10 bg-black/75 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-2xl max-w-lg self-start overflow-hidden">
@@ -382,14 +356,9 @@ export function TravelerTestimonials() {
                       <span className="text-xs text-[#d4af37]">{currentItem.flag}</span>
                       <span className="text-xs text-gray-400">{currentItem.country}</span>
                     </div>
-                    {currentVideo && (
-                      <button 
-                        onClick={() => setIsPlayingVideo(true)}
-                        className="text-xs text-[#d4af37] hover:underline flex items-center gap-1"
-                      >
-                        <Video className="w-3.5 h-3.5" /> Watch Video
-                      </button>
-                    )}
+                    <span className="text-xs text-[#d4af37] font-medium tracking-wide">
+                      {currentItem.role}
+                    </span>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -459,7 +428,7 @@ export function TravelerTestimonials() {
                         className="h-full bg-[#d4af37]" 
                         style={{
                           animation: "progress-bar-timer 7000ms linear forwards",
-                          animationPlayState: (isHovered || isPlayingVideo || isModalOpen) ? "paused" : "running"
+                          animationPlayState: (isHovered || isModalOpen) ? "paused" : "running"
                         }}
                       />
                     </div>
@@ -496,39 +465,6 @@ export function TravelerTestimonials() {
 
         </div>
       </div>
-
-      {/* Video Modal Player */}
-      <AnimatePresence>
-        {isPlayingVideo && currentVideo && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
-          >
-            <button 
-              onClick={() => setIsPlayingVideo(false)}
-              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <motion.div 
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#111416]"
-            >
-              <iframe 
-                src={currentVideo}
-                title="Guest Video Testimonial"
-                className="w-full h-full border-none"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Add Review Modal */}
       <AnimatePresence>
@@ -685,18 +621,6 @@ export function TravelerTestimonials() {
                       value={formData.quote}
                       onChange={(e) => setFormData({ ...formData, quote: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-[#d4af37] focus:outline-none transition resize-none"
-                    />
-                  </div>
-
-                  {/* Video URL (Optional) */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Video Link (Optional YouTube / Vimeo)</label>
-                    <input
-                      type="url"
-                      placeholder="https://www.youtube.com/watch?v=..."
-                      value={formData.videoUrl}
-                      onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 text-sm focus:border-[#d4af37] focus:outline-none transition"
                     />
                   </div>
 

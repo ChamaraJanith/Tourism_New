@@ -394,6 +394,138 @@ app.post('/api/itinerary/request', async (req: Request, res: Response): Promise<
   }
 });
 
+// --- Testimonials / Reviews Routes ---
+
+// GET /api/testimonials (Public: only Approved by default; or all if status query passed)
+app.get('/api/testimonials', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { status, all } = req.query;
+    let query = supabase
+      .from('testimonials')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!all && !status) {
+      query = query.eq('status', 'Approved');
+    } else if (status) {
+      query = query.eq('status', String(status));
+    }
+
+    const { data, error } = await query;
+    if (error) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+    res.status(200).json({ testimonials: data || [] });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to fetch testimonials' });
+  }
+});
+
+// POST /api/testimonials (Submit new testimonial - defaults to Pending)
+app.post('/api/testimonials', async (req: Request, res: Response): Promise<void> => {
+  const { name, role, country, flag, rating, quote, shortQuote, tags, bgImage, videoUrl, avatar } = req.body;
+
+  if (!name || !name.trim()) {
+    res.status(400).json({ error: 'Name is required' });
+    return;
+  }
+  if (!quote || !quote.trim()) {
+    res.status(400).json({ error: 'Review quote/comment is required' });
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .insert([
+        {
+          name: name.trim(),
+          role: role?.trim() || 'Client',
+          country: country?.trim() || '',
+          flag: flag?.trim() || '🌍',
+          rating: Number(rating) || 5,
+          quote: quote.trim(),
+          short_quote: shortQuote?.trim() || quote.trim().slice(0, 110) + '...',
+          tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
+          bg_image: bgImage || 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=1200',
+          video_url: videoUrl || null,
+          avatar: avatar || null,
+          status: 'Pending',
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Review submitted successfully! It will appear once approved by admin.',
+      data
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to submit testimonial' });
+  }
+});
+
+// PATCH /api/testimonials/:id/status (Admin approval / rejection)
+app.patch('/api/testimonials/:id/status', async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
+    res.status(400).json({ error: 'Valid status is required (Pending, Approved, Rejected)' });
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Testimonial status updated to ${status}`,
+      data
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to update testimonial status' });
+  }
+});
+
+// DELETE /api/testimonials/:id (Delete testimonial)
+app.delete('/api/testimonials/:id', async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const { error } = await supabase
+      .from('testimonials')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+
+    res.status(200).json({ success: true, message: 'Testimonial deleted successfully' });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to delete testimonial' });
+  }
+});
+
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
@@ -401,3 +533,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default app;
+

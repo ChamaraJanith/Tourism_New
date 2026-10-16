@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { toggleMenu, setMenuOpen } from "@/store/slices/uiSlice";
 import { UserIcon, MenuIcon } from "@/components/ui/Icons";
 import { logOut } from "@/store/slices/authSlice";
-import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase, FileText } from "lucide-react";
+import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase, FileText, Star } from "lucide-react";
 
 import { BespokeButton } from "@/components/ui/BespokeButton";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
@@ -55,6 +55,7 @@ export const Navbar = () => {
         { name: "Partner With Us", href: "/partnerships/partner-with-us" }
       ]
     },
+    { name: "Guest Reviews", href: "/#testimonials" },
     { name: "Reservation Form", href: "/reservation" },
     { name: "Contact Us", href: "/contact" }
   ];
@@ -104,6 +105,12 @@ export const Navbar = () => {
       ]
     },
     {
+      name: "Guest Reviews",
+      href: "/#testimonials",
+      desc: "Read real stories from our travelers",
+      icon: <Star className="w-4 h-4 text-[#d4af37]" />
+    },
+    {
       name: "Reservation Form",
       href: "/reservation",
       desc: "Book your luxury journey",
@@ -116,6 +123,7 @@ export const Navbar = () => {
       icon: <Mail className="w-4 h-4 text-[#d4af37]" />
     }
   ];
+
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95, y: -10 },

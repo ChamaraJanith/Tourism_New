@@ -6,6 +6,7 @@ import { Gallery } from "@/components/landing/gallery";
 import { AboutUs } from "@/components/landing/about-us";
 import  BoardOfDirectors from "@/components/landing/board-of-directors";
 import { SriLankaClimateLive } from "@/components/landing/sri-lanka-info";
+import { TravelerTestimonials } from "@/components/landing/traveler-testimonials";
  
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Journeys />
         <EventFestival />
         <Gallery />
+        <TravelerTestimonials />
         <AboutUs />
         <BoardOfDirectors/>
         <SriLankaClimateLive />
@@ -23,3 +25,4 @@ export default function Home() {
     </div>
   );
 }
+

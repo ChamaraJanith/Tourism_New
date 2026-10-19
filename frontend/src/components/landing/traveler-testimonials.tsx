@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "./reveal";
 import { supabase } from "@/lib/supabase";
+import { PACKAGES } from "@/app/journeys/PackageData";
 
 export interface TestimonialItem {
   id?: string;
@@ -104,6 +105,7 @@ export function TravelerTestimonials() {
     country: "United Kingdom",
     role: "Private Client",
     rating: 5,
+    journey: PACKAGES[0]?.title || "The Grand Sri Lanka Discovery",
     tag: "Highland Expedition",
     quote: ""
   });
@@ -165,7 +167,14 @@ export function TravelerTestimonials() {
     setIsSubmitting(true);
     try {
       const flag = COUNTRY_FLAGS[formData.country] || "🌍";
-      const tags = [formData.tag || "Bespoke Journey"];
+      const tags: string[] = [];
+      if (formData.journey) tags.push(formData.journey);
+      if (formData.tag) tags.push(formData.tag);
+      if (tags.length === 0) tags.push("Exclusive Journey");
+
+      // Match background image with selected signature journey if available
+      const matchedPkg = PACKAGES.find((p) => p.title === formData.journey);
+      const bgImage = matchedPkg?.images?.[0] || "/images/nine_arch_bridge.png";
 
       const payload = {
         name: formData.name.trim(),
@@ -176,7 +185,7 @@ export function TravelerTestimonials() {
         quote: formData.quote.trim(),
         short_quote: formData.quote.trim().slice(0, 120) + "...",
         tags: tags,
-        bg_image: "/images/nine_arch_bridge.png",
+        bg_image: bgImage,
         status: "Pending" // Review needs admin acceptance before showing publicly
       };
 
@@ -203,6 +212,7 @@ export function TravelerTestimonials() {
           country: "United Kingdom",
           role: "Private Client",
           rating: 5,
+          journey: PACKAGES[0]?.title || "The Grand Sri Lanka Discovery",
           tag: "Highland Expedition",
           quote: ""
         });
@@ -418,11 +428,21 @@ export function TravelerTestimonials() {
                   </p>
 
                   <div className="flex flex-wrap items-center gap-2">
-                    {item.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-[10px] font-medium tracking-wider px-2.5 py-0.5 bg-white/5 text-gray-300 rounded-full border border-white/5">
-                        {tag}
-                      </span>
-                    ))}
+                    {item.tags.map((tag, tIdx) => {
+                      const isPackage = PACKAGES.some((p) => p.title.toLowerCase() === tag.toLowerCase());
+                      return (
+                        <span 
+                          key={tIdx} 
+                          className={`text-[10px] font-medium tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            isPackage 
+                              ? "bg-[#d4af37]/15 text-[#d4af37] border-[#d4af37]/30 font-semibold" 
+                              : "bg-white/5 text-gray-300 border-white/5"
+                          }`}
+                        >
+                          {isPackage ? `✨ ${tag}` : tag}
+                        </span>
+                      );
+                    })}
                     <div className="ml-auto flex items-center text-[#d4af37]">
                       {[...Array(item.rating)].map((_, rIdx) => (
                         <Star key={rIdx} className="w-3 h-3 fill-current" />
@@ -604,22 +624,40 @@ export function TravelerTestimonials() {
                     </div>
                   </div>
 
-                  {/* Experience Tag */}
-                  <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Trip Highlights / Category</label>
-                    <select
-                      value={formData.tag}
-                      onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
-                      className="w-full px-3 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none transition"
-                    >
-                      <option value="Highland Expedition" className="bg-[#111416]">Highland Expedition</option>
-                      <option value="Lake Retreat & Wellness" className="bg-[#111416]">Lake Retreat & Wellness</option>
-                      <option value="Organic Village & Culture" className="bg-[#111416]">Organic Village & Culture</option>
-                      <option value="Wildlife & Safari" className="bg-[#111416]">Wildlife & Safari</option>
-                      <option value="Coastal & Surfing" className="bg-[#111416]">Coastal & Surfing</option>
-                      <option value="Ayurvedic Spa & Serenity" className="bg-[#111416]">Ayurvedic Spa & Serenity</option>
-                      <option value="Bespoke Private Journey" className="bg-[#111416]">Bespoke Private Journey</option>
-                    </select>
+                  {/* Journey & Experience Category Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-300 mb-1">Our Signature Journey</label>
+                      <select
+                        value={formData.journey}
+                        onChange={(e) => setFormData({ ...formData, journey: e.target.value })}
+                        className="w-full px-3 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none transition"
+                      >
+                        <option value="" className="bg-[#111416] text-gray-400">None / Bespoke Custom Voyage</option>
+                        {PACKAGES.map((pkg) => (
+                          <option key={pkg.id} value={pkg.title} className="bg-[#111416] text-white">
+                            {pkg.title}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-gray-300 mb-1">Trip Highlights / Category</label>
+                      <select
+                        value={formData.tag}
+                        onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
+                        className="w-full px-3 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none transition"
+                      >
+                        <option value="Highland Expedition" className="bg-[#111416]">Highland Expedition</option>
+                        <option value="Lake Retreat & Wellness" className="bg-[#111416]">Lake Retreat & Wellness</option>
+                        <option value="Organic Village & Culture" className="bg-[#111416]">Organic Village & Culture</option>
+                        <option value="Wildlife & Safari" className="bg-[#111416]">Wildlife & Safari</option>
+                        <option value="Coastal & Surfing" className="bg-[#111416]">Coastal & Surfing</option>
+                        <option value="Ayurvedic Spa & Serenity" className="bg-[#111416]">Ayurvedic Spa & Serenity</option>
+                        <option value="Bespoke Private Journey" className="bg-[#111416]">Bespoke Private Journey</option>
+                      </select>
+                    </div>
                   </div>
 
                   {/* Review Text */}

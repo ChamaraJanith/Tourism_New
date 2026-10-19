@@ -112,6 +112,7 @@ export default function TestimonialsAdminPage() {
     role: "Private Client",
     rating: 5,
     quote: "",
+    journey: "The Grand Sri Lanka Discovery",
     tags: "Highland Expedition",
     status: "Approved" as "Approved" | "Pending"
   });
@@ -235,7 +236,7 @@ export default function TestimonialsAdminPage() {
       rating: newReview.rating,
       quote: newReview.quote.trim(),
       short_quote: newReview.quote.trim().slice(0, 110) + "...",
-      tags: [newReview.tags],
+      tags: [newReview.journey, newReview.tags].filter(Boolean),
       status: newReview.status,
       created_at: new Date().toISOString()
     };
@@ -683,15 +684,43 @@ export default function TestimonialsAdminPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Experience Tag</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Highland Expedition"
-                    value={newReview.tags}
-                    onChange={(e) => setNewReview({ ...newReview, tags: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none"
-                  />
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Our Signature Journey</label>
+                    <select
+                      value={newReview.journey}
+                      onChange={(e) => setNewReview({ ...newReview, journey: e.target.value })}
+                      className="w-full px-3 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none"
+                    >
+                      <option value="">None / Custom</option>
+                      <option value="The Grand Sri Lanka Discovery">The Grand Sri Lanka Discovery</option>
+                      <option value="Luxury Escape Sri Lanka">Luxury Escape Sri Lanka</option>
+                      <option value="Heritage & Cultural Discovery">Heritage & Cultural Discovery</option>
+                      <option value="Wildlife & Nature Adventure">Wildlife & Nature Adventure</option>
+                      <option value="Wellness & Ayurveda Retreat">Wellness & Ayurveda Retreat</option>
+                      <option value="Romance & Honeymoon Collection">Romance & Honeymoon Collection</option>
+                      <option value="Adventure Sri Lanka">Adventure Sri Lanka</option>
+                      <option value="Family Holiday Experience">Family Holiday Experience</option>
+                      <option value="Silver Horizons – Luxury Senior Living Experience">Silver Horizons – Luxury Senior Living Experience</option>
+                      <option value="MICE & Corporate Excellence">MICE & Corporate Excellence</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Trip Highlights / Category</label>
+                    <select
+                      value={newReview.tags}
+                      onChange={(e) => setNewReview({ ...newReview, tags: e.target.value })}
+                      className="w-full px-3 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm focus:border-[#d4af37] focus:outline-none"
+                    >
+                      <option value="Highland Expedition">Highland Expedition</option>
+                      <option value="Lake Retreat & Wellness">Lake Retreat & Wellness</option>
+                      <option value="Organic Village & Culture">Organic Village & Culture</option>
+                      <option value="Wildlife & Safari">Wildlife & Safari</option>
+                      <option value="Coastal & Surfing">Coastal & Surfing</option>
+                      <option value="Ayurvedic Spa & Serenity">Ayurvedic Spa & Serenity</option>
+                      <option value="Bespoke Private Journey">Bespoke Private Journey</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>

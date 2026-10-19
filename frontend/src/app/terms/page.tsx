@@ -22,16 +22,25 @@ export default function TermsPage() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const sections = [
+  const sections: {
+    title: string;
+    content?: string;
+    items?: string[];
+  }[] = [
     {
       title: "1. Guided Journeys & Booking",
       content:
         "All expeditions, private itineraries, and eco-cycling tours must be reserved in advance through the Aether Travel platform. To secure your reservation, a valid payment method or deposit is required. All bookings are subject to availability and seasonal environmental conditions.",
     },
     {
-      title: "2. Cancellation & Refund Policy",
-      content:
-        "We understand plans can change. Cancellations made 14 days or more prior to the scheduled departure will receive a full refund. Cancellations between 7 and 13 days prior are eligible for a 50% refund. Cancellations made less than 7 days in advance are non-refundable, as local guides and resources have already been curated.",
+      title: "2. Cancellation Policy",
+      items: [
+        "Cancellations received with between 31 to 22 days’ notice is subject to a 25% cancellation fee.",
+        "Cancellations received with between 22 to 15 days’ notice is subject to a 50% cancellation fee.",
+        "Cancellations received with between 15 to 08 days’ notice is subject to a 75% cancellation fee.",
+        "Cancellations received with less than 8 days’ notice is subject to a 100% cancellation fee.",
+        "Failure to arrive at the hotel is subject to a 100% cancellation fee.",
+      ],
     },
     {
       title: "3. Safety & Physical Responsibility",
@@ -131,6 +140,7 @@ export default function TermsPage() {
             {sections.map((sec, idx) => (
               <div
                 key={idx}
+                id={idx === 1 ? "cancellation" : undefined}
                 className={`rounded-3xl border border-white/5 p-6 md:p-8 flex flex-col justify-start relative overflow-hidden transition-all duration-300 hover:border-[#d4af37]/20 group ${
                   idx === 4 ? "sm:col-span-2" : ""
                 }`}
@@ -146,9 +156,20 @@ export default function TermsPage() {
                   <ShieldCheck size={16} className="text-[#10b981] group-hover:scale-110 transition-transform" />
                   {sec.title}
                 </h3>
-                <p className="text-zinc-300 font-light leading-relaxed text-xs md:text-sm">
-                  {sec.content}
-                </p>
+                {sec.items ? (
+                  <ul className="space-y-2 text-zinc-300 font-light text-xs md:text-sm">
+                    {sec.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5 leading-relaxed">
+                        <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-zinc-300 font-light leading-relaxed text-xs md:text-sm">
+                    {sec.content}
+                  </p>
+                )}
               </div>
             ))}
           </div>

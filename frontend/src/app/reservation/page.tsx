@@ -508,6 +508,48 @@ export default function ReservationFormPage() {
             </div>
           </motion.div>
 
+          {/* ─── 5. CANCELLATION POLICY ─── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm"
+          >
+            <div className="bg-[#111c30] px-6 py-3 border-b border-[#d4af37]/30 flex items-center justify-between">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[#d4af37]">5. Cancellation Policy</h3>
+              <Link href="/cancellation-policy" className="text-[11px] text-[#d4af37]/80 hover:text-[#d4af37] underline transition">
+                Full Details
+              </Link>
+            </div>
+            <div className="p-6 md:p-8 space-y-3">
+              <p className="text-xs text-gray-400 font-light mb-2">
+                By submitting this reservation, you acknowledge and agree to our cancellation policy terms:
+              </p>
+              <ul className="space-y-2.5 text-xs md:text-sm text-gray-300 font-light">
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                  <span>Cancellations received with between 31 to 22 days’ notice is subject to a 25% cancellation fee.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                  <span>Cancellations received with between 22 to 15 days’ notice is subject to a 50% cancellation fee.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                  <span>Cancellations received with between 15 to 08 days’ notice is subject to a 75% cancellation fee.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                  <span>Cancellations received with less than 8 days’ notice is subject to a 100% cancellation fee.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#d4af37] font-bold mt-0.5 shrink-0">•</span>
+                  <span>Failure to arrive at the hotel is subject to a 100% cancellation fee.</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+
           {/* ─── SUBMIT ─── */}
           <div className="pt-6 pb-12 flex flex-col items-center gap-3">
             {(!selectedPackage || !nationality) && (

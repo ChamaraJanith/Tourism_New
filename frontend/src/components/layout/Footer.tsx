@@ -32,6 +32,7 @@ const FOOTER_LINKS = {
     { name: "About Us", href: "/#about" },
     { name: "Board of Directors", href: "/#board-of-directors" },
     { name: "Contact Us", href: "/contact" },
+    { name: "Cancellation Policy", href: "/cancellation-policy" },
     { name: "Terms & Conditions", href: "/terms" },
     { name: "Privacy Policy", href: "/privacy" },
   ],
@@ -304,6 +305,9 @@ export const Footer = () => {
             <div className="flex gap-6">
               <Link href="/terms" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Terms
+              </Link>
+              <Link href="/cancellation-policy" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+                Cancellation
               </Link>
               <Link href="/privacy" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Privacy

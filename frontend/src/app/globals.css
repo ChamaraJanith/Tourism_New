@@ -29,8 +29,10 @@ html.lenis body {
 
 html {
   position: relative;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -203,8 +205,10 @@ html.lenis body {
 
 html {
   position: relative;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -364,7 +368,7 @@ input:-webkit-autofill::first-line {
 .goog-te-banner-frame.skiptranslate,
 iframe.skiptranslate,
 .VIpgJd-ZVi9od-ORHb-OEVmcd,
-.skiptranslate > iframe,
+.skiptranslate>iframe,
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
   display: none !important;
   visibility: hidden !important;
@@ -379,7 +383,8 @@ body {
 }
 
 /* Hide the Google Translate tooltip that appears on hover */
-#goog-gt-tt, .goog-te-balloon-frame {
+#goog-gt-tt,
+.goog-te-balloon-frame {
   display: none !important;
 }
 
@@ -387,9 +392,11 @@ body {
 .goog-tooltip {
   display: none !important;
 }
+
 .goog-tooltip:hover {
   display: none !important;
 }
+
 .goog-text-highlight {
   background-color: transparent !important;
   border: none !important;

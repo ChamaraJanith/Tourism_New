@@ -307,7 +307,7 @@ export const Footer = () => {
                 className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00aa6c]/50 hover:bg-[#00aa6c]/10 transition-colors duration-300 group"
               >
                 <img src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logomark.svg" alt="TripAdvisor Verified" className="h-3.5 md:h-4 w-auto object-contain" />
-                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor Verified</span>
+                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor</span>
               </a>
             </div>
 

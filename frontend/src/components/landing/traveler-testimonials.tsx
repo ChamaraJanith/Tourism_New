@@ -13,7 +13,8 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  ExternalLink
 } from "lucide-react";
 import { Reveal } from "./reveal";
 import { supabase } from "@/lib/supabase";
@@ -149,6 +150,41 @@ export function TravelerTestimonials() {
     }
 
     loadTestimonials();
+  }, []);
+
+  // Load official TripAdvisor widget script and trigger validator
+  useEffect(() => {
+    const scriptSrc =
+      "https://www.jscache.com/wejs?wtype=socialButtonIcon&uniq=806&locationId=34735713&color=green&size=rect&lang=en_US&display_version=2";
+
+    const triggerTaValidate = () => {
+      if (typeof window !== "undefined" && typeof (window as any).taValidate === "function") {
+        try {
+          (window as any).taValidate();
+        } catch {}
+      }
+    };
+
+    const existingScript = document.querySelector(`script[src*="socialButtonIcon?uniq=806"], script[src*="wejs?wtype=socialButtonIcon"]`);
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = scriptSrc;
+      script.setAttribute("data-loadtrk", "true");
+      script.onload = triggerTaValidate;
+      document.body.appendChild(script);
+    } else {
+      triggerTaValidate();
+    }
+
+    const interval = setInterval(triggerTaValidate, 500);
+    const timeout = setTimeout(() => clearInterval(interval), 4000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, []);
 
   // Safe current active item
@@ -293,19 +329,52 @@ export function TravelerTestimonials() {
               </div>
             </div>
 
-            {/* TripAdvisor Badge */}
-            <div className="flex items-center gap-3 bg-[#111416]/90 px-4 py-2.5 rounded-2xl border border-white/5 backdrop-blur-md">
-              <span className="w-6 h-6 flex items-center justify-center bg-emerald-500/10 text-emerald-400 rounded-full font-bold text-xs">O</span>
-              <div>
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-emerald-400 text-emerald-400" />
-                  ))}
-                </div>
-                <div className="text-[10px] text-gray-400 font-semibold mt-0.5 uppercase tracking-wider">
-                  TripAdvisor
-                </div>
+            {/* TripAdvisor Official Badge & Embed Widget */}
+            <div className="flex items-center gap-3 bg-[#111416]/90 hover:bg-[#14181b] px-4 py-2.5 rounded-2xl border border-white/5 hover:border-[#00aa6c]/30 backdrop-blur-md transition-all duration-300 shadow-lg group">
+              {/* Official TripAdvisor embed widget container */}
+              <div id="TA_socialButtonIcon806" className="TA_socialButtonIcon shrink-0 flex items-center">
+                <ul id="uxi7uE4C2" className="TA_links eFu3STcHbsm3 list-none m-0 p-0 flex items-center">
+                  <li id="c4CqxlGKDii" className="KKrrTQlf list-none m-0 p-0 flex items-center">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
+                      className="w-7 h-7 rounded-full bg-[#00aa6c]/15 group-hover:bg-[#00aa6c]/25 border border-[#00aa6c]/30 flex items-center justify-center transition-all"
+                      title="Read traveler reviews on Tripadvisor"
+                    >
+                      <img
+                        src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logomark.svg"
+                        alt="Tripadvisor"
+                        className="w-4 h-4 object-contain"
+                      />
+                    </a>
+                  </li>
+                </ul>
               </div>
+
+              <a
+                href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="International Hospitality Ventures on TripAdvisor"
+                className="flex flex-col group/link"
+              >
+                <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <span
+                        key={i}
+                        className="w-2 h-2 rounded-full bg-[#00aa6c] inline-block shadow-sm"
+                      />
+                    ))}
+                  </div>
+                  <ExternalLink className="w-2.5 h-2.5 text-gray-500 group-hover/link:text-[#00aa6c] ml-1 transition-colors" />
+                </div>
+                <div className="text-[10px] text-gray-400 group-hover/link:text-white font-semibold mt-0.5 uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>TripAdvisor</span>
+                  <span className="text-[#00aa6c] font-normal lowercase text-[9px]">(reviews)</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -551,6 +620,22 @@ export function TravelerTestimonials() {
                     <p className="text-xs text-gray-400 mt-1">
                       Your feedback will be featured on our website once reviewed by our team.
                     </p>
+                    <div className="mt-3 flex items-center justify-between bg-black/40 border border-white/5 rounded-xl px-3.5 py-2">
+                      <span className="text-[11px] text-gray-400">Prefer reviewing on TripAdvisor?</span>
+                      <a
+                        href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#00aa6c] hover:underline font-medium"
+                      >
+                        <img
+                          src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logomark.svg"
+                          alt="TripAdvisor"
+                          className="w-3.5 h-3.5 object-contain"
+                        />
+                        <span>Write on TripAdvisor ↗</span>
+                      </a>
+                    </div>
                   </div>
 
                   {/* Rating Selector */}

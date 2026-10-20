@@ -44,7 +44,7 @@ const SOCIALS = [
   { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
   { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
   { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
-  { icon: FaTripadvisor, href: "https://tripadvisor.com", label: "TripAdvisor" },
+  { icon: FaTripadvisor, href: "https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html", label: "TripAdvisor" },
   { icon: FaWhatsapp, href: WHATSAPP_LINK, label: "WhatsApp" },
 ];
 
@@ -299,6 +299,16 @@ export const Footer = () => {
                 <img src="/images/Badges/SLTDA.jpg" alt="SLTDA Licensed" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
                 <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">SLTDA Licensed</span>
               </div>
+              <a
+                href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="International Hospitality Ventures on TripAdvisor"
+                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00aa6c]/50 hover:bg-[#00aa6c]/10 transition-colors duration-300 group"
+              >
+                <img src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logomark.svg" alt="TripAdvisor Verified" className="h-3.5 md:h-4 w-auto object-contain" />
+                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor Verified</span>
+              </a>
             </div>
 
             {/* Legal */}

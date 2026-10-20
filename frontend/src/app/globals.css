@@ -395,3 +395,23 @@ body {
   border: none !important;
   box-shadow: none !important;
 }
+
+/* --- TripAdvisor Social Widget Overrides --- */
+.TA_socialButtonIcon,
+.TA_socialButtonIcon ul,
+.TA_socialButtonIcon li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.TA_socialButtonIcon img {
+  border: 0 !important;
+}
+
+.TA_socialButtonIcon .socialWidgetContainer {
+  display: inline-flex !important;
+  align-items: center !important;
+}

@@ -280,7 +280,7 @@ export const PACKAGES: TravelPackage[] = [
   {
     id: 7,
     title: 'Adventure Sri Lanka',
-    duration: '8 Days | 7 Nights',
+    duration: '7 Days | 6 Nights',
     description: 'Designed for travellers seeking excitement and unforgettable outdoor experiences.',
     images: [
       '/images/Travel_Packages/Adventure_Sri_Lanka/Picture36.jpg',
@@ -299,6 +299,43 @@ export const PACKAGES: TravelPackage[] = [
       'Camping',
       'Zipline Experience',
       'Hot Air Balloon Ride (Optional)'
+    ],
+    itinerary: [
+      {
+        day: 'DAY 01',
+        title: 'ARRIVE COLOMBO, SRI LANKA',
+        description: 'Warm airport greeting at Bandaranaike International Airport and private transfer to your hotel in Colombo. Unwind and prepare for your thrilling island adventure.'
+      },
+      {
+        day: 'DAY 02',
+        title: 'COLOMBO | SAFARI ADVENTURE',
+        description: 'Embark on an exhilarating safari adventure and wildlife exploration, discovering scenic natural habitats and wildlife.'
+      },
+      {
+        day: 'DAY 03',
+        title: 'SIGIRIYA | LION’S ROCK',
+        description: 'Climb the iconic UNESCO World Heritage Sigiriya Rock Fortress, discovering ancient palace ruins, vivid wall frescoes, and breathtaking summit vistas.'
+      },
+      {
+        day: 'DAY 04',
+        title: 'KNUCKLES | TRAIL TREK',
+        description: 'Trek deep into the rugged wilderness of the Knuckles Mountain Range, traversing misty cloud forests, hidden crystal streams, and scenic mountain ridges.'
+      },
+      {
+        day: 'DAY 05',
+        title: 'KITULGALA | RAFTING QUEST',
+        description: 'Experience heart-pounding white water rafting on the Kelani River rapids in Kitulgala, complemented by waterfall abseiling and rainforest exploration.'
+      },
+      {
+        day: 'DAY 06',
+        title: 'NEGOMBO | BEACH SERENITY',
+        description: 'Journey to the coastal haven of Negombo to unwind by golden beaches, soak up the tropical sunset, and celebrate an unforgettable adventure.'
+      },
+      {
+        day: 'DAY 07',
+        title: 'NEGOMBO / DEPARTURE',
+        description: 'Savor a final oceanfront breakfast and tropical breeze before your private transfer to Bandaranaike International Airport for your departure flight.'
+      }
     ],
     idealFor: 'Adventure enthusiasts and young travellers.'
   },

@@ -12,6 +12,8 @@ const CONTACT_EMAIL = "info@ihvtravel.com";
 const WHATSAPP_NUMBER = "+94 77 15 22 718";
 const WHATSAPP_LINK = "https://wa.me/94771522718";
 const LINKEDIN_URL = "https://www.linkedin.com/company/international-hospitality-ventures-private-limited";
+const FACEBOOK_URL = "https://www.facebook.com/p/International-Hospitality-Ventures-61593913905082/";
+const INSTAGRAM_URL = "https://www.instagram.com/ihvtravel/";
 
 const FOOTER_LINKS = {
   explore: [
@@ -40,8 +42,8 @@ const FOOTER_LINKS = {
 
 const SOCIALS = [
   { icon: FaLinkedinIn, href: LINKEDIN_URL, label: "LinkedIn" },
-  { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
-  { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: FaFacebookF, href: FACEBOOK_URL, label: "Facebook" },
+  { icon: FaInstagram, href: INSTAGRAM_URL, label: "Instagram" },
   { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
   { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
   { icon: FaTripadvisor, href: "https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html", label: "TripAdvisor" },

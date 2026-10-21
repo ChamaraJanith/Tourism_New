@@ -23,8 +23,13 @@ export const LakeFooter = () => {
 
           <div className="flex flex-col items-center gap-8">
             <div className="flex gap-6">
-              {[FaInstagram, FaFacebookF, FaXTwitter, Mail].map((Icon, i) => (
-                <a key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:border-blue-500/50 transition-all duration-300">
+              {[
+                { icon: FaInstagram, href: "https://www.instagram.com/ihvtravel/", label: "Instagram" },
+                { icon: FaFacebookF, href: "https://www.facebook.com/p/International-Hospitality-Ventures-61593913905082/", label: "Facebook" },
+                { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
+                { icon: Mail, href: "mailto:info@ihvtravel.com", label: "Email" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:border-blue-500/50 transition-all duration-300">
                   <Icon className="w-5 h-5" />
                 </a>
               ))}

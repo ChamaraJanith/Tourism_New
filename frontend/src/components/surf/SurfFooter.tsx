@@ -28,10 +28,22 @@ export const SurfFooter = () => {
               Sri Lanka's premier destination for tropical surfing, beach culture, and coastal wellness. Ride with us.
             </p>
             <div className="flex gap-6">
-              {[FaFacebookF, FaInstagram, FaXTwitter, FaYoutube].map((Icon, i) => (
-                <button key={i} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-cyan-400 hover:border-cyan-400/50 transition-all duration-500 bg-white/5 shadow-xl">
+              {[
+                { icon: FaFacebookF, href: "https://www.facebook.com/p/International-Hospitality-Ventures-61593913905082/", label: "Facebook" },
+                { icon: FaInstagram, href: "https://www.instagram.com/ihvtravel/", label: "Instagram" },
+                { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
+                { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-cyan-400 hover:border-cyan-400/50 transition-all duration-500 bg-white/5 shadow-xl"
+                >
                   <Icon className="w-6 h-6" />
-                </button>
+                </a>
               ))}
             </div>
           </div>

@@ -28,10 +28,21 @@ export const FoodFooter = () => {
               Healing the soul through the sacred alchemy of Sri Lankan organic superfoods. Rooted in tradition, delivered with luxury.
             </p>
             <div className="flex gap-5">
-              {[FaFacebookF, FaInstagram, FaXTwitter].map((Icon, i) => (
-                <button key={i} className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-amber-500 hover:border-amber-500/50 transition-all duration-500 bg-white/5">
+              {[
+                { icon: FaFacebookF, href: "https://www.facebook.com/p/International-Hospitality-Ventures-61593913905082/", label: "Facebook" },
+                { icon: FaInstagram, href: "https://www.instagram.com/ihvtravel/", label: "Instagram" },
+                { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-amber-500 hover:border-amber-500/50 transition-all duration-500 bg-white/5"
+                >
                   <Icon className="w-5 h-5" />
-                </button>
+                </a>
               ))}
             </div>
           </div>

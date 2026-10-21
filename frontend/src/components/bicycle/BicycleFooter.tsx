@@ -24,10 +24,22 @@ export const BicycleFooter = () => {
               Sri Lanka's premier eco-cycling destination. Discover authentic villages, scenic lakesides, and tropical forest trails on two wheels.
             </p>
             <div className="flex gap-6">
-              {[FaFacebookF, FaInstagram, FaXTwitter, FaYoutube].map((Icon, i) => (
-                <button key={i} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-emerald-500 hover:border-emerald-500/50 transition-all duration-500 bg-white/5 shadow-2xl">
+              {[
+                { icon: FaFacebookF, href: "https://www.facebook.com/p/International-Hospitality-Ventures-61593913905082/", label: "Facebook" },
+                { icon: FaInstagram, href: "https://www.instagram.com/ihvtravel/", label: "Instagram" },
+                { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
+                { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-emerald-500 hover:border-emerald-500/50 transition-all duration-500 bg-white/5 shadow-2xl"
+                >
                   <Icon className="w-6 h-6" />
-                </button>
+                </a>
               ))}
             </div>
           </div>

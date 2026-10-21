@@ -424,15 +424,18 @@ body {
 }
 
 /* --- Elfsight Free Badge Overrides --- */
-a[href*="elfsight.com"],
+a[href*="elfsight"],
+a[href*="free-widget"],
+a[title*="Elfsight"],
+[aria-label*="Elfsight"],
 [class*="Badge__BadgeContainer"],
 [class*="WidgetTitle__WidgetTitleComponent"],
 [class*="Badge__Container"],
 [class*="badge-container"],
 [class*="Badge__Link"],
+[class*="es-badge"],
 [class*="elfsight-app"] > a,
-[class*="elfsight-app"] a[target="_blank"],
-div[class*="Badge"] {
+[class*="elfsight-app"] a[target="_blank"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -442,4 +445,6 @@ div[class*="Badge"] {
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0) !important;
 }

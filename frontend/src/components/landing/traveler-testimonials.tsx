@@ -188,8 +188,56 @@ export function TravelerTestimonials() {
     };
   }, []);
 
-  // Load Elfsight Google Reviews script and hide watermark badge
+  // Load Elfsight Google Reviews script and permanently eradicate watermark badge
   useEffect(() => {
+    // 1. Monkey-patch attachShadow so any shadow root created by Elfsight is immediately sanitized
+    const w = typeof window !== "undefined" ? (window as any) : null;
+    if (w && !w.__elfsightShadowPatched) {
+      w.__elfsightShadowPatched = true;
+      const origAttach = Element.prototype.attachShadow;
+      Element.prototype.attachShadow = function (init: ShadowRootInit) {
+        const shadow = origAttach.call(this, { ...init, mode: "open" });
+        try {
+          const style = document.createElement("style");
+          style.textContent = `
+            a[href*="elfsight"],
+            a[href*="free-widget"],
+            a[href*="pricing"],
+            [class*="Badge"],
+            [class*="badge"],
+            a:has(svg):has(span) {
+              display: none !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              height: 0 !important;
+              width: 0 !important;
+              pointer-events: none !important;
+              position: absolute !important;
+              clip: rect(0, 0, 0, 0) !important;
+            }
+          `;
+          shadow.appendChild(style);
+
+          const shadowObs = new MutationObserver(() => {
+            shadow.querySelectorAll("a").forEach((a) => {
+              const href = (a.getAttribute("href") || "").toLowerCase();
+              const text = (a.textContent || "").toLowerCase();
+              if (
+                href.includes("elfsight") ||
+                href.includes("free-widget") ||
+                (text.includes("free") && text.includes("widget"))
+              ) {
+                a.remove();
+              }
+            });
+          });
+          shadowObs.observe(shadow, { childList: true, subtree: true });
+        } catch {}
+        return shadow;
+      };
+    }
+
+    // 2. Load platform.js script
     const existing = document.querySelector('script[src*="elfsightcdn.com/platform.js"]');
     if (!existing) {
       const script = document.createElement("script");
@@ -198,52 +246,58 @@ export function TravelerTestimonials() {
       document.body.appendChild(script);
     }
 
-    const hideElfsightBadge = () => {
-      // 1. Regular DOM links
-      const badgeLinks = document.querySelectorAll('a[href*="elfsight.com"], [class*="Badge__BadgeContainer"], [class*="badge-container"], [class*="Badge__Link"]');
-      badgeLinks.forEach((el) => {
-        (el as HTMLElement).style.setProperty("display", "none", "important");
-        (el as HTMLElement).style.setProperty("visibility", "hidden", "important");
-        (el as HTMLElement).style.setProperty("opacity", "0", "important");
-        (el as HTMLElement).style.setProperty("height", "0", "important");
-        (el as HTMLElement).style.setProperty("overflow", "hidden", "important");
-      });
+    // 3. Deep recursive purge for any existing normal or shadow DOM nodes
+    const purgeAllBadges = () => {
+      const walk = (node: Node | Document | ShadowRoot | HTMLElement) => {
+        if (!node) return;
 
-      // 2. Shadow DOM links & style injection
-      const containers = document.querySelectorAll('[class*="elfsight-app"]');
-      containers.forEach((container) => {
-        const root = (container as any).shadowRoot;
-        if (root) {
-          const innerBadges = root.querySelectorAll('a[href*="elfsight.com"], [class*="Badge"], [class*="badge"]');
-          innerBadges.forEach((el: any) => {
-            el.style.setProperty("display", "none", "important");
-            el.style.setProperty("visibility", "hidden", "important");
-            el.style.setProperty("opacity", "0", "important");
-            el.style.setProperty("height", "0", "important");
-          });
+        if (node instanceof Element) {
+          if (node.tagName.toLowerCase() === "a") {
+            const href = (node.getAttribute("href") || "").toLowerCase();
+            const text = (node.textContent || "").toLowerCase();
+            if (
+              href.includes("elfsight") ||
+              href.includes("free-widget") ||
+              (text.includes("free") && text.includes("widget"))
+            ) {
+              node.remove();
+              return;
+            }
+          }
 
-          if (!root.querySelector("#hide-elfsight-badge-style")) {
-            const style = document.createElement("style");
-            style.id = "hide-elfsight-badge-style";
-            style.textContent = `
-              a[href*="elfsight.com"], [class*="Badge"], [class*="badge"], [class*="Badge__Link"] {
-                display: none !important;
-                visibility: hidden !important;
-                opacity: 0 !important;
-                height: 0 !important;
-                width: 0 !important;
-                overflow: hidden !important;
-                pointer-events: none !important;
-              }
-            `;
-            root.appendChild(style);
+          if (node.shadowRoot) {
+            if (!node.shadowRoot.querySelector("#elfsight-purge-style")) {
+              const style = document.createElement("style");
+              style.id = "elfsight-purge-style";
+              style.textContent = `
+                a[href*="elfsight"], a[href*="free-widget"], [class*="Badge"], [class*="badge"] {
+                  display: none !important;
+                  visibility: hidden !important;
+                  opacity: 0 !important;
+                  height: 0 !important;
+                  width: 0 !important;
+                  pointer-events: none !important;
+                  position: absolute !important;
+                }
+              `;
+              node.shadowRoot.appendChild(style);
+            }
+            walk(node.shadowRoot);
           }
         }
-      });
+
+        const children = node.childNodes;
+        for (let i = 0; i < children.length; i++) {
+          walk(children[i]);
+        }
+      };
+
+      walk(document.body);
     };
 
-    const interval = setInterval(hideElfsightBadge, 200);
-    const observer = new MutationObserver(hideElfsightBadge);
+    purgeAllBadges();
+    const interval = setInterval(purgeAllBadges, 100);
+    const observer = new MutationObserver(purgeAllBadges);
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {

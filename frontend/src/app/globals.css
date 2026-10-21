@@ -422,3 +422,24 @@ body {
   display: inline-flex !important;
   align-items: center !important;
 }
+
+/* --- Elfsight Free Badge Overrides --- */
+a[href*="elfsight.com"],
+[class*="Badge__BadgeContainer"],
+[class*="WidgetTitle__WidgetTitleComponent"],
+[class*="Badge__Container"],
+[class*="badge-container"],
+[class*="Badge__Link"],
+[class*="elfsight-app"] > a,
+[class*="elfsight-app"] a[target="_blank"],
+div[class*="Badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}

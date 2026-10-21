@@ -188,7 +188,7 @@ export function TravelerTestimonials() {
     };
   }, []);
 
-  // Load Elfsight Google Reviews script
+  // Load Elfsight Google Reviews script and hide watermark badge
   useEffect(() => {
     const existing = document.querySelector('script[src*="elfsightcdn.com/platform.js"]');
     if (!existing) {
@@ -197,6 +197,59 @@ export function TravelerTestimonials() {
       script.async = true;
       document.body.appendChild(script);
     }
+
+    const hideElfsightBadge = () => {
+      // 1. Regular DOM links
+      const badgeLinks = document.querySelectorAll('a[href*="elfsight.com"], [class*="Badge__BadgeContainer"], [class*="badge-container"], [class*="Badge__Link"]');
+      badgeLinks.forEach((el) => {
+        (el as HTMLElement).style.setProperty("display", "none", "important");
+        (el as HTMLElement).style.setProperty("visibility", "hidden", "important");
+        (el as HTMLElement).style.setProperty("opacity", "0", "important");
+        (el as HTMLElement).style.setProperty("height", "0", "important");
+        (el as HTMLElement).style.setProperty("overflow", "hidden", "important");
+      });
+
+      // 2. Shadow DOM links & style injection
+      const containers = document.querySelectorAll('[class*="elfsight-app"]');
+      containers.forEach((container) => {
+        const root = (container as any).shadowRoot;
+        if (root) {
+          const innerBadges = root.querySelectorAll('a[href*="elfsight.com"], [class*="Badge"], [class*="badge"]');
+          innerBadges.forEach((el: any) => {
+            el.style.setProperty("display", "none", "important");
+            el.style.setProperty("visibility", "hidden", "important");
+            el.style.setProperty("opacity", "0", "important");
+            el.style.setProperty("height", "0", "important");
+          });
+
+          if (!root.querySelector("#hide-elfsight-badge-style")) {
+            const style = document.createElement("style");
+            style.id = "hide-elfsight-badge-style";
+            style.textContent = `
+              a[href*="elfsight.com"], [class*="Badge"], [class*="badge"], [class*="Badge__Link"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                width: 0 !important;
+                overflow: hidden !important;
+                pointer-events: none !important;
+              }
+            `;
+            root.appendChild(style);
+          }
+        }
+      });
+    };
+
+    const interval = setInterval(hideElfsightBadge, 200);
+    const observer = new MutationObserver(hideElfsightBadge);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearInterval(interval);
+      observer.disconnect();
+    };
   }, []);
 
   // Safe current active item

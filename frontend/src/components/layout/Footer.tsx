@@ -41,13 +41,48 @@ const FOOTER_LINKS = {
 };
 
 const SOCIALS = [
-  { icon: FaLinkedinIn, href: LINKEDIN_URL, label: "LinkedIn" },
-  { icon: FaFacebookF, href: FACEBOOK_URL, label: "Facebook" },
-  { icon: FaInstagram, href: INSTAGRAM_URL, label: "Instagram" },
-  { icon: FaXTwitter, href: "https://x.com", label: "X (Twitter)" },
-  { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
-  { icon: FaTripadvisor, href: "https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html", label: "TripAdvisor" },
-  { icon: FaWhatsapp, href: WHATSAPP_LINK, label: "WhatsApp" },
+  {
+    icon: FaLinkedinIn,
+    href: LINKEDIN_URL,
+    label: "LinkedIn",
+    colorClass: "border-[#0A66C2]/35 text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/15 hover:shadow-[0_0_15px_rgba(10,102,194,0.4)]",
+  },
+  {
+    icon: FaFacebookF,
+    href: FACEBOOK_URL,
+    label: "Facebook",
+    colorClass: "border-[#1877F2]/35 text-[#1877F2] hover:border-[#1877F2] hover:bg-[#1877F2]/15 hover:shadow-[0_0_15px_rgba(24,119,242,0.4)]",
+  },
+  {
+    icon: FaInstagram,
+    href: INSTAGRAM_URL,
+    label: "Instagram",
+    colorClass: "border-[#E4405F]/35 text-[#E4405F] hover:border-[#E4405F] hover:bg-[#E4405F]/15 hover:shadow-[0_0_15px_rgba(228,64,95,0.4)]",
+  },
+  {
+    icon: FaXTwitter,
+    href: "https://x.com",
+    label: "X (Twitter)",
+    colorClass: "border-white/30 text-white hover:border-white hover:bg-white/15 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]",
+  },
+  {
+    icon: FaYoutube,
+    href: "https://youtube.com",
+    label: "YouTube",
+    colorClass: "border-[#FF0000]/35 text-[#FF0000] hover:border-[#FF0000] hover:bg-[#FF0000]/15 hover:shadow-[0_0_15px_rgba(255,0,0,0.4)]",
+  },
+  {
+    icon: FaTripadvisor,
+    href: "https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html",
+    label: "TripAdvisor",
+    colorClass: "border-[#00AA6C]/35 text-[#00AA6C] hover:border-[#00AA6C] hover:bg-[#00AA6C]/15 hover:shadow-[0_0_15px_rgba(0,170,108,0.4)]",
+  },
+  {
+    icon: FaWhatsapp,
+    href: WHATSAPP_LINK,
+    label: "WhatsApp",
+    colorClass: "border-[#25D366]/35 text-[#25D366] hover:border-[#25D366] hover:bg-[#25D366]/15 hover:shadow-[0_0_15px_rgba(37,211,102,0.4)]",
+  },
 ];
 
 export const Footer = () => {
@@ -112,19 +147,16 @@ export const Footer = () => {
                   Sri Lanka&apos;s premier luxury tourism partner. Crafting bespoke itineraries, curated experiences, and seamless journeys for discerning travellers since 2018.
                 </p>
                 <div className="flex gap-3">
-                  {SOCIALS.map(({ icon: Icon, href, label }) => (
+                  {SOCIALS.map(({ icon: Icon, href, label, colorClass }) => (
                     <a
                       key={label}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={label}
-                      className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-400 ${label === "WhatsApp"
-                        ? "border-[#25D366]/25 text-[#25D366]/70 hover:text-[#25D366] hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
-                        : "border-white/10 text-white/30 hover:text-[#d4af37] hover:border-[#d4af37]/40 hover:bg-[#d4af37]/5"
-                        }`}
+                      className={`group w-10 h-10 md:w-11 md:h-11 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${colorClass}`}
                     >
-                      <Icon className="w-4 h-4" />
+                      <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   ))}
                 </div>

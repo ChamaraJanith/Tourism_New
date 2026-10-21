@@ -22,6 +22,12 @@ const FOOTER_LINKS = {
     { name: "Tourism Services", href: "/tourism-segments" },
     { name: "Festivals & Events", href: "/#festivals" },
     { name: "Destinations", href: "/lifestyle-experiences" },
+    {
+      name: "Sri Lanka for Indian Travelers",
+      href: "https://global-ih-vtravel-india.vercel.app/",
+      isExternal: true,
+      badge: "🇮🇳 India Portal",
+    },
   ],
   partnerships: [
     { name: "Global Partner Network", href: "/partnerships/global-network" },
@@ -218,15 +224,34 @@ export const Footer = () => {
                     {key === "explore" ? "Explore" : key === "partnerships" ? "Partnerships" : "Company"}
                   </h4>
                   <ul className="space-y-2.5">
-                    {FOOTER_LINKS[key].map((link) => (
+                    {FOOTER_LINKS[key].map((link: any) => (
                       <li key={link.name}>
-                        <Link
-                          href={link.href}
-                          className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
-                        >
-                          <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
-                          <span>{link.name}</span>
-                        </Link>
+                        {link.isExternal || (typeof link.href === "string" && link.href.startsWith("http")) ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
+                          >
+                            <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
+                            <span className="flex items-center gap-1.5 flex-wrap">
+                              {link.name}
+                              {link.badge && (
+                                <span className="rounded bg-[#d4af37]/15 border border-[#d4af37]/30 px-1.5 py-0.5 text-[9px] font-semibold text-[#f2be2e] uppercase tracking-wider">
+                                  {link.badge}
+                                </span>
+                              )}
+                            </span>
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm font-light transition-colors duration-300"
+                          >
+                            <ChevronRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#d4af37]" />
+                            <span>{link.name}</span>
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

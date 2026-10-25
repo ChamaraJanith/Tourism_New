@@ -342,7 +342,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* ═══ FINANCIAL & PAYMENT PARTNERS ═══ */}
+        {/* ═══ 1. BANKING & PAYMENT PARTNERS ROW ═══ */}
         <div className="border-b border-white/[0.04] bg-white/[0.015]">
           <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-8 md:py-10">
             <div className="mb-6">
@@ -365,7 +365,7 @@ export const Footer = () => {
               >
                 <div className="absolute top-0 right-0 w-36 h-36 bg-[#d4af37]/[0.03] group-hover:bg-[#d4af37]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
 
-                <div className="flex items-center gap-4 min-w-0">
+                <div className="flex items-center gap-4 min-w-0 flex-1">
                   <div className="h-12 w-28 sm:w-32 px-3 py-1.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
                     <img
                       src="/images/seylan-bank-logo.png"
@@ -373,14 +373,14 @@ export const Footer = () => {
                       className="h-7 w-auto max-w-full object-contain"
                     />
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37] block mb-0.5">
                       Banking Partner
                     </span>
-                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#d4af37] transition-colors leading-snug truncate">
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#d4af37] transition-colors leading-snug">
                       Seylan Bank PLC — Sri Lanka
                     </h4>
-                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors">
                       <span>https://www.seylan.lk/</span>
                       <ArrowUpRight className="w-3 h-3 text-[#d4af37] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </p>
@@ -402,7 +402,7 @@ export const Footer = () => {
               >
                 <div className="absolute top-0 right-0 w-36 h-36 bg-[#00ff88]/[0.03] group-hover:bg-[#00ff88]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
 
-                <div className="flex items-center gap-4 min-w-0">
+                <div className="flex items-center gap-4 min-w-0 flex-1">
                   <div className="h-12 w-28 sm:w-32 px-3 py-1.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
                     <img
                       src="/images/wayv-pay-logo.png"
@@ -410,14 +410,14 @@ export const Footer = () => {
                       className="h-6 w-auto max-w-full object-contain"
                     />
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#00ff88] block mb-0.5">
                       International Payment Solutions
                     </span>
-                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00ff88] transition-colors leading-snug truncate">
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00ff88] transition-colors leading-snug">
                       WAYV Pay — International Business Payments
                     </h4>
-                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors">
                       <span>https://wayvpay.com/</span>
                       <ArrowUpRight className="w-3 h-3 text-[#00ff88] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </p>
@@ -432,60 +432,67 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* ═══ BOTTOM — Copyright + Legal + Trust Badges ═══ */}
-        <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-6 border-t border-white/[0.04]">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+        {/* ═══ 2. TRUST BADGES (TRIPADVISOR, IATA, SLTDA) & LEGAL ROW ═══ */}
+        <div className="border-b border-white/[0.04]">
+          <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-4 md:py-5">
+            <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
 
-            {/* Copyright */}
-            <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.08em] font-light text-center lg:text-left max-w-lg shrink-0">
-              <span>&copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of </span>
-              <a
-                href="https://www.globalsoftsl.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#d4af37]/70 hover:text-[#d4af37] underline underline-offset-2 decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-colors duration-300"
-              >
-                Global Cooperation (Private) Limited
-              </a>
-              <span>. All Rights Reserved.</span>
-            </p>
-
-            {/* Trust Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-              <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
-                <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
-                <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">IATA Certified</span>
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+                <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3.5 py-1.5 hover:border-[#d4af37]/40 transition-colors duration-300">
+                  <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">IATA Certified</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3.5 py-1.5 hover:border-[#d4af37]/40 transition-colors duration-300">
+                  <img src="/images/Badges/SLTDA.jpg" alt="SLTDA Licensed" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
+                  <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">SLTDA Licensed</span>
+                </div>
+                <a
+                  href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="International Hospitality Ventures on TripAdvisor"
+                  className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3.5 py-1.5 hover:border-[#00aa6c]/50 hover:bg-[#00aa6c]/10 transition-colors duration-300 group"
+                >
+                  <img src="/images/Badges/TripAdvisor.png" alt="TripAdvisor" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
+                  <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor</span>
+                </a>
               </div>
-              <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
-                <img src="/images/Badges/SLTDA.jpg" alt="SLTDA Licensed" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
-                <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">SLTDA Licensed</span>
+
+              {/* Divider */}
+              <div className="hidden sm:block h-4 w-[1px] bg-white/15 shrink-0" />
+
+              {/* Legal Links */}
+              <div className="flex items-center gap-5 sm:gap-6 shrink-0">
+                <Link href="/terms" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+                  Terms
+                </Link>
+                <Link href="/cancellation-policy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+                  Cancellation
+                </Link>
+                <Link href="/privacy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+                  Privacy
+                </Link>
               </div>
-              <a
-                href="https://www.tripadvisor.com/Attraction_Review-g7719299-d34735713-Reviews-International_Hospitality_Ventures-Maharagama_Western_Province.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="International Hospitality Ventures on TripAdvisor"
-                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00aa6c]/50 hover:bg-[#00aa6c]/10 transition-colors duration-300 group"
-              >
-                <img src="/images/Badges/TripAdvisor.png" alt="TripAdvisor" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
-                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor</span>
-              </a>
-            </div>
 
-            {/* Legal */}
-            <div className="flex items-center gap-6 shrink-0">
-              <Link href="/terms" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
-                Terms
-              </Link>
-              <Link href="/cancellation-policy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
-                Cancellation
-              </Link>
-              <Link href="/privacy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
-                Privacy
-              </Link>
             </div>
-
           </div>
+        </div>
+
+        {/* ═══ 3. STANDALONE COPYRIGHT ROW (At the very bottom) ═══ */}
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-4 md:py-5">
+          <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.08em] font-light text-center">
+            <span>&copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of </span>
+            <a
+              href="https://www.globalsoftsl.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#d4af37]/70 hover:text-[#d4af37] underline underline-offset-2 decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-colors duration-300"
+            >
+              Global Cooperation (Private) Limited
+            </a>
+            <span>. All Rights Reserved.</span>
+          </p>
         </div>
 
       </div>

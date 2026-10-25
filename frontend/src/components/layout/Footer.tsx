@@ -361,33 +361,33 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Seylan Bank PLC — Sri Lanka (Official Banking Partner)"
-                className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.12)] overflow-hidden"
+                className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.12)] overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-36 h-36 bg-[#d4af37]/[0.03] group-hover:bg-[#d4af37]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
 
-                <div className="flex items-center gap-4 sm:gap-5 min-w-0">
-                  <div className="h-14 sm:h-16 w-36 sm:w-44 px-4 py-2.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="h-12 w-28 sm:w-32 px-3 py-1.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
                     <img
                       src="/images/seylan-bank-logo.png"
                       alt="Seylan Bank PLC Logo"
-                      className="h-8 sm:h-9 w-auto max-w-full object-contain"
+                      className="h-7 w-auto max-w-full object-contain"
                     />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37] block mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37] block mb-0.5">
                       Banking Partner
                     </span>
-                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#d4af37] transition-colors leading-snug">
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#d4af37] transition-colors leading-snug truncate">
                       Seylan Bank PLC — Sri Lanka
                     </h4>
-                    <p className="text-xs text-gray-400 font-light mt-1 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
                       <span>https://www.seylan.lk/</span>
                       <ArrowUpRight className="w-3 h-3 text-[#d4af37] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </p>
                   </div>
                 </div>
 
-                <div className="hidden lg:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#d4af37]/60 group-hover:bg-[#d4af37]/15 items-center justify-center shrink-0 transition-all">
+                <div className="hidden sm:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#d4af37]/60 group-hover:bg-[#d4af37]/15 items-center justify-center shrink-0 transition-all">
                   <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#d4af37] transition-colors" />
                 </div>
               </a>
@@ -398,33 +398,33 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="WAYV Pay — International Business Payments"
-                className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#00ff88]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(0,255,136,0.12)] overflow-hidden"
+                className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#00ff88]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(0,255,136,0.12)] overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-36 h-36 bg-[#00ff88]/[0.03] group-hover:bg-[#00ff88]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
 
-                <div className="flex items-center gap-4 sm:gap-5 min-w-0">
-                  <div className="h-14 sm:h-16 w-36 sm:w-44 px-4 py-2.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="h-12 w-28 sm:w-32 px-3 py-1.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
                     <img
                       src="/images/wayv-pay-logo.png"
                       alt="WAYV Pay Logo"
-                      className="h-7 sm:h-8 w-auto max-w-full object-contain"
+                      className="h-6 w-auto max-w-full object-contain"
                     />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#00ff88] block mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#00ff88] block mb-0.5">
                       International Payment Solutions
                     </span>
-                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00ff88] transition-colors leading-snug">
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00ff88] transition-colors leading-snug truncate">
                       WAYV Pay — International Business Payments
                     </h4>
-                    <p className="text-xs text-gray-400 font-light mt-1 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                    <p className="text-xs text-gray-400 font-light mt-0.5 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
                       <span>https://wayvpay.com/</span>
                       <ArrowUpRight className="w-3 h-3 text-[#00ff88] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </p>
                   </div>
                 </div>
 
-                <div className="hidden lg:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#00ff88]/60 group-hover:bg-[#00ff88]/15 items-center justify-center shrink-0 transition-all">
+                <div className="hidden sm:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#00ff88]/60 group-hover:bg-[#00ff88]/15 items-center justify-center shrink-0 transition-all">
                   <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#00ff88] transition-colors" />
                 </div>
               </a>
@@ -433,11 +433,11 @@ export const Footer = () => {
         </div>
 
         {/* ═══ BOTTOM — Copyright + Legal + Trust Badges ═══ */}
-        <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-5 md:py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-6 border-t border-white/[0.04]">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
 
             {/* Copyright */}
-            <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.12em] font-light text-center md:text-left max-w-md">
+            <p className="text-white/60 text-[10px] md:text-[11px] leading-relaxed tracking-[0.08em] font-light text-center lg:text-left max-w-lg shrink-0">
               <span>&copy; {new Date().getFullYear()} International Hospitality Ventures (Private) Limited. A Subsidiary of </span>
               <a
                 href="https://www.globalsoftsl.com/"
@@ -452,36 +452,12 @@ export const Footer = () => {
 
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-              <a
-                href="https://www.seylan.lk/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Seylan Bank PLC — Sri Lanka (Banking Partner)"
-                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10 transition-colors duration-300 group"
-              >
-                <div className="h-4 w-7 bg-white rounded-[3px] flex items-center justify-center p-0.5">
-                  <img src="/images/seylan-bank-logo.png" alt="Seylan Bank" className="h-full w-auto object-contain" />
-                </div>
-                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">Seylan Bank</span>
-              </a>
-              <a
-                href="https://wayvpay.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="WAYV Pay — International Business Payments"
-                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00ff88]/50 hover:bg-[#00ff88]/10 transition-colors duration-300 group"
-              >
-                <div className="h-4 w-7 bg-white rounded-[3px] flex items-center justify-center p-0.5">
-                  <img src="/images/wayv-pay-logo.png" alt="WAYV Pay" className="h-full w-auto object-contain" />
-                </div>
-                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">WAYV Pay</span>
-              </a>
               <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
-                <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
+                <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
                 <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">IATA Certified</span>
               </div>
               <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
-                <img src="/images/Badges/SLTDA.jpg" alt="SLTDA Licensed" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
+                <img src="/images/Badges/SLTDA.jpg" alt="SLTDA Licensed" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
                 <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">SLTDA Licensed</span>
               </div>
               <a
@@ -491,20 +467,20 @@ export const Footer = () => {
                 title="International Hospitality Ventures on TripAdvisor"
                 className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00aa6c]/50 hover:bg-[#00aa6c]/10 transition-colors duration-300 group"
               >
-                <img src="/images/Badges/TripAdvisor.png" alt="TripAdvisor" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
+                <img src="/images/Badges/TripAdvisor.png" alt="TripAdvisor" className="h-5 md:h-6 w-auto object-contain rounded-xs" />
                 <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">TripAdvisor</span>
               </a>
             </div>
 
             {/* Legal */}
-            <div className="flex gap-6">
-              <Link href="/terms" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+            <div className="flex items-center gap-6 shrink-0">
+              <Link href="/terms" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Terms
               </Link>
-              <Link href="/cancellation-policy" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+              <Link href="/cancellation-policy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Cancellation
               </Link>
-              <Link href="/privacy" className="text-white/60 hover:text-[#d4af37]/60 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
+              <Link href="/privacy" className="text-white/60 hover:text-[#d4af37] text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300">
                 Privacy
               </Link>
             </div>

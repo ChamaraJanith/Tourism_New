@@ -5,21 +5,21 @@ import React from "react";
 export function FloatingWhatsApp() {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const phoneNumber = "94712490758";
+    const phoneNumber = "+94771522718";
     // Check if user is on a mobile device
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
+
     // Direct to app on mobile, WhatsApp Web on desktop
-    const url = isMobile 
-      ? `https://wa.me/${phoneNumber}` 
+    const url = isMobile
+      ? `https://wa.me/${phoneNumber}`
       : `https://web.whatsapp.com/send?phone=${phoneNumber}`;
-    
+
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
     <a
-      href="https://wa.me/94712490758"
+      href="https://wa.me/+94771522718"
       onClick={handleClick}
       className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl"
       aria-label="Chat on WhatsApp"

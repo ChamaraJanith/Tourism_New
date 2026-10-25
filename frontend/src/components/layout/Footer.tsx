@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Mail, MapPin, Phone, ArrowRight, ChevronRight, Send, Sparkles, Check, Copy } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowRight, ChevronRight, Send, Sparkles, Check, Copy, ArrowUpRight } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
 import { FaTripadvisor } from "react-icons/fa";
 import Link from "next/link";
@@ -35,6 +35,18 @@ const FOOTER_LINKS = {
     { name: "Hospitality Partners", href: "/partnerships/local-hospitality" },
     { name: "Build Lasting Value", href: "/partnerships/building-value" },
     { name: "Partner With Us", href: "/partnerships/partner-with-us" },
+    {
+      name: "Banking: Seylan Bank PLC",
+      href: "https://www.seylan.lk/",
+      isExternal: true,
+      badge: "Banking",
+    },
+    {
+      name: "WAYV Pay: International Payments",
+      href: "https://wayvpay.com/",
+      isExternal: true,
+      badge: "Payments",
+    },
   ],
   company: [
     { name: "About Us", href: "/#about" },
@@ -330,6 +342,96 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* ═══ FINANCIAL & PAYMENT PARTNERS ═══ */}
+        <div className="border-b border-white/[0.04] bg-white/[0.015]">
+          <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-8 md:py-10">
+            <div className="mb-6">
+              <span className="text-[#d4af37] font-bold uppercase text-[10px] tracking-[0.4em] block">
+                Banking &amp; Payment Partners
+              </span>
+              <p className="text-gray-400 text-xs md:text-sm font-light mt-1">
+                Official banking partner and international payment solutions powering IHV Travel.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              {/* Banking Partner — Seylan Bank PLC */}
+              <a
+                href="https://www.seylan.lk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Seylan Bank PLC — Sri Lanka (Official Banking Partner)"
+                className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.12)] overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-36 h-36 bg-[#d4af37]/[0.03] group-hover:bg-[#d4af37]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
+
+                <div className="flex items-center gap-4 sm:gap-5 min-w-0">
+                  <div className="h-14 sm:h-16 w-36 sm:w-44 px-4 py-2.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src="/images/seylan-bank-logo.png"
+                      alt="Seylan Bank PLC Logo"
+                      className="h-8 sm:h-9 w-auto max-w-full object-contain"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37] block mb-1">
+                      Banking Partner
+                    </span>
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#d4af37] transition-colors leading-snug">
+                      Seylan Bank PLC — Sri Lanka
+                    </h4>
+                    <p className="text-xs text-gray-400 font-light mt-1 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                      <span>https://www.seylan.lk/</span>
+                      <ArrowUpRight className="w-3 h-3 text-[#d4af37] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </p>
+                  </div>
+                </div>
+
+                <div className="hidden lg:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#d4af37]/60 group-hover:bg-[#d4af37]/15 items-center justify-center shrink-0 transition-all">
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#d4af37] transition-colors" />
+                </div>
+              </a>
+
+              {/* International Payment Solutions — WAYV Pay */}
+              <a
+                href="https://wayvpay.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WAYV Pay — International Business Payments"
+                className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#00ff88]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_30px_rgba(0,255,136,0.12)] overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-36 h-36 bg-[#00ff88]/[0.03] group-hover:bg-[#00ff88]/[0.08] rounded-full blur-2xl pointer-events-none transition-all duration-500" />
+
+                <div className="flex items-center gap-4 sm:gap-5 min-w-0">
+                  <div className="h-14 sm:h-16 w-36 sm:w-44 px-4 py-2.5 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm border border-white/20 group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src="/images/wayv-pay-logo.png"
+                      alt="WAYV Pay Logo"
+                      className="h-7 sm:h-8 w-auto max-w-full object-contain"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#00ff88] block mb-1">
+                      International Payment Solutions
+                    </span>
+                    <h4 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00ff88] transition-colors leading-snug">
+                      WAYV Pay — International Business Payments
+                    </h4>
+                    <p className="text-xs text-gray-400 font-light mt-1 flex items-center gap-1 group-hover:text-gray-300 transition-colors truncate">
+                      <span>https://wayvpay.com/</span>
+                      <ArrowUpRight className="w-3 h-3 text-[#00ff88] shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </p>
+                  </div>
+                </div>
+
+                <div className="hidden lg:flex w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:border-[#00ff88]/60 group-hover:bg-[#00ff88]/15 items-center justify-center shrink-0 transition-all">
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-[#00ff88] transition-colors" />
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* ═══ BOTTOM — Copyright + Legal + Trust Badges ═══ */}
         <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-16 py-5 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -350,6 +452,30 @@ export const Footer = () => {
 
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+              <a
+                href="https://www.seylan.lk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Seylan Bank PLC — Sri Lanka (Banking Partner)"
+                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10 transition-colors duration-300 group"
+              >
+                <div className="h-4 w-7 bg-white rounded-[3px] flex items-center justify-center p-0.5">
+                  <img src="/images/seylan-bank-logo.png" alt="Seylan Bank" className="h-full w-auto object-contain" />
+                </div>
+                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">Seylan Bank</span>
+              </a>
+              <a
+                href="https://wayvpay.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WAYV Pay — International Business Payments"
+                className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#00ff88]/50 hover:bg-[#00ff88]/10 transition-colors duration-300 group"
+              >
+                <div className="h-4 w-7 bg-white rounded-[3px] flex items-center justify-center p-0.5">
+                  <img src="/images/wayv-pay-logo.png" alt="WAYV Pay" className="h-full w-auto object-contain" />
+                </div>
+                <span className="text-[9px] md:text-[10px] text-white/70 group-hover:text-white uppercase tracking-[0.2em] font-medium transition-colors">WAYV Pay</span>
+              </a>
               <div className="flex items-center gap-2 bg-white/[0.04] border border-white/15 rounded-full px-3 py-1 hover:border-[#d4af37]/40 transition-colors duration-300">
                 <img src="/images/Badges/IATA.jpeg" alt="IATA Certified" className="h-5 md:h-6 w-auto object-contain rounded-sm" />
                 <span className="text-[9px] md:text-[10px] text-white/70 uppercase tracking-[0.2em] font-medium">IATA Certified</span>

@@ -132,5 +132,14 @@ export const globalRepresentatives: AdvisoryMember[] = [
       "An experienced business-networking professional with strong associations across Indian business forums, industry organisations and professional networks. Shabnam specialises in building meaningful partnerships, connecting businesses and creating opportunities for cross-border collaboration.",
     linkedin: "https://www.linkedin.com/in/geeta-raza-912003b6/",
     image: "/images/board_of_directers/geet1.png",
+  },
+  {
+    name: "Dr. Kathleen Duterte",
+    title: "International Representative",
+    role: "International Business & Strategic Development Professional",
+    description:
+      "An international business and strategic development professional associated with Dragon Global Solutions LLC, with professional networks spanning the United States, Asia, Africa, and other international markets. At IHV, she supports global tourism and hospitality partnerships, business development, and international market expansion through her professional connections.",
+    linkedin: "https://www.linkedin.com/in/dr-kathleen-duterte-099a4a12/",
+    image: "/images/board_of_directers/kathlyn.png",
   }
 ];

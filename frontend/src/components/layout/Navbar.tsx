@@ -214,22 +214,22 @@ export const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${showNavbar ? "translate-y-0" : "-translate-y-full"
         }`}
     >
-      <div className="relative bg-[#111416]/80 backdrop-blur-md border-b border-x border-zinc-800 rounded-b-[2.5rem]">
-        <header className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-6 sm:px-12 lg:px-16 py-3 sm:py-3.5">
+      <div className="relative bg-[#111416]/90 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20">
+        <header className="mx-auto flex max-w-[1720px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 xl:px-10 py-3 sm:py-3.5">
 
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <img src="/header-logo/1.png" alt="IHV Travel Logo" className="h-9 md:h-11 w-auto object-contain transition-transform group-hover:scale-105" />
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <img src="/header-logo/1.png" alt="IHV Travel Logo" className="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden sm:block h-8 w-px bg-white/6 rounded mx-3" aria-hidden="true" />
+          <div className="hidden 2xl:block h-7 w-px bg-white/10 rounded mx-1 shrink-0" aria-hidden="true" />
 
-          <nav className="hidden xl:flex items-center justify-center gap-4 lg:gap-6 xl:gap-7 flex-1 mx-8">
+          <nav className="hidden xl:flex items-center justify-center gap-2.5 2xl:gap-5 flex-1 min-w-0 mx-2 2xl:mx-4">
             {navItems.map((item) => (
-              <div key={item.name} className="group relative">
+              <div key={item.name} className="group relative shrink-0">
                 <Link
                   href={item.href}
                   scroll={item.href.includes('#') ? false : undefined}
-                  className="flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.15em] text-gray-300 transition-colors hover:text-white py-2 whitespace-nowrap"
+                  className="flex items-center gap-1 text-[0.63rem] 2xl:text-[0.68rem] font-bold uppercase tracking-[0.08em] 2xl:tracking-[0.14em] text-gray-300 transition-colors hover:text-white py-2 whitespace-nowrap"
                 >
                   <motion.span whileHover={{ y: -1 }}>
                     {item.name}
@@ -261,22 +261,20 @@ export const Navbar = () => {
 
           <button
             ref={menuButtonRef}
-            className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90"
+            className="flex xl:hidden items-center justify-center rounded-full bg-white/5 p-2 text-gray-300 transition-all hover:bg-white/10 active:scale-90 shrink-0"
             onClick={() => dispatch(toggleMenu())}
           >
             <span className="sr-only">Toggle Menu</span>
             <MenuIcon />
           </button>
 
-
-
-          <div className="flex items-center gap-4 sm:gap-8">
+          <div className="shrink-0 flex items-center gap-2.5 sm:gap-3.5">
             <LanguageSelector />
             {isInitialized && isAuthenticated && user ? (
-              <div className="flex items-center gap-4 sm:gap-6">
+              <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
                 <Link
                   href="/profile"
-                  className="hidden sm:flex items-center gap-2.5 text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#d4af37] hover:text-[#f0c040] transition-colors"
+                  className="hidden sm:flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#d4af37] hover:text-[#f0c040] transition-colors shrink-0"
                 >
                   {user.avatarUrl ? (
                     <img
@@ -294,7 +292,7 @@ export const Navbar = () => {
                 <BespokeButton
                   variant="secondary"
                   onClick={handleLogout}
-                  className="!px-6 !py-2.5 !text-[0.65rem] shadow-lg border border-zinc-700 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all"
+                  className="!px-4 !py-2 !text-[0.62rem] shadow-lg border border-zinc-700 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all shrink-0 whitespace-nowrap"
                 >
                   Log Out
                 </BespokeButton>
@@ -303,10 +301,10 @@ export const Navbar = () => {
               <BespokeButton
                 variant="emerald"
                 href="/login"
-                className="!px-4 !py-2 !text-[0.55rem] md:!px-8 md:!py-3 md:!text-[0.65rem] shadow-lg"
+                className="!px-3.5 !py-2 !text-[0.62rem] 2xl:!px-6 2xl:!py-2.5 2xl:!text-[0.66rem] shadow-lg shrink-0 whitespace-nowrap font-bold"
               >
-                <UserIcon className="w-3 h-3 md:w-4 md:h-4" />
-                Sign Up
+                <UserIcon className="w-3.5 h-3.5 shrink-0" />
+                <span>Sign Up</span>
               </BespokeButton>
             )}
           </div>

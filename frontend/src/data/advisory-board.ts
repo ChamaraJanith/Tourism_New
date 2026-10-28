@@ -135,7 +135,7 @@ export const globalRepresentatives: AdvisoryMember[] = [
   },
   {
     name: "Dr. Kathleen Duterte",
-    title: "International Representative",
+    title: "Director - International Representative",
     role: "International Business & Strategic Development Professional",
     description:
       "An international business and strategic development professional associated with Dragon Global Solutions LLC, with professional networks spanning the United States, Asia, Africa, and other international markets. At IHV, she supports global tourism and hospitality partnerships, business development, and international market expansion through her professional connections.",

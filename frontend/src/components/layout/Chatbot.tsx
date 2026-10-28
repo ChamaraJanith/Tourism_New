@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { MessageSquare, X, Bot } from "lucide-react";
+import { MessageSquare, X, Bot, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Message = {
@@ -40,6 +40,8 @@ export function Chatbot() {
     }
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,6 +52,39 @@ export function Chatbot() {
       scrollToBottom();
     }
   }, [messages, isOpen]);
+
+  // Minimize chatbot when touching/clicking anywhere outside on the screen, or pressing Escape
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (
+        chatRef.current &&
+        !chatRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const handleQuestionClick = (faq: typeof FAQ_DATA[0]) => {
     // Add user message
@@ -67,17 +102,38 @@ export function Chatbot() {
     <>
       {/* Floating Button - Positioned above the WhatsApp button */}
       <button
+        ref={buttonRef}
+        type="button"
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-[5.5rem] right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#1A1A1A] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl border border-gray-700 ${isOpen ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}
+        className={`fixed bottom-[5.5rem] right-6 z-40 group flex h-14 w-14 items-center justify-center rounded-full bg-[#1A1A1A] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl border border-gray-700 ${isOpen ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}
         aria-label="Open Chat"
       >
         <MessageSquare size={24} />
+        <span className="pointer-events-none absolute right-full mr-3 hidden rounded-xl bg-black/85 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md whitespace-nowrap opacity-0 transition-opacity duration-200 group-hover:opacity-100 md:block border border-white/10">
+          Tourism Assistant
+        </span>
       </button>
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
+          /* Backdrop: Touching or clicking anywhere on the screen minimizes the chatbot */
           <motion.div
+            key="chatbot-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[1px]"
+            aria-label="Minimize Chat"
+          />
+        )}
+
+        {isOpen && (
+          <motion.div
+            key="chatbot-window"
+            ref={chatRef}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -98,12 +154,26 @@ export function Chatbot() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="rounded-full p-1.5 transition-colors hover:bg-white/20"
-              >
-                <X size={18} />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full p-1.5 text-gray-300 transition-colors hover:bg-white/20 hover:text-white"
+                  title="Minimize"
+                  aria-label="Minimize Chat"
+                >
+                  <Minus size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full p-1.5 text-gray-300 transition-colors hover:bg-white/20 hover:text-white"
+                  title="Close"
+                  aria-label="Close Chat"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             </div>
 
             {/* Chat Area */}

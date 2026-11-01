@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   title: "Tourism",
   description:
     "Private itineraries, boutique stays, and seamless logistics for discerning travelers.",
+  verification: {
+    other: {
+      "msvalidate.01": "E4CE6548080C754DBD97ACB12E4A96A2",
+    },
+  },
   icons: {
     icon: "/images/goldlogo.png",
   },

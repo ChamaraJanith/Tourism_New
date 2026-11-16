@@ -33,7 +33,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa6";
 import { fireBookingConfetti } from "@/lib/booking-confetti";
 
-interface CorePillar {
+interface CoreService {
   number: string;
   title: string;
   tagline: string;
@@ -41,10 +41,9 @@ interface CorePillar {
   icon: React.ReactNode;
   image: string;
   highlights: string[];
-  badge: string;
 }
 
-const CORE_PILLARS: CorePillar[] = [
+const MEDICAL_SERVICES: CoreService[] = [
   {
     number: "01",
     title: "International Patient Referrals",
@@ -58,8 +57,7 @@ const CORE_PILLARS: CorePillar[] = [
       "Expedited fast-track admissions with zero waiting lists",
       "Multi-disciplinary medical board evaluations for complex conditions",
       "Seamless transfer of cross-border medical histories and clinical records"
-    ],
-    badge: "Pillar 1"
+    ]
   },
   {
     number: "02",
@@ -74,8 +72,7 @@ const CORE_PILLARS: CorePillar[] = [
       "Detailed second opinions on existing diagnoses and surgical recommendations",
       "Review of high-resolution CT, MRI, PET scans, biopsies, and lab bloodwork",
       "Comprehensive pre-travel medical readiness documentation"
-    ],
-    badge: "Pillar 2"
+    ]
   },
   {
     number: "03",
@@ -90,8 +87,7 @@ const CORE_PILLARS: CorePillar[] = [
       "Guaranteed scheduling of specialized surgical suites and private patient rooms",
       "Clear timelines covering admission, procedure, ICU (if needed), and recovery days",
       "No hidden fees or unexpected billing throughout the clinical process"
-    ],
-    badge: "Pillar 3"
+    ]
   },
   {
     number: "04",
@@ -106,8 +102,7 @@ const CORE_PILLARS: CorePillar[] = [
       "VIP airport tarmac reception and private ambulance or luxury vehicle transfers",
       "Bespoke 5-star hotel or serviced apartment reservations for traveling family/companions",
       "Dedicated air-conditioned vehicles and private chauffeurs on standby 24/7"
-    ],
-    badge: "Pillar 4"
+    ]
   },
   {
     number: "05",
@@ -122,8 +117,7 @@ const CORE_PILLARS: CorePillar[] = [
       "Personal bilingual patient liaison officer assigned to you for hospital visits",
       "Bedside companion support, medicine dispensing liaison, and dietary coordination",
       "Assistance with international insurance pre-authorization and claim paperwork"
-    ],
-    badge: "Pillar 5"
+    ]
   },
   {
     number: "06",
@@ -138,8 +132,7 @@ const CORE_PILLARS: CorePillar[] = [
       "Qualified on-call registered nursing support and clinical dressing changes",
       "Nutritious chef-curated meals designed for tissue healing and recovery",
       "Optional gentle Ayurvedic rejuvenative treatments, herbal baths, and light physiotherapy"
-    ],
-    badge: "Pillar 6"
+    ]
   }
 ];
 
@@ -324,10 +317,10 @@ export default function MedicalTourismPage() {
               </a>
 
               <a
-                href="#pillars"
+                href="#services"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-medium text-sm transition-all duration-300 backdrop-blur-md"
               >
-                <span>Explore the 6 Core Pillars</span>
+                <span>Explore Our Medical Services</span>
               </a>
 
               <a

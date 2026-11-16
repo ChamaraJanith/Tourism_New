@@ -137,9 +137,6 @@ export function MedicalTourismSection() {
 
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="text-[11px] font-mono font-bold text-[#d4af37] bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#d4af37]/30">
-                      Pillar {item.number}
-                    </span>
                     <span className="text-[10px] font-medium text-emerald-300 bg-emerald-950/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/30">
                       {item.badge}
                     </span>

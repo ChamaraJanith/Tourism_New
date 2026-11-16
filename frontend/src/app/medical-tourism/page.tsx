@@ -357,15 +357,15 @@ export default function MedicalTourismPage() {
         </div>
       </section>
 
-      {/* The 6 Core Service Pillars */}
-      <section id="pillars" className="py-20 sm:py-28 relative border-b border-white/10 scroll-mt-20">
+      {/* Specialist Medical Services */}
+      <section id="services" className="py-20 sm:py-28 relative border-b border-white/10 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-semibold text-[#d4af37] tracking-[0.2em] uppercase block mb-3">
               Comprehensive Healthcare Delivery
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-white tracking-tight mb-4">
-              Our 6 Pillars of Medical Tourism
+              Our Specialist Medical Services
             </h2>
             <p className="text-sm sm:text-base text-gray-400 font-light leading-relaxed">
               Every stage of your medical journey in Sri Lanka is professionally coordinated by our specialized medical concierge desk, ensuring world-class clinical results, absolute comfort, and complete peace of mind.
@@ -374,9 +374,9 @@ export default function MedicalTourismPage() {
 
           {/* 6 Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {CORE_PILLARS.map((pillar) => (
+            {MEDICAL_SERVICES.map((service) => (
               <motion.div
-                key={pillar.number}
+                key={service.number}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -387,36 +387,33 @@ export default function MedicalTourismPage() {
                   {/* Top Image Banner */}
                   <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-black/60">
                     <Image
-                      src={pillar.image}
-                      alt={pillar.title}
+                      src={service.image}
+                      alt={service.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111416] via-[#111416]/30 to-transparent" />
                     <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center shadow-lg">
-                      {pillar.icon}
+                      {service.icon}
                     </div>
-                    <span className="absolute top-4 right-4 text-xs font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-[#d4af37] border border-[#d4af37]/30 shadow-lg">
-                      {pillar.badge}
-                    </span>
                   </div>
 
                   <div className="p-6 sm:p-7 pt-2">
                     <h3 className="text-xl sm:text-2xl font-display font-semibold text-white tracking-tight mb-2 group-hover:text-[#d4af37] transition-colors">
-                      {pillar.number}. {pillar.title}
+                      {service.number}. {service.title}
                     </h3>
 
                     <p className="text-xs font-medium text-gray-400 italic mb-4">
-                      {pillar.tagline}
+                      {service.tagline}
                     </p>
 
                     <p className="text-sm text-gray-300 font-light leading-relaxed mb-6">
-                      {pillar.description}
+                      {service.description}
                     </p>
 
                     {/* Highlights checklist */}
                     <div className="space-y-2.5 pt-4 border-t border-white/5">
-                      {pillar.highlights.map((highlight, idx) => (
+                      {service.highlights.map((highlight, idx) => (
                         <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-400">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0 mt-0.5" />
                           <span className="font-light">{highlight}</span>
@@ -431,7 +428,7 @@ export default function MedicalTourismPage() {
                     href="#inquiry"
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#d4af37] hover:text-white transition-colors"
                   >
-                    <span>Inquire for {pillar.title}</span>
+                    <span>Inquire for {service.title}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 </div>

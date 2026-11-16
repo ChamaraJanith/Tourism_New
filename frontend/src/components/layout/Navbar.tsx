@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { toggleMenu, setMenuOpen } from "@/store/slices/uiSlice";
 import { UserIcon, MenuIcon } from "@/components/ui/Icons";
 import { logOut } from "@/store/slices/authSlice";
-import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase, FileText, Star } from "lucide-react";
+import { Home, Compass, Mail, Info, Users, ChevronDown, Briefcase, FileText, Star, HeartPulse } from "lucide-react";
 
 import { BespokeButton } from "@/components/ui/BespokeButton";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
@@ -38,7 +38,11 @@ export const Navbar = () => {
     },
     {
       name: "Services",
-      href: "/tourism-segments"
+      href: "#",
+      dropdown: [
+        { name: "Tourism Services & Segments", href: "/tourism-segments" },
+        { name: "Medical Services", href: "/medical-tourism", badge: "Specialist Care" }
+      ]
     },
     {
       name: "Our Signature Journey",
@@ -81,9 +85,13 @@ export const Navbar = () => {
     },
     {
       name: "Services",
-      href: "/tourism-segments",
-      desc: "Explore our specialized offerings",
-      icon: <Briefcase className="w-4 h-4 text-[#d4af37]" />
+      href: "#",
+      desc: "Explore tourism and medical services",
+      icon: <Briefcase className="w-4 h-4 text-[#d4af37]" />,
+      children: [
+        { name: "Tourism Services & Segments", href: "/tourism-segments" },
+        { name: "Medical Services", href: "/medical-tourism" }
+      ]
     },
     {
       name: "Our Signature Journey",
@@ -247,9 +255,14 @@ export const Navbar = () => {
                         <Link
                           key={dropItem.name}
                           href={dropItem.href}
-                          className="block px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors leading-relaxed"
+                          className="flex items-center justify-between px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-[#d4af37] hover:bg-white/5 rounded-lg transition-colors leading-relaxed"
                         >
-                          {dropItem.name}
+                          <span>{dropItem.name}</span>
+                          {dropItem.badge && (
+                            <span className="ml-2 text-[8px] font-semibold tracking-normal normal-case px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                              {dropItem.badge}
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>

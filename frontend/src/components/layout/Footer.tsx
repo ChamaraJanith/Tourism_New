@@ -19,6 +19,11 @@ const FOOTER_LINKS = {
   explore: [
     { name: "Lifestyle Experiences", href: "/lifestyle-experiences" },
     { name: "Signature Journeys", href: "/journeys" },
+    {
+      name: "Medical Tourism & Healthcare",
+      href: "/medical-tourism",
+      badge: "Specialist Care",
+    },
     { name: "Tourism Services", href: "/tourism-segments" },
     { name: "Festivals & Events", href: "/#festivals" },
     { name: "Destinations", href: "/lifestyle-experiences" },

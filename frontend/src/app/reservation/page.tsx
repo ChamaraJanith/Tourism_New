@@ -20,6 +20,7 @@ const PACKAGES = [
   { id: 8,  label: "8. Family Holiday Experience"        },
   { id: 9,  label: "9. Silver Horizons - Senior Living"  },
   { id: 10, label: "10. MICE & Corporate / Tailor-Made" },
+  { id: 11, label: "11. Medical Tourism & Specialist Healthcare" },
 ];
 
 // Source country to 3-letter code map

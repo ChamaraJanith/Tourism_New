@@ -1,6 +1,7 @@
 import { Hero } from "@/components/landing/hero";
 import { WhyTravel } from "@/components/landing/why-travel";
 import { Journeys } from "@/components/landing/journeys";
+import { MedicalTourismSection } from "@/components/landing/medical-tourism-section";
 import { EventFestival } from "@/components/landing/event-festival";
 import { Gallery } from "@/components/landing/gallery";
 import { AboutUs } from "@/components/landing/about-us";
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <WhyTravel />
         <Journeys />
+        <MedicalTourismSection />
         <EventFestival />
         <Gallery />
         <TravelerTestimonials />

@@ -18,6 +18,7 @@ import {
   Sun,
   Trees,
   HeartPulse,
+  Stethoscope,
   Landmark,
   Briefcase
 } from 'lucide-react';
@@ -169,21 +170,66 @@ const categorizedSegments: Category[] = [
     ]
   },
   {
+    id: "medical-services",
+    title: "Medical Services",
+    icon: Stethoscope,
+    description: "A leading global destination for specialist healthcare, hospital referrals, treatment coordination, and luxury restorative recovery packages in Sri Lanka.",
+    items: [
+      {
+        id: "medical-tourism",
+        title: "Medical Tourism & Healthcare Facilitation",
+        badge: "Leading Destination",
+        shortDesc: "Accredited hospital surgical referrals, board-certified specialist consultations, and private post-op recovery retreats.",
+        longDesc: "A leading global destination for specialist healthcare and luxury healing in Sri Lanka. Coordinating international patient referrals, preliminary specialist teleconsultations, hospital treatment plans, medical travel management, patient assistance, and restorative recovery wellness packages.",
+        image: "/images/tourism-segments/medical-tourism.jpg",
+        highlights: [
+          "1. International Patient Referrals",
+          "2. Specialist Medical Consultations",
+          "3. Treatment Coordination",
+          "4. Medical Travel Management",
+          "5. Patient Assistance & Visa Support",
+          "6. Recovery and Wellness Packages"
+        ],
+        idealFor: "International Patients, Medical Travelers & Companions"
+      },
+      {
+        id: "international-referrals",
+        title: "International Patient Referrals & Consultations",
+        badge: "Specialist Care",
+        shortDesc: "Coordinating specialist referrals, preliminary consultations, medical assessments and second opinions with Sri Lankan consultant specialists.",
+        longDesc: "Connecting international patients directly with Sri Lanka's top consultant surgeons and specialist physicians. We arrange pre-travel medical assessments, virtual teleconsultations, second opinions on existing diagnoses, and review of diagnostic scans and laboratory reports before flying.",
+        image: "/images/medical-services/International Patient Referrals.png",
+        highlights: [
+          "500+ UK & US Board-Certified Specialists",
+          "Virtual Video Teleconsultations & Triage",
+          "Diagnostic Imaging & Pathology Reviews",
+          "Fast-Track Clinical Admissions"
+        ],
+        idealFor: "Patients Seeking Specialist Opinions, Cardiology, Orthopedics, Oncology & Cosmetic Surgery"
+      },
+      {
+        id: "treatment-travel-recovery",
+        title: "Treatment Coordination, Travel & Recovery Packages",
+        badge: "Full Concierge",
+        shortDesc: "Obtaining hospital quotations, treatment plans, flight & visa logistics, and luxury post-operative recovery retreats.",
+        longDesc: "Comprehensive patient concierge management covering transparent hospital cost estimations, medical travel bookings, airport wheelchair assistance, hospital admission liaison, travel documentation/medical visas, and private oceanfront or highland recovery wellness packages.",
+        image: "/images/medical-services/Treatment Coordination.png",
+        highlights: [
+          "Transparent Itemized Hospital Quotations",
+          "Medical Visa Facilitation Letters",
+          "VIP Airport Tarmac & Chauffeur Logistics",
+          "Luxury Recovery & Wellness Retreats"
+        ],
+        idealFor: "Post-Surgical Recuperation, Rehabilitation & Accompanying Family"
+      }
+    ]
+  },
+  {
     id: "wellness",
     title: "Wellness & Spirituality",
     icon: HeartPulse,
     description: "Authentic Ayurvedic healing, holistic body rejuvenation, and ancient spiritual meditation retreats.",
     items: [
-      {
-        id: "medical-tourism",
-        title: "Medical Tourism",
-        badge: "World-Class Care",
-        shortDesc: "Accredited hospital surgical/dental packages combined with private luxury recovery villas and nurses.",
-        longDesc: "Seamless medical care with luxury recovery. Partnered with JCI-accredited international hospitals offering cosmetic, orthopedic, and dental procedures with dedicated medical concierges and private post-op recovery retreats.",
-        image: "/images/Travel_Packages/Silver_Horizons_Luxury_Senior_Living_Experience/Picture54.jpg",
-        highlights: ["JCI-Accredited Hospital Network", "Private Post-Op Recovery Villas", "24/7 Registered Nursing Support", "VIP Airport & Medical Transport"],
-        idealFor: "International Patients & Healthcare Seekers"
-      },
       {
         id: "ayurveda-wellness",
         title: "Wellness & Ayurveda Tourism",
@@ -715,6 +761,15 @@ export default function TourismSegmentsPage() {
                 >
                   Close
                 </button>
+                {['medical-tourism', 'international-referrals', 'treatment-travel-recovery'].includes(activeModalItem.id) && (
+                  <Link
+                    href="/medical-tourism"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 transition-all flex items-center justify-center gap-1.5 shadow-lg whitespace-nowrap"
+                  >
+                    <span>View Medical Portal</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )}
                 <Link
                   href={`/contact?segment=${encodeURIComponent(activeModalItem.title)}`}
                   className="px-6 py-2.5 rounded-xl bg-[#d4af37] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#f3e5ab] transition-all flex items-center justify-center gap-2 w-full sm:w-auto shadow-lg shadow-[#d4af37]/20"
